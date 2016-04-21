@@ -88,3 +88,21 @@ services:
      - POSTGRES_USER=sonatatest
      - POSTGRES_DB=gatekeeper
 
+
+  servicelifecyclemanagement:
+    image: registry.sonata-nfv.eu:5000/servicelifecyclemanagement
+    entrypoint: /bin/bash /delayedstart.sh 10 son-mano-service-lifecycle-management
+    links:
+    - broker
+    depends_on:
+    - broker
+
+# ok the gatekeeper does not send the broker message until now, so we use our exampleplugin to do it
+
+  exampleplugin:
+    image: registry.sonata-nfv.eu:5000/exampleplugin
+    entrypoint: /bin/bash /delayedstart.sh 10 son-mano-example-plugin-1
+    links:
+    - broker
+    depends_on:
+    - broker
