@@ -1,0 +1,42 @@
+# This is a docker compose file for the service platform integration test.
+# It starts:
+# - MANO framework services
+# - IA services
+# - GK services
+
+version: '2'
+services:
+  broker:
+    image: rabbitmq:3
+    ports:
+     - "5672:5672"
+
+  mongo:
+    image: mongo
+    ports:
+     - "27017:27017"
+
+  pluginmanager:
+    image: registry.sonata-nfv.eu:5000/pluginmanager
+    entrypoint: /bin/bash /delayedstart.sh 5 son-mano-pluginmanager
+    links:
+    - broker
+    - mongo
+    depends_on:
+    - broker
+    - mongo
+
+  servicelifecyclemanagement:
+    image: registry.sonata-nfv.eu:5000/servicelifecyclemanagement
+    entrypoint: /bin/bash /delayedstart.sh 10 son-mano-service-lifecycle-management
+    links:
+    - broker
+    depends_on:
+    - broker
+
+  infrabstract:
+    image: registry.sonata-nfv.eu:5000/son-sp-infrabstract
+    links:
+    - broker
+    depends_on:
+    - broker
