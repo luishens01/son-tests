@@ -1,0 +1,108 @@
+# This is a docker compose file for the service platform integration test.
+# It starts:
+# - MANO framework services
+# - IA services
+# - GK services
+
+version: '2'
+services:
+  broker:
+    image: rabbitmq:3
+    ports:
+     - "5672:5672"
+
+  mongo:
+    image: mongo
+    ports:
+     - "27017:27017"
+
+  pluginmanager:
+    image: registry.sonata-nfv.eu:5000/pluginmanager
+    entrypoint: /bin/bash /delayedstart.sh 5 son-mano-pluginmanager
+    links:
+    - broker
+    - mongo
+    depends_on:
+    - broker
+    - mongo
+
+  servicelifecyclemanagement:
+    image: registry.sonata-nfv.eu:5000/servicelifecyclemanagement
+    entrypoint: /bin/bash /delayedstart.sh 10 son-mano-service-lifecycle-management
+    links:
+    - broker
+    depends_on:
+    - broker
+
+# infrabstract components
+
+  infrabstract:
+    image: registry.sonata-nfv.eu:5000/son-sp-infrabstract
+    links:
+    - broker
+    depends_on:
+    - broker
+
+# gatekeeper components
+
+  son-gtkapi:
+    image: registry.sonata-nfv.eu:5000/son-gtkapi
+    links:
+     - son-gtkpkg
+     - son-gtksrv
+    ports:
+      - "33001:5000"
+    restart: always
+
+  son-gtkpkg:
+    image: registry.sonata-nfv.eu:5000/son-gtkpkg
+    ports:
+      - "5100"
+    restart: always
+
+  son-gtksrv:
+    image: registry.sonata-nfv.eu:5000/son-gtksrv
+    links:
+     - broker
+     - postgres
+    ports:
+      - "5300"
+    restart: always
+    environment:
+     - POSTGRES_PASSWORD=sonata
+     - POSTGRES_USER=sonatatest
+     - RACK_ENV=integration
+     - DATABASE_HOST=postgres
+     - DATABASE_PORT=5432
+     - MQSERVER=amqp://guest:guest@broker:5672
+    depends_on:
+     - postgres
+     - broker
+
+  postgres:
+    image: ntboes/postgres-uuid
+    ports:
+     - "5432"
+    environment:
+     - POSTGRES_PASSWORD=sonata
+     - POSTGRES_USER=sonatatest
+     - POSTGRES_DB=gatekeeper
+
+
+  servicelifecyclemanagement:
+    image: registry.sonata-nfv.eu:5000/servicelifecyclemanagement
+    entrypoint: /bin/bash /delayedstart.sh 10 son-mano-service-lifecycle-management
+    links:
+    - broker
+    depends_on:
+    - broker
+
+# ok the gatekeeper does not send the broker message until now, so we use our exampleplugin to do it
+
+  exampleplugin:
+    image: registry.sonata-nfv.eu:5000/exampleplugin
+    entrypoint: /bin/bash /delayedstart.sh 10 son-mano-example-plugin-1
+    links:
+    - broker
+    depends_on:
+    - broker
