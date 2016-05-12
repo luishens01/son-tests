@@ -36,7 +36,7 @@ else
         unzip -o $project_template
         mv project-Y1 $2
 	rm $2/sources/vnf/firewall/firewall-vnfd.yml
-	rm -d $2/sources/vnf/firewall/firewall
+	rm -d $2/sources/vnf/firewall
 	rm $2/sources/vnf/iperf/iperf-vnfd.yml
 	rm -d $2/sources/vnf/iperf
 fi
