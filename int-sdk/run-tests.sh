@@ -4,7 +4,7 @@ set -xe
 
 #cleanup
 #./cleanup.sh
-./scripts/clean-catalogue-server.sh 127.0.0.1 4011
+./scripts/clean-catalogue-server.sh 127.0.0.1 4012
 
 # Prepare working environment
 mkdir -p workspaces projects packages
@@ -16,7 +16,7 @@ scripts/2_standalone-project-y1.sh workspaces/ws1 projects/prj1 resources/projec
 #scripts/3_dependent-project-y1.sh ws1 prj2 resources/project-Y1-emu.zip
 
 # clean catalogues
-scripts/clean-catalogue-server.sh 127.0.0.1 4011
+scripts/clean-catalogue-server.sh 127.0.0.1 4012
 
 
 # son-sp

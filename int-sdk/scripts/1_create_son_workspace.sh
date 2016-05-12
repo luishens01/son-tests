@@ -12,7 +12,7 @@ fi
 
 # Define global parameters
 set -xe
-export cat_server1="http://127.0.0.1:4011"
+export cat_server1="http://127.0.0.1:4012"
 
 
 # Create workspace
