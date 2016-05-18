@@ -5,10 +5,6 @@ node('node') {
 
     try {
 
-       stage 'Checkout'
-
-            checkout scm
-
        stage 'Test'
 
             env.NODE_ENV = "test"
