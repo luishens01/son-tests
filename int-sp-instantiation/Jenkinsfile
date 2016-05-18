@@ -8,11 +8,6 @@ node {
        stage 'Stage Checkout'
             checkout scm
 
-       stage 'Test'
-            env.NODE_ENV = "test"
-            print "Environment will be : ${env.NODE_ENV}"
-            sh 'echo hola'
-
        stage 'Deploy'
             echo 'Push to Repo'
 	    sh 'int-sp-instantiation/deployment.sh'
