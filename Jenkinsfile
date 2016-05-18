@@ -1,4 +1,4 @@
-node('node') {
+node('master') {
 
     def err = null
     currentBuild.result = "SUCCESS"
