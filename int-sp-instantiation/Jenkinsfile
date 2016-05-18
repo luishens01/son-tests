@@ -5,6 +5,8 @@ node {
     currentBuild.result = "SUCCESS"
 
     try {
+       stage 'Stage Checkout'
+            checkout scm
 
        stage 'Test'
             env.NODE_ENV = "test"
