@@ -1,4 +1,5 @@
-node('master') {
+#!groovy
+node('node') {
 
     def err = null
     currentBuild.result = "SUCCESS"
