@@ -1,5 +1,5 @@
 #!groovy
-node('node') {
+node {
 
     def err = null
     currentBuild.result = "SUCCESS"
