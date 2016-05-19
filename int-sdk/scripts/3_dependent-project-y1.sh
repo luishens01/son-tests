@@ -44,6 +44,5 @@ fi
 # Package project
 son-package --workspace $1 --project $2 -d $package_dir -n project-Y1
 
-# Push packaged project to Gatekeeper #### DISABLE PUSH, FOR NOW
-son-push $gatekeeper_url -U $package_dir/project-Y1.son
-
+# Push packaged project to Gatekeeper
+son-push -U $package_dir/project-Y1.son $gatekeeper_url
