@@ -7,16 +7,16 @@
 
 # Check arguments
 
-if [[ $# < 2 ]] || [[ $# > 3 ]]; then
-	echo "Usage: `basename "$0"` <workspace_location> <project_location> [<project template>]"
+if [[ $# < 2 ]] || [[ $# > 4 ]]; then
+	echo "Usage: `basename "$0"` <workspace_location> <project_location> <gatekeeper_url> [<project template>]"
 	exit 1
 fi
 
-if [[ $# == 2 ]]; then
+if [[ $# == 3 ]]; then
 	new_project=true
-elif [[ $# == 3 ]]; then
+elif [[ $# == 4 ]]; then
 	new_project=false
-	project_template=$3
+	project_template=$4
 fi
 
 
@@ -24,7 +24,7 @@ fi
 set -xe
 timestamp="$(date +%s).$(date +%N)"
 package_dir="packages/package.$timestamp"
-
+gatekeeper_url=$3
 
 # Create project
 
@@ -43,5 +43,5 @@ son-publish --workspace $1 --project $2
 son-package --workspace $1 --project $2 -d $package_dir -n project-Y1
 
 # Push packaged project to Gatekeeper #### DISABLE PUSH, FOR NOW
-#son-push http://127.0.0.1:5000 -U $package_dir/project-Y1.son
+son-push $gatekeeper_url -U $package_dir/project-Y1.son
 
