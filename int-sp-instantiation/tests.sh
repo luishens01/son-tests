@@ -13,6 +13,6 @@ sleep 10
 docker-compose run --rm son-gtksrv bundle exec rake db:migrate
 
 # TRIGGER TESTS (done by exmple plugin for now. Will be changed when GK to Rabbit impl. is available)
-docker-compose run exampleplugin son-mano-example-plugin-1
+#docker-compose run exampleplugin son-mano-example-plugin-1
 
 export DOCKER_HOST="unix:///var/run/docker.sock"
