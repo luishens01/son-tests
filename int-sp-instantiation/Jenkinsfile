@@ -5,19 +5,19 @@ node {
     currentBuild.result = "SUCCESS"
 
     try {
-       stage 'Stage Checkout'
+       stage 'Checkout'
             checkout scm
 
        stage 'Deploy'
-            echo 'Push to Repo'
+            echo 'Push to int-server'
 	    sh 'int-sp-instantiation/deployment.sh'
 
        stage 'Testing'
             echo 'Testing Phase'
             sh 'int-sp-instantiation/tests.sh'
 
-       stage 'Cleanup'
-            echo 'prune and cleanup'
+       stage 'Notifications'
+            echo 'Sending mails'
 
             mail body: 'project build successful',
                         from: 'sonata-nfv@gmail.com',
