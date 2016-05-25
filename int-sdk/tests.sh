@@ -10,8 +10,8 @@
 echo "\n\n======= Performing SDK Integration Tests =======\n\n"
 
 # work in integration master
-git checkout integration/master
+#git checkout integration/master
 
 # execute the tests
-cd int-sdk
-./run-tests.sh
+#cd int-sdk
+#./run-tests.sh
