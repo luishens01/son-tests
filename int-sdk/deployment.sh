@@ -1,7 +1,8 @@
 #!/bin/bash
 
-
 #### INSTALL GENERAL DEPENDENCIES ####
+
+set -xe
 
 # for son-cli
 sudo apt-get install -y build-essential python3-dev python3-pip libyaml-dev
@@ -64,8 +65,6 @@ docker-compose up -d
 #### DEPLOY SON-EMU ####
 
 echo "\n\n======= Deploy SON-EMU =======\n\n"
-
-set -xe
 
 # Work on emu master
 git checkout emu/master
