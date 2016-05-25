@@ -1,0 +1,46 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+            checkout scm
+
+       stage 'Deploy'
+            echo 'Push to int-server'
+	        sh 'int-sdk/deployment.sh'
+
+       stage 'Testing'
+            echo 'Testing Phase'
+            sh 'int-sdk/tests.sh'
+
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'project build successful',
+                        to: 'lconceicao@ubiwhere.com, tbatista@ubiwhere.com'
+        }
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'project build error',
+            to: 'lconceicao@ubiwhere.com, tbatista@ubiwhere.com'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+}
