@@ -1,17 +1,20 @@
 #!/bin/bash
-#
-# Perform multiple integration tests.
-# - Creation of workspaces, projects
-# - Publication of components to son-catalogue server
-# - Packaging of projects
-# - Push to son-emu and to SP
-#
 
-echo "\n\n======= Performing SDK Integration Tests =======\n\n"
+# run sdk-catalogue services in docker containers
+cd int-sdk-catalogue
+docker-compose down
+docker-compose up -d
 
-# work in integration master
-#git checkout integration/master
+# run son-emu in a docker container in the background, expose fake GK and management API
+sudo docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --privileged='true' \
+    -v '/var/run/docker.sock:/var/run/docker.sock' \
+    -p 5000:5000 \
+    -p 4242:4242 \
+    registry.sonata-nfv.eu:5000/son-emu 'python src/emuvim/examples/sonata_y1_demo_topology_1.py'
 
-# execute the tests
-#cd int-sdk
-#./run-tests.sh
+
+# run son-cli in a docker container
+sudo docker run -d -i --name 'son-cli-int-test' --net='host' --pid='host' registry.sonata-nfv.eu:5000/son-cli
+docker cp int-sdk son-cli-int-test:/
+
+## next step -> docker exec ... to perform the tests!
