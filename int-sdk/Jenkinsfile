@@ -6,7 +6,7 @@ node {
 
     try {
        stage 'Checkout'
-            checkout tests/master
+            checkout scm
 
        stage 'Deploy'
             echo 'Push to int-server'
