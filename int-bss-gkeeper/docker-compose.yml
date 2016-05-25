@@ -1,0 +1,91 @@
+version: '2'
+services:
+  son-catalogue-repos:
+    image: registry.sonata-nfv.eu:5000/son-catalogue-repos
+    links:
+     - mongo
+    ports:
+      - "4002:4011"
+    restart: always
+  
+  son-catalogue-repos-doc:
+    image: registry.sonata-nfv.eu:5000/son-catalogue-repos
+    ports:
+      - "8800:8808"
+    command: [rake,yard]
+    command: [yard, server, -B, 0.0.0.0]
+    restart: always
+  
+  mongodata:  
+    image: mongo:3.0.4
+    volumes:
+      - /data/db
+    command: --break-mongo
+  
+  mongo:  
+    image: mongo:3.0.4
+    volumes_from:
+      - mongodata
+    ports:
+      - "27017"
+    command: --smallfiles --rest
+    restart: always
+  
+  mongoexpress:
+    image: knickers/mongo-express
+    links:
+      - mongo:mongo
+    ports:
+      - "8090:8081"
+    restart: always
+  
+  son-gtkapi:
+    image: registry.sonata-nfv.eu:5000/son-gtkapi
+    links:
+     - son-gtkpkg
+     - son-gtksrv
+    environment:
+     - RACK_ENV=integration
+    ports:
+      - "32001:5000"
+    restart: always
+
+  son-gtkpkg:
+    image: registry.sonata-nfv.eu:5000/son-gtkpkg
+    environment:
+      - RACK_ENV=integration
+    ports:
+      - "5100"
+    restart: always
+
+  son-gtksrv:
+    image: registry.sonata-nfv.eu:5000/son-gtksrv
+    links:
+     - broker
+     - postgres
+    ports:
+      - "5300"
+    restart: always
+    environment:
+     - POSTGRES_PASSWORD=sonata
+     - POSTGRES_USER=sonatatest
+     - RACK_ENV=integration
+     - DATABASE_HOST=postgres
+     - DATABASE_PORT=5432
+     - MQSERVER=amqp://guest:guest@broker:5672
+    depends_on:
+     - postgres
+
+  postgres:
+    image: ntboes/postgres-uuid
+    ports:
+     - "5432"
+    environment:
+     - POSTGRES_PASSWORD=sonata
+     - POSTGRES_USER=sonatatest
+     - POSTGRES_DB=gatekeeper
+
+  broker:
+    image: rabbitmq:3
+    ports:
+     - "5672"
