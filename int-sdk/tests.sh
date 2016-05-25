@@ -4,6 +4,7 @@
 cd int-sdk-catalogue
 docker-compose down
 docker-compose up -d
+cd ..
 
 # run son-emu in a docker container in the background, expose fake GK and management API
 sudo docker stop son-emu-int-test
