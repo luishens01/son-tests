@@ -10,7 +10,7 @@ while [ "$x" -lt 100 -a ! -e $(pwd)/reports/htmlReport.html ]; do
 		scp -rp jenkins@sp.int2.sonata-nfv.eu:/var/lib/jenkins/jobs/int-bss-gkeeper/workspace/int-bss-gkeeper/reports/htmlReport.html htmlReport.html
         sleep 1
 done
-scp -rp jenkins@sp.int2.sonata-nfv.eu:/var/lib/jenkins/jobs/int-bss-gkeeper/workspace/int-bss-gkeeper/reports/screenshots screenshots
+scp -rp jenkins@sp.int2.sonata-nfv.eu:/var/lib/jenkins/jobs/int-bss-gkeeper/workspace/int-bss-gkeeper/reports reports
 
 
 export DOCKER_HOST="unix:///var/run/docker.sock"
