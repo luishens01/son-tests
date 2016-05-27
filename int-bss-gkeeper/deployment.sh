@@ -12,6 +12,7 @@ sleep 10
 # -- insert NSD/VNFD
 int-bss-gkeeper/scripts/postCatalogueSampleDescriptors.sh
 int-bss-gkeeper/scripts/postGatekeeperSampleRequest.sh
+sleep 5
 
 # -- BSS
 if ! [[ "$(docker inspect -f {{.State.Running}} son-bss 2> /dev/null)" == "" ]]; then docker rm -fv son-bss ; fi
