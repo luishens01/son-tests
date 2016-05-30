@@ -32,6 +32,8 @@ sudo docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --priv
 sudo docker cp int-sdk son-cli-int-test:/
 sudo docker exec son-cli-int-test apt-get install -y curl unzip
 
+sudo docker ps 
+
 # execute tests
 sudo docker exec son-cli-int-test /bin/bash -c 'cd /int-sdk; ./run-tests.sh'
 
