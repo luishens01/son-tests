@@ -12,15 +12,13 @@ docker ps -a
 
 
 # run son-cli in a docker container
-sudo docker stop son-cli-int-test > /dev/null 2>&1
-sudo docker rm son-cli-int-test > /dev/null 2>&1
+sudo scripts/rm_container.sh son-cli-int-test
 sudo docker run -d -i --name 'son-cli-int-test' --net='host' --pid='host' --privileged='true' \
     -v '/var/run/docker.sock:/var/run/docker.sock' \
     registry.sonata-nfv.eu:5000/son-cli
 
 # run son-emu in a docker container in the background, expose fake GK and management API
-sudo docker stop son-emu-int-test > /dev/null 2>&1
-sudo docker rm son-emu-int-test > /dev/null 2>&1
+sudo scripts/rm_container.sh son-emu-int-test
 sudo docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --privileged='true' \
     -v '/var/run/docker.sock:/var/run/docker.sock' \
     -p 5050:5000 \
@@ -36,3 +34,6 @@ sudo docker exec son-cli-int-test apt-get install -y curl unzip
 
 # execute tests
 sudo docker exec son-cli-int-test /bin/bash -c 'cd /int-sdk; ./run-tests.sh'
+
+
+# do some clean up
