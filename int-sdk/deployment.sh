@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #### PREPARE ENVIRONMENT ####
-
+sudo apt-get install realpath
 sudo ln -sf $(realpath int-sdk/scripts/print-header.sh) /usr/bin/printheader
 
 printheader "Prepare Environment"
