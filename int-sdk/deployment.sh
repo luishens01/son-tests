@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #### PREPARE ENVIRONMENT ####
-set -xe
+
+pwd
 
 sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y build-essential python-dev python-pip docker-engine
 sudo pip install flask  # for son-emu - not sure why flask always makes trouble when installed from setup.py

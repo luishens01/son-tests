@@ -19,20 +19,20 @@ node {
        stage 'Notifications'
             echo 'Sending mails'
 
-            mail body: 'project build successful',
+            mail body: 'int-sdk-pipeline integration tests were successful',
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
-                        subject: 'project build successful',
+                        subject: 'int-sdk-pipeline: build successful',
                         to: 'lconceicao@ubiwhere.com, tbatista@ubiwhere.com'
         }
 
     catch (caughtError) {
         err = caughtError
         currentBuild.result = "FAILURE"
-            mail body: "project build error: ${err}" ,
+            mail body: "int-sdk-pipeline build error: ${err}" ,
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
-            subject: 'project build error',
+            subject: 'int-sdk-pipeline: build error',
             to: 'lconceicao@ubiwhere.com, tbatista@ubiwhere.com'
         }
 
