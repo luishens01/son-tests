@@ -24,8 +24,8 @@ sudo docker run -d -i --name 'son-cli-int-test' --net='host' --pid='host' --priv
     registry.sonata-nfv.eu:5000/son-cli
 
 # prepare son-cli-int-test container for tests
-docker cp int-sdk son-cli-int-test:/
-docker exec son-cli-int-test apt-get install -y curl unzip
+sudo docker cp int-sdk son-cli-int-test:/
+sudo docker exec son-cli-int-test apt-get install -y curl unzip
 
 # execute tests
-docker exec son-cli-int-test /bin/bash -c 'cd /int-sdk; ./run-tests.sh'
+sudo docker exec son-cli-int-test /bin/bash -c 'cd /int-sdk; ./run-tests.sh'
