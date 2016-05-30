@@ -19,8 +19,12 @@ sudo docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --priv
     -p 4242:4242 \
     registry.sonata-nfv.eu:5000/son-emu
 
+# give the emulator time to start and configure
+echo "Wait for emulator"
+sleep 60
+
 sudo docker exec son-emu-int-test mn --clean
-sudo docker exec son-emu-int-test python src/emuvim/examples/sonata_y1_demo_topology_1.py
+sudo docker exec -d son-emu-int-test python src/emuvim/examples/sonata_y1_demo_topology_1.py
 
 
 # run son-cli in a docker container
