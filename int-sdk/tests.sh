@@ -11,7 +11,7 @@ sudo docker stop son-emu-int-test
 sudo docker rm son-emu-int-test
 sudo docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --privileged='true' \
     -v '/var/run/docker.sock:/var/run/docker.sock' \
-    -p 5000:5000 \
+    -p 5050:5000 \
     -p 4242:4242 \
     registry.sonata-nfv.eu:5000/son-emu 'python src/emuvim/examples/sonata_y1_demo_topology_1.py'
 
