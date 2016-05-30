@@ -2,15 +2,12 @@
 
 set -xe
 
-
 # run sdk-catalogue services in docker containers
 printheader "Run SDK-CATALOGUE"
 cd int-sdk-catalogue
 docker-compose down
 docker-compose up -d
 cd ..
-
-docker ps -a
 
 
 # run son-emu in a docker container in the background, expose fake GK and management API

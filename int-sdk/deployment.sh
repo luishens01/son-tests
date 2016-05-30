@@ -14,19 +14,28 @@ sudo service docker restart
 docker login -u sonata-nfv -p s0n@t@ registry.sonata-nfv.eu:5000
 
 
-printheader "Get service docker images"
+
 
 #### DEPLOY SON-CLI ####
+printheader "Deploy SON-CLI"
 docker pull registry.sonata-nfv.eu:5000/son-cli
 
 
 #### DEPLOY SON-CATALOGUE
-
+printheader "Deploy SON-CATALOGUE"
 docker pull registry.sonata-nfv.eu:5000/sdk-catalogue
 
 
 #### DEPLOY SON-EMU ####
+printheader "Deploy SON-EMU"
 sudo docker pull registry.sonata-nfv.eu:5000/son-emu
+
+
+#### DEPLOY SP ####
+printheader "Deploy SERVICE PROVIDER"
+cd int-sp-instantiation
+./deployment.sh
+
 
 
 
