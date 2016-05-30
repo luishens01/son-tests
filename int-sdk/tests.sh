@@ -1,10 +1,19 @@
 #!/bin/bash
 
+set -xe
+
 # run sdk-catalogue services in docker containers
 cd int-sdk-catalogue
 docker-compose down
 docker-compose up -d
 cd ..
+
+# run son-cli in a docker container
+sudo docker stop son-cli-int-test
+sudo docker rm son-cli-int-test
+sudo docker run -d -i --name 'son-cli-int-test' --net='host' --pid='host' --privileged='true' \
+    -v '/var/run/docker.sock:/var/run/docker.sock' \
+    registry.sonata-nfv.eu:5000/son-cli
 
 # run son-emu in a docker container in the background, expose fake GK and management API
 sudo docker stop son-emu-int-test
@@ -16,12 +25,7 @@ sudo docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --priv
     registry.sonata-nfv.eu:5000/son-emu 'python src/emuvim/examples/sonata_y1_demo_topology_1.py'
 
 
-# run son-cli in a docker container
-sudo docker stop son-cli-int-test
-sudo docker rm son-cli-int-test
-sudo docker run -d -i --name 'son-cli-int-test' --net='host' --pid='host' --privileged='true' \
-    -v '/var/run/docker.sock:/var/run/docker.sock' \
-    registry.sonata-nfv.eu:5000/son-cli
+
 
 # prepare son-cli-int-test container for tests
 sudo docker cp int-sdk son-cli-int-test:/
