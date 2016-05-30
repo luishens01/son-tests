@@ -32,10 +32,7 @@ sudo docker pull registry.sonata-nfv.eu:5000/son-emu
 
 
 #### DEPLOY SP ####
-printheader "Deploy SERVICE PROVIDER"
+printheader "Deploy SERVICE PLATFORM"
 cd int-sp-instantiation
 ./deployment.sh
-
-
-
-
+cd ..

@@ -30,6 +30,22 @@ echo "Wait for emulator"
 sleep 30
 
 
+# run entire service provider engine
+printheader "Run SERVICE PLATFORM ENVIRONMENT"
+export DOCKER_HOST="tcp://192.168.60.25:2375"
+
+# swtich to folder with docker-compose.yml to be used
+cd int-service-platform
+docker-compose down
+set -e
+set -x
+# START ENTIRE SERVICE PLATFORM ENVIRONMENT
+docker-compose up -d
+sleep 10
+
+export DOCKER_HOST="unix:///var/run/docker.sock"
+
+
 # run son-cli in a docker container
 printheader "Run SON-CLI"
 sudo int-sdk/scripts/rm_container.sh son-cli-int-test
