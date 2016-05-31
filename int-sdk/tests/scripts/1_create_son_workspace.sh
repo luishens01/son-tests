@@ -8,17 +8,19 @@
 if [[ $# != 1 ]]; then
 	echo "Usage: `basename "$0"` <workspace_location>"
 	exit 1
-fi 
+fi
+
+printf "\n\n==> Create workspace '%s' [son-workspace --init]\n\n" "$1"
 
 # Define global parameters
 set -xe
 export cat_server1="http://127.0.0.1:4012"
 
-
 # Create workspace
 son-workspace --init --debug --workspace $1
 
 # Configure workspace
+printf "\n\n==> Configure workspace '%s'\n\n" "$1"
 sed -ri '/^.*catalogue_servers:|id:|publish:|url:.*$/d' $1/workspace.yml
 echo -e "catalogue_servers:\n- id: cat1\n  publish: 'yes'\n  url: $cat_server1" >> $1/workspace.yml
 
