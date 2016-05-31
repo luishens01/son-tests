@@ -3,6 +3,7 @@
 set -xe
 
 #cleanup
+printf "\n\n======== Cleaning SDK Catalogue ========\n\n\n"
 scripts/clean-catalogue-server.sh 127.0.0.1 4012
 
 # Prepare working environment
@@ -18,6 +19,7 @@ scripts/2_standalone-project-y1.sh workspaces/ws1 projects/prj1 http://127.0.0.1
 scripts/3_dependent-project-y1.sh workspaces/ws1 projects/prj2 http://127.0.0.1:5000 resources/project-Y1-emu.zip
 
 # clean catalogues
+printf "\n\n======== Cleaning SDK Catalogue ========\n\n\n"
 scripts/clean-catalogue-server.sh 127.0.0.1 4012
 
 
