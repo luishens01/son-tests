@@ -30,6 +30,11 @@ echo "Wait for emulator"
 sleep 30
 
 
+# probe for service platform gatekeeper
+printheader "Checking running containers"
+sudo docker ps -a
+
+
 # run entire service provider engine
 #printheader "Run SERVICE PLATFORM ENVIRONMENT"
 #export DOCKER_HOST="tcp://192.168.60.25:2375"
