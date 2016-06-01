@@ -1,6 +1,7 @@
 #!/bin/bash
 export DOCKER_HOST="tcp://sp.int2.sonata-nfv.eu:2375"
-docker exec -t -d son-bss grunt serve:integration_tests --gkApiUrl=http://sp.int2.sonata-nfv.eu:32001 --suite=intBSS_GK
+#docker exec -t -d son-bss grunt serve:integration_tests --gkApiUrl=http://sp.int2.sonata-nfv.eu:32001 --suite=intBSS_GK
+docker exec -t -d son-bss grunt protractor_webdriver protractor:run --suite=unit
 
 # -- get the remote reports
 x=0
