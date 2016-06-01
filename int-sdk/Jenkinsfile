@@ -23,7 +23,7 @@ node {
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
                         subject: 'int-sdk-pipeline: build successful',
-                        to: 'lconceicao@ubiwhere.com, tbatista@ubiwhere.com'
+                        to: ''
         }
 
     catch (caughtError) {
