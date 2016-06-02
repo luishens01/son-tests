@@ -6,9 +6,8 @@ node {
 
     try {
        stage 'Checkout'
-			sh 'chmod +x int-gui/*.sh'
-			sh 'chmod +x int-gui/tests/*.sh'
-
+            checkout scm
+            
        stage 'Deploy'
             echo 'Install test Environment'			
 			sh 'int-gui/deploytestenv.sh'

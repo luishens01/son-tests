@@ -6,9 +6,8 @@ node {
 
     try {
        stage 'Checkout'
-			sh 'chmod +x int-mon/*.sh'
-			sh 'chmod +x int-mon/tests/*.sh'
-
+            checkout scm
+            
        stage 'Deploy'
             echo 'Install test Environment'			
 			
@@ -17,7 +16,6 @@ node {
             echo 'Test 1'
 
             echo 'Test 2'
-            
 
        stage 'Notifications'
             echo 'Sending mails'
