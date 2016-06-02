@@ -1,0 +1,51 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+			sh 'chmod +x int-gui/*.sh'
+			sh 'chmod +x int-gui/tests/*.sh'
+
+       stage 'Deploy'
+            echo 'Install test Environment'			
+			sh 'int-gui/deploytestenv.sh'
+
+       stage 'Testing'
+            echo 'Check Server'
+            sh 'int-gui/tests/test_server.sh'
+            echo 'Check Endpoints'
+            sh 'int-gui/tests/test_endpoints.sh'
+
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'project build successful',
+                        to: 'pkarkazis@synelixis.com'
+        }
+
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'project build error',
+            to: 'pkarkazis@synelixis.com'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+
+}
