@@ -5,10 +5,6 @@ node {
     currentBuild.result = "SUCCESS"
 
     try {
-       stage 'Checkout'
-			sh 'chmod +x int-gui/*.sh'
-			sh 'chmod +x int-gui/tests/*.sh'
-
        stage 'Deploy'
             echo 'Install test Environment'			
 			sh 'int-gui/deploytestenv.sh'
