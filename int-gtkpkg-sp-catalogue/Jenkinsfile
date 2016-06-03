@@ -29,7 +29,7 @@ node {
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
                         subject: 'project build successful',
-                        to: 'dani.guija@i2cat.net'
+                        to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net'
         }
 
 
@@ -40,7 +40,7 @@ node {
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
             subject: 'project build error',
-            to: 'dani.guija@i2cat.net'
+            to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net'
         }
 
     finally {
