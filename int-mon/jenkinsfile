@@ -7,33 +7,36 @@ node {
     try {
        stage 'Checkout'
             checkout scm
+            
 
        stage 'Deploy'
-            echo 'Push to int-server'
-	        sh 'int-sdk/deployment.sh'
+            echo 'Install test Environment'			
+			
 
        stage 'Testing'
-            echo 'Testing Phase'
-            sh 'int-sdk/tests.sh'
+            echo 'Test 1'
+
+            echo 'Test 2'
 
        stage 'Notifications'
             echo 'Sending mails'
 
-            mail body: 'int-sdk-pipeline integration tests were successful',
+            mail body: 'project build successful',
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
-                        subject: 'int-sdk-pipeline: build successful',
-                        to: 'lconceicao@ubiwhere.com'
+                        subject: 'MONITOR project build successful',
+                        to: 'pkarkazis@synelixis.com'
         }
+
 
     catch (caughtError) {
         err = caughtError
         currentBuild.result = "FAILURE"
-            mail body: "int-sdk-pipeline build error: ${err}" ,
+            mail body: "project build error: ${err}" ,
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
-            subject: 'int-sdk-pipeline: build error',
-            to: 'lconceicao@ubiwhere.com, tbatista@ubiwhere.com'
+            subject: 'MONITOR project build error',
+            to: 'pkarkazis@synelixis.com'
         }
 
     finally {
@@ -43,4 +46,5 @@ node {
         }
 
     }
+
 }

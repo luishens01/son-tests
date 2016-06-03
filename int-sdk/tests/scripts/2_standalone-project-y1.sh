@@ -19,6 +19,7 @@ elif [[ $# == 4 ]]; then
 	project_template=$4
 fi
 
+printf "\n\n==> Create standalone project '%s' [son-workspace --project]\n\n" "$2"
 
 # Define global parameters
 set -xe
@@ -37,11 +38,14 @@ else
 fi
 
 # Publish project components to catalogue servers (configured in workspace)
+printf "\n\n==> Publish project '%s' to sdk-catalogue [son-publish --project]\n\n" "$2"
 son-publish --workspace $1 --project $2
 
 # Package project
+printf "\n\n==> Package project '%s' [son-package --project]\n\n" "$2"
 son-package --workspace $1 --project $2 -d $package_dir -n project-Y1
 
 # Push packaged project to Gatekeeper
+printf "\n\n==> Push packaged project to GateKeeper [son-push]\n\n"
 son-push -U $package_dir/project-Y1.son $gatekeeper_url
 
