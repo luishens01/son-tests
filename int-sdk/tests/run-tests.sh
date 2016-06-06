@@ -25,8 +25,6 @@ scripts/clean-catalogue-server.sh 127.0.0.1 4012
 
 # son-sp
 printf "\n\n======== Testing: Workspace + Project + Dep-Project, push to SON-SP ========\n\n\n"
-#scripts/1_create_son_workspace.sh workspaces/ws2
-#scripts/2_standalone-project-y1.sh workspaces/ws2 projects/prj3 http://sp.gatekeeper.com:8000 resources/project-Y1-sp.zip
-#scripts/3_dependent-project-y1.sh workspaces/ws2 projects/prj4 http://sp.gatekeeper.com:8000 resources/project-Y1-sp.zip
-
-
+scripts/1_create_son_workspace.sh workspaces/ws2
+scripts/2_standalone-project-y1.sh workspaces/ws2 projects/prj3 http://sp.int3.sonata-nfv.eu:32001 resources/project-Y1-sp.zip
+scripts/3_dependent-project-y1.sh workspaces/ws2 projects/prj4 http://sp.int3.sonata-nfv.eu:32001 resources/project-Y1-sp.zip
