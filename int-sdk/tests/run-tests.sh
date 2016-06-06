@@ -1,10 +1,10 @@
 #!/bin/bash
 
+set -xe
+
 #cleanup
 printf "\n\n======== Cleaning dir structure ========\n\n\n"
 scripts/cleanup.sh
-
-set -xe
 
 printf "\n\n======== Cleaning SDK Catalogue ========\n\n\n"
 scripts/clean-catalogue-server.sh 127.0.0.1 4012
