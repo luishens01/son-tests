@@ -3,6 +3,9 @@
 set -xe
 
 #cleanup
+printf "\n\n======== Cleaning dir structure ========\n\n\n"
+scripts/cleanup.sh
+
 printf "\n\n======== Cleaning SDK Catalogue ========\n\n\n"
 scripts/clean-catalogue-server.sh 127.0.0.1 4012
 
@@ -31,5 +34,3 @@ scripts/2_standalone-project-y1.sh workspaces/ws2 projects/prj3 http://sp.int3.s
 scripts/3_dependent-project-y1.sh workspaces/ws2 projects/prj4 http://sp.int3.sonata-nfv.eu:32001 resources/project-Y1-sp.zip
 
 
-# do some cleaning
-scripts/cleanup.sh
