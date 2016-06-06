@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# Do some cleanup after running of scripts
-rm -r workspaces/*
-rm -r projects/*
-rm -r packages/*
+# Do some cleanup after running of scripts. Ignore errors.
 
-rm -d workspaces
-rm -d projects
-rm -d packages
+rm -rfv workspaces/*
+rm -rfv projects/*
+rm -rfv packages/*
+
+rm -dfv workspaces
+rm -dfv projects
+rm -dfv packages
