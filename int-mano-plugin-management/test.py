@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import sys
+import time
 import pmclient as pmc
 
 # ENDPOINT = "http://sp.int3.sonata-nfv.eu:8001"
@@ -44,6 +45,7 @@ def main():
     pmc.plugin_remove(test_info.get("uuid"), ENDPOINT)
 
     # check if plugin is not there anymore
+    time.sleep(3)
     test_info2 = _get_test_plugin()
     if test_info2 is not None:
         raise BaseException("Test plugin record was not removed correctly!")
