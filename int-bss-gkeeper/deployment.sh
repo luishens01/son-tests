@@ -29,6 +29,12 @@ docker run -d -p 5672:5672 --name son-broker -e RABBITMQ_CONSOLE_LOG=new --log-d
 while ! nc -z sp.int2.sonata-nfv.eu 5672; do
   sleep 1 && echo -n .; # waiting for rabbitmq
 done;
+
+#Catalogues
+docker run --name son-catalogue-repos -d -p 4002:4011 --add-host mongo:10.31.11.33 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-catalogue-repos
+sleep 10
+docker run --name son-catalogue-repos1 -i --rm=true --add-host mongo:10.31.11.33 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-catalogue-repos rake init:load_samples[integration]
+
 #Gatekeeper
 echo gtkpkg
 docker run --name son-gtkpkg -d -p 5100:5100 --add-host sp.int.sonata-nfv.eu:10.31.11.33 -e RACK_ENV=integration --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtkpkg
@@ -41,12 +47,6 @@ echo gtkfnct
 docker run --name son-gtkfnct -d -p 5500:5500 --add-host sp.int.sonata-nfv.eu:10.31.11.33 --add-host jenkins.sonata-nfv.eu:192.168.60.5 -e RACK_ENV=integration --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtkfnct
 echo gtkapi
 docker run --name son-gtkapi -d -p 32001:5000 --add-host sp.int.sonata-nfv.eu:10.31.11.33 --link son-gtkpkg --link son-gtksrv -e RACK_ENV=integration -e PACKAGE_MANAGEMENT_URL=http://sp.int2.sonata-nfv.eu:5100 -e SERVICE_MANAGEMENT_URL=http://sp.int2.sonata-nfv.eu:5300 -e FUNCTION_MANAGEMENT_URL=http://sp.int2.sonata-nfv.eu:5500 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtkapi 
-
-#Catalogues
-docker run --name son-catalogue-repos -d -p 4002:4011 --add-host mongo:10.31.11.33 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-catalogue-repos
-sleep 10
-docker run --name son-catalogue-repos1 -i --rm=true --add-host mongo:10.31.11.33 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-catalogue-repos rake init:load_samples[integration]
-
 
 # -- run catalogue/repositories and gatekeeper containers
 #docker-compose -f int-bss-gkeeper/scripts/docker-compose.yml down    
