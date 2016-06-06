@@ -2,10 +2,13 @@
 #DEPLOYMENT
 export DOCKER_HOST="tcp://sp.int2.sonata-nfv.eu:2375"
 
+docker rm -fv $(docker ps -qa)
+
 #PULL THE CONTAINERS
 docker pull registry.sonata-nfv.eu:5000/son-yo-gen-bss 
 docker pull registry.sonata-nfv.eu:5000/son-gtkpkg 
 docker pull registry.sonata-nfv.eu:5000/son-gtksrv 
+docker pull registry.sonata-nfv.eu:5000/son-gtkfnct
 docker pull registry.sonata-nfv.eu:5000/son-gtkapi 
 docker pull registry.sonata-nfv.eu:5000/son-catalogue-repos 
 
@@ -34,8 +37,10 @@ echo populate database
 docker run -i -e DATABASE_HOST=sp.int2.sonata-nfv.eu -e RACK_ENV=integration -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest --rm=true --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtksrv bundle exec rake db:migrate
 echo 
 docker run --name son-gtksrv -d -p 5300:5300 --add-host sp.int.sonata-nfv.eu:10.31.11.33 --add-host jenkins.sonata-nfv.eu:192.168.60.5 --link son-broker --link son-postgres -e RACK_ENV=integration -e DATABASE_HOST=sp.int2.sonata-nfv.eu -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest -e MQSERVER=amqp://guest:guest@10.31.11.33:5672 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtksrv
+echo gtkfnct
+docker run --name son-gtkfnct -d -p 5500:5500 --add-host sp.int.sonata-nfv.eu:10.31.11.33 --add-host jenkins.sonata-nfv.eu:192.168.60.5 -e RACK_ENV=integration --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtkfnct
 echo gtkapi
-docker run --name son-gtkapi -d -p 32001:5000 --add-host sp.int.sonata-nfv.eu:10.31.11.33 --link son-gtkpkg --link son-gtksrv -e RACK_ENV=integration -e PACKAGE_MANAGEMENT_URL=http://sp.int2.sonata-nfv.eu:5100 -e SERVICE_MANAGEMENT_URL=http://sp.int2.sonata-nfv.eu:5300 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtkapi 
+docker run --name son-gtkapi -d -p 32001:5000 --add-host sp.int.sonata-nfv.eu:10.31.11.33 --link son-gtkpkg --link son-gtksrv -e RACK_ENV=integration -e PACKAGE_MANAGEMENT_URL=http://sp.int2.sonata-nfv.eu:5100 -e SERVICE_MANAGEMENT_URL=http://sp.int2.sonata-nfv.eu:5300 -e FUNCTION_MANAGEMENT_URL=http://sp.int2.sonata-nfv.eu:5500 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtkapi 
 
 #Catalogues
 docker run --name son-catalogue-repos -d -p 4002:4011 --add-host mongo:10.31.11.33 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-catalogue-repos
