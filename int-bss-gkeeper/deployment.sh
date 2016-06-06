@@ -37,7 +37,7 @@ docker run --name son-catalogue-repos1 -i --rm=true --add-host mongo:10.31.11.33
 
 #Gatekeeper
 echo gtkpkg
-docker run --name son-gtkpkg -d -p 5100:5100 --add-host sp.int.sonata-nfv.eu:10.31.11.33 -e RACK_ENV=integration --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtkpkg
+docker run --name son-gtkpkg -d -p 5100:5100 --add-host sp.int.sonata-nfv.eu:10.31.11.33 -e CATALOGUES_URL=http://sp.int2.sonata-nfv.eu:4002/catalogues -e RACK_ENV=integration --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtkpkg
 echo gtksrv
 echo populate database
 docker run -i -e DATABASE_HOST=sp.int2.sonata-nfv.eu -e RACK_ENV=integration -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest --rm=true --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtksrv bundle exec rake db:migrate
