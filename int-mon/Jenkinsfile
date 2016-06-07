@@ -21,7 +21,7 @@ node {
             sh 'int-mon/tests/check_data_SP.sh'
 
             echo 'Check data collection from TEST VNF'
-            sh 'int-mon/tests/check_data_testVNF.sh'
+            #sh 'int-mon/tests/check_data_testVNF.sh'
 
             echo 'Check Prometheus reconfiguration (New Service)'
             sh 'int-mon/tests/check_newserv_conf.sh'
