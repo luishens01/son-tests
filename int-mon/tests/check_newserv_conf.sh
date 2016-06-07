@@ -14,17 +14,22 @@ srvs=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print le
 if [[ "$srvs" -gt 0 ]];
   then
   index=0
+  srv_found=0
   while [  $index -lt $srvs ]; do
-     srv_name=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["results"]['$index']["sonata_srv_id"]')
-     if [[ $srv_name == "TEST_NS859674" ]] ;
-	then
-	id=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["results"]['$index']["id"]')
-	echo "Success: New Service Post action done"
-        curl -s -X DELETE http://sp.int3.sonata-nfv.eu:8000/api/v1/service/$id/
-	exit 1
-     fi		
-     let index=index+1 
+    srv_name=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["results"]['$index']["sonata_srv_id"]')
+    if [[ $srv_name == "TEST_NS859674" ]] ;
+      then
+      id=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["results"]['$index']["id"]')
+      srv_found=1
+      echo "Success: New Service Post action done"
+      curl -s -X DELETE http://sp.int3.sonata-nfv.eu:8000/api/v1/service/$id/
+    fi		
+    let index=index+1 
   done
 fi
 
-echo "Error: New Service didn't found"
+if [[ $srv_found -eq 0 ]] ;
+  then
+  echo "Error: New Service didn't found"
+  exit -1
+fi
