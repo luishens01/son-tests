@@ -15,16 +15,16 @@ node {
 
        stage 'Testing'
             echo 'Check monitoring server'
-            sh 'int-gui/tests/check_MON2DB_connection.sh'
+            sh 'int-mon/tests/check_MON2DB_connection.sh'
 
             echo 'Check data collection from SP'
-            sh 'int-gui/tests/check_data_SP.sh'
+            sh 'int-mon/tests/check_data_SP.sh'
 
             echo 'Check data collection from TEST VNF'
-            sh 'int-gui/tests/check_data_testVNF.sh'
+            sh 'int-mon/tests/check_data_testVNF.sh'
 
             echo 'Check Prometheus reconfiguration (New Service)'
-            sh 'int-gui/tests/check_newserv_conf.sh'
+            sh 'int-mon/tests/check_newserv_conf.sh'
 
        stage 'Notifications'
             echo 'Sending mails'
