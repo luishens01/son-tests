@@ -1,6 +1,6 @@
 #!/bin/bash
 
-resp=$(curl -s -X POST http://sp.int3.sonata-nfv.eu:8000/api/v1/service/new -d @resources/data.json -H "Accept: application/json" -H "Content-Type: application/json")
+resp=$(curl -s -X POST http://sp.int3.sonata-nfv.eu:8000/api/v1/service/new -d @int-mon/resources/new_srv.json -H "Accept: application/json" -H "Content-Type: application/json")
 
 if [[ $(echo $resp | python -mjson.tool | grep "success") != *"success"* ]] ;
   then

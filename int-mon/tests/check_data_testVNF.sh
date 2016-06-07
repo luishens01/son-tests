@@ -2,7 +2,7 @@
 
 tw_end=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
 tw_start=$(date -u -d -10minutes '+%Y-%m-%dT%H:%M:%SZ')
-resp=$(curl \
+resp=$(curl -s \
 -H "Accept: application/json" \
 -H "Content-Type:application/json" \
 -X POST --data '{"name":"vm_mem_perc","start": "'$tw_start'", "end": "'$tw_end'", "step": "20m", "labels": [{"labeltag":"exported_job", "labelid":"vnf"}]}' "http://sp.int3.sonata-nfv.eu:8000/api/v1/prometheus/metrics/data" )
