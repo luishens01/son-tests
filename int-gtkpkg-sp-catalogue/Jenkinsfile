@@ -1,0 +1,54 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+            checkout scm
+			sh 'chmod +x int-gtkpkg-sp-catalogue/*.sh'
+			sh 'chmod +x int-gtkpkg-sp-catalogue/scripts/*.sh'
+
+       stage 'Deploy'
+            echo 'Push to int-server'			
+			sh 'int-gtkpkg-sp-catalogue/deployment.sh'
+
+       stage 'Testing'
+            echo 'Testing Phase'
+            sh 'int-gtkpkg-sp-catalogue/tests.sh'
+			
+	   stage 'Showing report'
+			echo 'Showing report'
+			publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'htmlReport.html', reportName: 'HTML Report'])
+
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'project build successful',
+                        to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net'
+        }
+
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'project build error',
+            to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+
+}
