@@ -8,13 +8,21 @@ node {
        stage 'Checkout'
             checkout scm
 
-       stage 'Deploy'
-            echo 'Push to int-server'
+       stage 'Deploy Containers'
+            echo 'Fetch and Start Service Containers'
 	        sh 'int-sdk/deployment.sh'
 
-       stage 'Testing'
-            echo 'Testing Phase'
-            sh 'int-sdk/tests.sh'
+       stage 'Test SON-CLI'
+            echo 'Basic Tests to SON-CLI Tools'
+            sh 'int-sdk/test-cli.sh'
+
+       stage 'Test SON-CLI & Push to EMU-GK'
+            echo 'Test SON-CLI tools and Push Project to Emulator'
+            sh 'int-sdk/test-push-emu.sh'
+
+       stage 'Test SON-CLI & Push to SP-GK'
+            echo 'Test SON-CLI tools and Push Project to Service Platform'
+            sh 'int-sdk/test-push-sp.sh'
 
        stage 'Notifications'
             echo 'Sending mails'
