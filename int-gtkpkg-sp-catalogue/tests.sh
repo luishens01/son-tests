@@ -14,7 +14,7 @@ echo "Success: Catalogues-DB found"
 
 # Clean Catalogues
 printf "\n\n======== Cleaning SP Catalogues ========\n\n\n"
-#scripts/clean-catalogue-server.sh???
+# It's already cleaned in the deployment phase
 
 # Contact Gatekeeper
 status_code=$(curl -s -o /dev/null -w "%{http_code}" http://sp.int3.sonata-nfv.eu:32001/)
@@ -26,13 +26,12 @@ if [[ $status_code != 20* ]] ;
 fi
 
 echo "Success: Gatekeeper found"
-
 #
-printf "\n\n======== POST Service to Gatekeeper ========\n\n\n"
-resp=$(curl -H "Content-Type: application/json" -X POST http://sp.int3.sonata-nfv.eu:32001/services)
+printf "\n\n======== POST Package to Gatekeeper ========\n\n\n"
+resp=$(curl -F "package=@int-gtkpkg-sp-catalogue/resources/sonata-demo.son" -X POST http://sp.int3.sonata-nfv.eu:32001/packages)
 echo $resp
 
-service=$(echo $resp | grep "uuid")
+package=$(echo $resp | grep "uuid")
 
 #
 printf "\n\n======== GET Service from Gatekeeper  ========\n\n\n"
@@ -55,13 +54,8 @@ if [[ $code != 200 ]] ;
 fi
 
 #
-printf "\n\n======== POST Function to Gatekeeper  ========\n\n\n"
-resp=$(curl -H "Content-Type: application/json" -X POST http://sp.int3.sonata-nfv.eu:32001/functions)
-echo $resp
-
-#
 printf "\n\n======== GET Function from Gatekeeper  ========\n\n\n"
-resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X GET http://sp.int3.sonata-nfv.eu:32001/functions) 2>/dev/null
+resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X GET http://sp.int.sonata-nfv.eu:32001/functions?fields=uuid,name,version,vendor) 2>/dev/null
 echo $resp
 
 code=$(echo "$resp" | tail -n1)
