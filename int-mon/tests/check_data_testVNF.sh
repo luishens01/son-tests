@@ -13,7 +13,7 @@ instance=$(echo $resp | python -mjson.tool | grep "exported_instance")
 
 if [[ $job =~ .*vnf.* ]]
 then
-	if [[ $instance =~ .*test-mon-vnf.* ]]
+	if [[ $instance =~ .*TEST-VNF.* ]]
 	then
 	   echo "Success: TEST VNF(VM) FOUND!"
 	else
