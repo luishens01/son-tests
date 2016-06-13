@@ -7,8 +7,6 @@ node {
     try {
        stage 'Checkout'
             checkout scm
-			sh 'chmod +x int-gtkpkg-sp-catalogue/*.sh'
-			sh 'chmod +x int-gtkpkg-sp-catalogue/scripts/*.sh'
 
        stage 'Deploy'
             echo 'Push to int-server'			
@@ -18,10 +16,6 @@ node {
             echo 'Testing Phase'
             sh 'int-gtkpkg-sp-catalogue/tests.sh'
 			
-	   stage 'Showing report'
-			echo 'Showing report'
-			publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'htmlReport.html', reportName: 'HTML Report'])
-
        stage 'Notifications'
             echo 'Sending mails'
 
@@ -29,7 +23,7 @@ node {
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
                         subject: 'project build successful',
-                        to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net'
+                        to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net, 'felipe.vicens@atos.net', 'jbonnet@alticelabs.com'
         }
 
 
@@ -40,7 +34,7 @@ node {
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
             subject: 'project build error',
-            to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net'
+            to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net', 'felipe.vicens@atos.net', 'jbonnet@alticelabs.com'
         }
 
     finally {
