@@ -8,14 +8,26 @@ node {
        stage 'Checkout'
             checkout scm
 
-       stage 'Deploy'
-            echo 'Push to int-server'			
+       stage 'Deploy and Clean Database'
+            echo 'Deployment'			
 			sh 'int-gtkpkg-sp-catalogue/deployment.sh'
-
-       stage 'Testing'
-            echo 'Testing Phase'
+       
+       stage 'Test: GK and Catalogues UP'
+            echo 'GK and Catalogues UP'
             sh 'int-gtkpkg-sp-catalogue/tests.sh'
-			
+
+       stage 'Test1: POST Package'
+            echo 'POST Package'
+            sh 'int-gtkpkg-sp-catalogue/tests1.sh'
+       
+       stage 'Test2: GET Services'
+            echo 'GET Services'
+            sh 'int-gtkpkg-sp-catalogue/tests2.sh'
+	   
+       stage 'Test3: GET Functions'
+            echo 'GET Functions'
+            sh 'int-gtkpkg-sp-catalogue/tests3.sh'
+
        stage 'Notifications'
             echo 'Sending mails'
 
