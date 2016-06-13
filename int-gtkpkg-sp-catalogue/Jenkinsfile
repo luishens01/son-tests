@@ -7,20 +7,26 @@ node {
     try {
        stage 'Checkout'
             checkout scm
-			sh 'chmod +x int-gtkpkg-sp-catalogue/*.sh'
-			sh 'chmod +x int-gtkpkg-sp-catalogue/scripts/*.sh'
 
-       stage 'Deploy'
-            echo 'Push to int-server'			
+       stage 'Deploy and Clean Database'
+            echo 'Deployment'			
 			sh 'int-gtkpkg-sp-catalogue/deployment.sh'
-
-       stage 'Testing'
-            echo 'Testing Phase'
+       
+       stage 'Test: GK and Catalogues UP'
+            echo 'GK and Catalogues UP'
             sh 'int-gtkpkg-sp-catalogue/tests.sh'
-			
-	   stage 'Showing report'
-			echo 'Showing report'
-			publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'htmlReport.html', reportName: 'HTML Report'])
+
+       stage 'Test1: POST Package'
+            echo 'POST Package'
+            sh 'int-gtkpkg-sp-catalogue/tests1.sh'
+       
+       stage 'Test2: GET Services'
+            echo 'GET Services'
+            sh 'int-gtkpkg-sp-catalogue/tests2.sh'
+	   
+       stage 'Test3: GET Functions'
+            echo 'GET Functions'
+            sh 'int-gtkpkg-sp-catalogue/tests3.sh'
 
        stage 'Notifications'
             echo 'Sending mails'
@@ -29,7 +35,7 @@ node {
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
                         subject: 'project build successful',
-                        to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net'
+                        to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net, 'felipe.vicens@atos.net', 'jbonnet@alticelabs.com'
         }
 
 
@@ -40,7 +46,7 @@ node {
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
             subject: 'project build error',
-            to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net'
+            to: 'dani.guija@i2cat.net', 'shuaib.siddiqui@i2cat.net', 'felipe.vicens@atos.net', 'jbonnet@alticelabs.com'
         }
 
     finally {
