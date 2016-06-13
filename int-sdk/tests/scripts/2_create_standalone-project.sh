@@ -28,7 +28,6 @@ package_dir="packages/package.$timestamp"
 gatekeeper_url=$3
 
 # Create project
-
 if [[ "$new_project" = true ]]; then
 	son-workspace --workspace $1 --project $2
 else 
