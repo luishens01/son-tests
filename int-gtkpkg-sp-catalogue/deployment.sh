@@ -58,7 +58,7 @@ docker run --name son-gtkapi -d -p 32001:5000 --add-host sp.int.sonata-nfv.eu:10
 docker rm -fv son-catalogue-repos
 sleep 5
 # Starting son-catalogue-repos
-docker run --name son-catalogue-repos -d -p 4002:4011 --add-host mongo:10.31.11.33 registry.sonata-nfv.eu:5000/son-catalogue-repos
+docker run --name son-catalogue-repos -d -p 4002:4011 --add-host mongo:10.31.11.36 registry.sonata-nfv.eu:5000/son-catalogue-repos
 sleep 15
 
 #docker run --name son-catalogue-repos1 -i --rm=true --add-host mongo:10.31.11.33 registry.sonata-nfv.eu:5000/son-catalogue-repos rake init:load_samples[integration]
