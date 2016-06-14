@@ -8,7 +8,7 @@ package=$(echo $resp | grep "uuid")
 code=$(echo "$resp" | tail -n1)
 echo "Code: $code"
 
-if [[ $status_code != 20* ]] ;
+if [[ $status_code != 201 ]] ;
   then
     echo "Error: Response error $status_code"
     exit -1
