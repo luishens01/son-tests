@@ -26,7 +26,7 @@ docker pull registry.sonata-nfv.eu:5000/sdk-catalogue
 
 #### DEPLOY SON-EMU ####
 printheader "Deploy SON-EMU"
-sudo docker pull registry.sonata-nfv.eu:5000/son-emu
+docker pull registry.sonata-nfv.eu:5000/son-emu
 
 
 ####################### START CONTAINERS #######################
@@ -41,7 +41,7 @@ cd ..
 # run son-emu in a docker container in the background, expose fake GK and management API
 printheader "Run SON-EMU"
 sudo int-sdk/utils/rm_container.sh son-emu-int-test
-sudo docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --privileged='true' \
+docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --privileged='true' \
     -v '/var/run/docker.sock:/var/run/docker.sock' \
     -p 5000:5000 \
     -p 4242:4242 \
@@ -51,8 +51,8 @@ sudo docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --priv
 echo "Wait for emulator"
 sleep 30
 
-sudo docker exec son-emu-int-test mn --clean
-sudo docker exec -d son-emu-int-test python src/emuvim/examples/sonata_y1_demo_topology_1.py
+docker exec son-emu-int-test mn --clean
+docker exec -d son-emu-int-test python src/emuvim/examples/sonata_y1_demo_topology_1.py
 
 echo "Wait for emulator"
 sleep 30
@@ -60,15 +60,15 @@ sleep 30
 
 # probe for service platform gatekeeper
 printheader "Checking running containers"
-sudo docker ps -a
+docker ps -a
 
 # run son-cli in a docker container
 printheader "Run SON-CLI"
-sudo int-sdk/utils/rm_container.sh son-cli-int-test
-sudo docker run -d -i --name 'son-cli-int-test' --net='host' --pid='host' --privileged='true' \
+int-sdk/utils/rm_container.sh son-cli-int-test
+docker run -d -i --name 'son-cli-int-test' --net='host' --pid='host' --privileged='true' \
     -v '/var/run/docker.sock:/var/run/docker.sock' \
     registry.sonata-nfv.eu:5000/son-cli
 
 # prepare son-cli-int-test container for tests
-sudo docker cp int-sdk/tests son-cli-int-test:/
-sudo docker exec son-cli-int-test apt-get install -y curl unzip
+docker cp int-sdk/tests son-cli-int-test:/
+docker exec son-cli-int-test apt-get install -y curl unzip
