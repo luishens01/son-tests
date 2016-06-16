@@ -39,23 +39,23 @@ docker-compose up -d
 cd ..
 
 # run son-emu in a docker container in the background, expose fake GK and management API
-printheader "Run SON-EMU"
-sudo int-sdk/utils/rm_container.sh son-emu-int-test
-docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --privileged='true' \
-    -v '/var/run/docker.sock:/var/run/docker.sock' \
-    -p 5000:5000 \
-    -p 4242:4242 \
-    registry.sonata-nfv.eu:5000/son-emu
+#printheader "Run SON-EMU"
+#sudo int-sdk/utils/rm_container.sh son-emu-int-test
+#docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --privileged='true' \
+#    -v '/var/run/docker.sock:/var/run/docker.sock' \
+#    -p 5000:5000 \
+#    -p 4242:4242 \
+#    registry.sonata-nfv.eu:5000/son-emu
 
 # give the emulator time to start and configure
-echo "Wait for emulator"
-sleep 30
+#echo "Wait for emulator"
+#sleep 30
 
-docker exec son-emu-int-test mn --clean
-docker exec -d son-emu-int-test python src/emuvim/examples/sonata_y1_demo_topology_1.py
+#docker exec son-emu-int-test mn --clean
+#docker exec -d son-emu-int-test python src/emuvim/examples/sonata_y1_demo_topology_1.py
 
-echo "Wait for emulator"
-sleep 30
+#echo "Wait for emulator"
+#sleep 30
 
 
 # probe for service platform gatekeeper
