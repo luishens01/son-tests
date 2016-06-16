@@ -45,8 +45,9 @@ fi
 
 # Package project
 printf "\n\n==> Package project '%s' [son-package --project]\n\n" "$2"
-son-package --workspace $1 --project $2 -d $package_dir -n project-Y1
+son-package --workspace $1 --project $2 -d $package_dir
 
 # Push packaged project to Gatekeeper
 printf "\n\n==> Push packaged project to GateKeeper [son-push]\n\n"
-son-push -U $package_dir/project-Y1.son $gatekeeper_url
+PACKAGE_FILE=$(find $package_dir/*.son -type f -printf "%f")
+son-push -U $package_dir/$PACKAGE_FILE $gatekeeper_url
