@@ -8,7 +8,6 @@
 #    exit -1 
 #fi
 
-
 resp=$(curl -s -X POST http://192.168.1.50:9091/metrics/job/vnf/instance/INT_TEST_VM --data-binary @int-mon/resources/test_mon_data.txt -H "Content-Type: text/html")
 
 print $resp
