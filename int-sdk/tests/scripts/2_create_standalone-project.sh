@@ -48,3 +48,6 @@ son-package --workspace $1 --project $2 -d $package_dir -n project-Y1
 printf "\n\n==> Push packaged project to GateKeeper [son-push]\n\n"
 son-push -U $package_dir/project-Y1.son $gatekeeper_url
 
+# Push again the same package to gatekeeper to test dupplicate success
+printf "\n\n==> Push again the same package\n\n"
+son-push -U $package_dir/project-Y1.son $gatekeeper_url
