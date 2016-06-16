@@ -25,8 +25,8 @@ docker pull registry.sonata-nfv.eu:5000/sdk-catalogue
 
 
 #### DEPLOY SON-EMU ####
-printheader "Deploy SON-EMU"
-docker pull registry.sonata-nfv.eu:5000/son-emu
+#printheader "Deploy SON-EMU"
+#docker pull registry.sonata-nfv.eu:5000/son-emu
 
 
 ####################### START CONTAINERS #######################
