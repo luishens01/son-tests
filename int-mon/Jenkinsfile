@@ -13,16 +13,16 @@ node {
             echo 'Install test Environment'			
 			
 
-       stage 'Testing'
+       stage 'Test monitoring server'
             echo 'Check monitoring server'
             sh 'int-mon/tests/check_MON2DB_connection.sh'
-
+       stage 'Test data collection from SP'
             echo 'Check data collection from SP'
             sh 'int-mon/tests/check_data_SP.sh'
-
+       stage 'Test data collection from a TEST VNF'     
             echo 'Check data collection from TEST VNF'
             sh 'int-mon/tests/check_data_testVNF.sh'
-
+       stage 'Test Prometheus reconfiguration'
             echo 'Check Prometheus reconfiguration (New Service)'
             sh 'int-mon/tests/check_newserv_conf.sh'
 
