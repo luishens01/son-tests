@@ -14,7 +14,7 @@ node {
 
 	   stage 'Clean Environment'
 	        echo 'Clean dir structure, clean catalogue and prepare environment'
-	        docker exec son-cli-int-test /bin/bash -c 'cd /tests; ./clean-environment.sh'
+            sh 'int-sdk/clean.sh'
 
        stage 'Test 01: Create Workspace [son-workspace --init]'
             echo 'Testing: Create workspace'
@@ -45,6 +45,8 @@ node {
        stage 'Clean Environment'
             echo 'Clean dir structure, clean catalogue and prepare environment'
 	        docker exec son-cli-int-test /bin/bash -c 'cd /tests; ./clean-environment.sh'
+
+
 
        stage 'Notifications'
             echo 'Sending mails'
