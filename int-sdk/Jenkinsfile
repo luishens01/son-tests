@@ -14,7 +14,7 @@ node {
 
 	   stage 'Clean Environment'
 	        echo 'Clean dir structure, clean catalogue and prepare environment'
-            sh 'int-sdk/clean.sh'
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; ./clean-environment.sh'"
 
        stage 'Test 01: Create Workspace [son-workspace --init]'
             echo 'Testing: Create workspace'
@@ -22,29 +22,29 @@ node {
 
        stage 'Test 02: Create Standalone Project [son-workspace --project]'
             echo 'Testing: Create sample project'
-            docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-workspace --project projects/prj_sample'
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-workspace --project projects/prj_sample'"
             echo 'Testing: Create standalone project from template'
-            docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/2_create_standalone-project.sh workspaces/ws1 projects/prj1 resources/project-Y1-emu.zip'
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/2_create_standalone-project.sh workspaces/ws1 projects/prj1 resources/project-Y1-emu.zip'"
 
        stage 'Test 03: Publish Project to SDK Catalogue [son-publish]'
             echo 'Testing: Publish project to SDK catalogue'
-            docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-publish --workspace workspaces/ws1 --project projects/prj1'
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-publish --workspace workspaces/ws1 --project projects/prj1'"
 
        stage 'Test 04: Create Dependent Project [son-workspace --project]'
             echo 'Testing: Create dependent project from template'
-            docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/2_create_dependent-project.sh workspaces/ws1 projects/prj2 resources/project-Y1-emu.zip'
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/2_create_dependent-project.sh workspaces/ws1 projects/prj2 resources/project-Y1-emu.zip'"
 
        stage 'Test 05: Package Project [son-package]'
             echo 'Testing: Package project'
-            docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj1 -d packages/package.1 -n sonata-demo-docker'
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj1 -d packages/package.1 -n sonata-demo-docker'"
 
        stage 'Test 06: Push Project to emu GK [son-push]'
             echo 'Testing: Push package to emulator GK'
-            docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/sonata-demo-docker.son http://127.0.0.1:5000'
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/sonata-demo-docker.son http://127.0.0.1:5000'"
 
        stage 'Clean Environment'
             echo 'Clean dir structure, clean catalogue and prepare environment'
-	        docker exec son-cli-int-test /bin/bash -c 'cd /tests; ./clean-environment.sh'
+	        sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; ./clean-environment.sh'"
 
 
 
