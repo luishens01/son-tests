@@ -22,7 +22,7 @@ node {
 
        stage 'Test 02: Create Standalone Project [son-workspace --project]'
             echo 'Testing: Create sample project'
-            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-workspace --project projects/prj_sample'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-workspace --workspace workspaces/ws1 --project projects/prj_sample'"
             echo 'Testing: Create standalone project from template'
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/2_create_standalone-project.sh workspaces/ws1 projects/prj1 resources/project-Y1-emu.zip'"
 
