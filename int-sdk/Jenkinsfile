@@ -18,7 +18,7 @@ node {
 
        stage 'Test 01: Create Workspace [son-workspace --init]'
             echo 'Testing: Create workspace'
-            docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/1_create_son_workspace.sh workspaces/ws1'
+            "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/1_create_son_workspace.sh workspaces/ws1'".execute()
 
        stage 'Test 02: Create Standalone Project [son-workspace --project]'
             echo 'Testing: Create sample project'
