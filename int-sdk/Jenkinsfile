@@ -13,7 +13,7 @@ node {
 	        sh 'int-sdk/deployment.sh'
 
 	   stage 'Clean Environment'
-	        echo 'Clean dir structure, clean catalogue and prepare environment'
+	        sh "printheader 'Clean dir structure, clean catalogue and prepare environment'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; ./clean-environment.sh'"
 
        stage 'Test 01: Create Workspace'
