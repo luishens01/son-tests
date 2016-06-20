@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #### PREPARE ENVIRONMENT ####
+sudo apt-get update
 sudo apt-get install realpath
 sudo ln -sf $(realpath int-sdk/utils/print-header.sh) /usr/bin/printheader
 
