@@ -17,7 +17,7 @@ node {
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; ./clean-environment.sh'"
 
        stage 'Test 01: Create Workspace'
-            echo 'Testing: Create workspace'
+            printheader 'Testing: Create workspace'
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/1_create_son_workspace.sh workspaces/ws1'"
 
        stage 'Test 02: Create Standalone Project'
