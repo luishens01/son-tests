@@ -66,17 +66,17 @@ node {
             sh "printheader 'Testing: Publish project to SDK catalogue'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-publish --workspace workspaces/ws2 --project projects/prj3'"
 
-       stage 'Test 1.4: Create Dependent Project'
+       stage 'Test 2.4: Create Dependent Project'
             sh "printheader 'Testing: Create dependent project from template'"
-            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/3_create_dependent-project.sh workspaces/ws1 projects/prj4 resources/project-Y1-sp.zip'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/3_create_dependent-project.sh workspaces/ws2 projects/prj4 resources/project-Y1-sp.zip'"
 
-       stage 'Test 1.5: Package Projects'
+       stage 'Test 2.5: Package Projects'
             sh "printheader 'Testing: Package standalone project'"
-            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj3 -d packages/package.3.standalone -n sonata-demo-docker'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws2 --project projects/prj3 -d packages/package.3.standalone -n sonata-demo-docker'"
             sh "printheader 'Testing: Package dependent project'"
-            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj4 -d packages/package.4.dependent -n sonata-demo-docker'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws2 --project projects/prj4 -d packages/package.4.dependent -n sonata-demo-docker'"
 
-       stage 'Test 1.6: Push Projects to Service Platform GK'
+       stage 'Test 2.6: Push Projects to Service Platform GK'
             sh "printheader 'Testing: Push package (project standalone) to SP-GK'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.3.standalone/sonata-demo-docker.son http://sp.int3.sonata-nfv.eu:32001'"
             sh "printheader 'Testing: Push package (project dependent) to SP-GK'"
