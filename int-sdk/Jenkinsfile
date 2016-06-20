@@ -16,39 +16,76 @@ node {
 	        sh "printheader 'Clean dir structure, clean catalogue and prepare environment'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; ./clean-environment.sh'"
 
-       stage 'Test 01: Create Workspace'
-            printheader 'Testing: Create workspace'
+       stage 'Test 1.1: Create Workspace'
+            sh "printheader 'Testing: Create workspace'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/1_create_son_workspace.sh workspaces/ws1'"
 
-       stage 'Test 02: Create Standalone Project'
-            echo 'Testing: Create sample project'
+       stage 'Test 1.2: Create Standalone Project'
+            sh "printheader 'Testing: Create sample project'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-workspace --workspace workspaces/ws1 --project projects/prj_sample'"
-            echo 'Testing: Create standalone project from template'
+            sh "printheader 'Testing: Create standalone project from template'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/2_create_standalone-project.sh workspaces/ws1 projects/prj1 resources/project-Y1-emu.zip'"
 
-       stage 'Test 03: Publish Project to SDK Catalogue'
-            echo 'Testing: Publish project to SDK catalogue'
+       stage 'Test 1.3: Publish Project to SDK Catalogue'
+            sh "printheader 'Testing: Publish project to SDK catalogue'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-publish --workspace workspaces/ws1 --project projects/prj1'"
 
-       stage 'Test 04: Create Dependent Project'
-            echo 'Testing: Create dependent project from template'
+       stage 'Test 1.4: Create Dependent Project'
+            sh "printheader 'Testing: Create dependent project from template'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/3_create_dependent-project.sh workspaces/ws1 projects/prj2 resources/project-Y1-emu.zip'"
 
-       stage 'Test 05: Package Projects'
-            echo 'Testing: Package standalone project'
+       stage 'Test 1.5: Package Projects'
+            sh "printheader 'Testing: Package standalone project'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj1 -d packages/package.1.standalone -n sonata-demo-docker'"
-            echo 'Testing: Package dependent project'
+            sh "printheader 'Testing: Package dependent project'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj2 -d packages/package.2.dependent -n sonata-demo-docker'"
 
-       stage 'Test 06: Push Projects to emu GK'
-            echo 'Testing: Push package (project standalone) to emulator GK'
+       stage 'Test 1.6: Push Projects to emu GK'
+            sh "printheader 'Testing: Push package (project standalone) to emulator GK'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.1.standalone/sonata-demo-docker.son http://127.0.0.1:5000'"
-            echo 'Testing: Push package (project dependent) to emulator GK'
+            sh "printheader 'Testing: Push package (project dependent) to emulator GK'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.2.dependent/sonata-demo-docker.son http://127.0.0.1:5000'"
 
+
+
        stage 'Clean Environment'
-            echo 'Clean dir structure, clean catalogue and prepare environment'
+            sh "printheader 'Clean dir structure, clean catalogue and prepare environment'"
 	        sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; ./clean-environment.sh'"
+
+
+
+	   stage 'Test 2.1: Create Workspace'
+            sh "printheader 'Testing: Create workspace'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/1_create_son_workspace.sh workspaces/ws2'"
+
+       stage 'Test 2.2: Create Standalone Project'
+            sh "printheader 'Testing: Create standalone project from template'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/2_create_standalone-project.sh workspaces/ws2 projects/prj3 resources/project-Y1-sp.zip'"
+
+       stage 'Test 2.3: Publish Project to SDK Catalogue'
+            sh "printheader 'Testing: Publish project to SDK catalogue'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-publish --workspace workspaces/ws2 --project projects/prj3'"
+
+       stage 'Test 1.4: Create Dependent Project'
+            sh "printheader 'Testing: Create dependent project from template'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; scripts/3_create_dependent-project.sh workspaces/ws1 projects/prj4 resources/project-Y1-sp.zip'"
+
+       stage 'Test 1.5: Package Projects'
+            sh "printheader 'Testing: Package standalone project'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj3 -d packages/package.3.standalone -n sonata-demo-docker'"
+            sh "printheader 'Testing: Package dependent project'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj4 -d packages/package.4.dependent -n sonata-demo-docker'"
+
+       stage 'Test 1.6: Push Projects to Service Platform GK'
+            sh "printheader 'Testing: Push package (project standalone) to SP-GK'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.3.standalone/sonata-demo-docker.son http://sp.int3.sonata-nfv.eu:32001'"
+            sh "printheader 'Testing: Push package (project dependent) to SP-GK'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.4.dependent/sonata-demo-docker.son http://sp.int3.sonata-nfv.eu:32001'"
+
+       stage 'Clean Environment'
+            sh "printheader 'Clean dir structure, clean catalogue and prepare environment'"
+	        sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; ./clean-environment.sh'"
+
 
 
        stage 'Notifications'
