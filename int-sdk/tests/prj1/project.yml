@@ -1,7 +1,0 @@
-catalogues: [personal]
-description: Project description
-vendor: eu.sonata-nfv.package
-maintainer: Name, Company, Contact
-name: sonata-demo
-publish_to: [personal]
-version: "0.3"
