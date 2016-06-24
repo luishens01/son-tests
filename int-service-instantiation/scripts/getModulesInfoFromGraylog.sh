@@ -44,7 +44,7 @@ Last updated: <strong>$(date)</strong><br><br>
 # check 1 - gtkapi: POST received
 echo "<tr><td align='center'>son-gtkapi</td>" >> $REP_DIR/intermediate_Info.html
 echo "<td align='center'>POST /requests received</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
-LOGMESSAGE=$(curl -X GET "http://admin:admin@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-gtkapi%20AND%20message%3A*POST*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
+LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-gtkapi%20AND%20message%3A*POST*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
 echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
 
 if [[ $LOGMESSAGE  ==  *POST[[:space:]]\/requests* ]] ;
@@ -59,7 +59,7 @@ fi
 # check 2
 echo "<tr><td align='center'>son-gtksrv</td>" >> $REP_DIR/intermediate_Info.html
 echo "<td align='center'>POST /requests received</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
-LOGMESSAGE=$(curl -X GET "http://admin:admin@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-gtksrv%20AND%20message%3A*POST*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
+LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-gtksrv%20AND%20message%3A*POST*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
 echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
 
 if [[ $LOGMESSAGE  ==  *POST[[:space:]]\/requests* ]] ;
