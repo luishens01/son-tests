@@ -7,7 +7,7 @@ docker run -d --name son-bss -p 25001:1337 -p 25002:1338 --log-driver=gelf --log
 # -- get the remote reports
 x=0
 docker cp son-bss:/usr/local/yeoman/SonataBSS/E2E_tests/reports .
-while [ "$x" -lt 100 -a ! -e $(pwd)/reports/allTests.html ]; do
+while [ "$x" -lt 100 -a ! -e $(pwd)/reports/unitTests.html ]; do
         x=$((x+1))		
         sleep 1
 		docker cp son-bss:/usr/local/yeoman/SonataBSS/E2E_tests/reports .
