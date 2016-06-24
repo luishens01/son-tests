@@ -1,3 +1,3 @@
 #!/bin/bash
 ## -- insert NSD/VNFD
-int-service-instantiation/scripts/postCatalogueSampleDescriptors.sh
+#int-service-instantiation/scripts/postCatalogueSampleDescriptors.sh
