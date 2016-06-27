@@ -41,8 +41,8 @@ cd ..
 
 # run son-emu in a docker container in the background, expose fake GK and management API
 printheader "Run SON-EMU"
-sudo int-sdk/utils/rm_container.sh son-emu-int-test
-docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --privileged='true' \
+sudo int-sdk/utils/rm_container.sh son-emu-int-sdk-pipeline
+docker run -d -i --name 'son-emu-int-sdk-pipeline' --net='host' --pid='host' --privileged='true' \
     -v '/var/run/docker.sock:/var/run/docker.sock' \
     -p 5000:5000 \
     -p 4242:4242 \
@@ -52,8 +52,8 @@ docker run -d -i --name 'son-emu-int-test' --net='host' --pid='host' --privilege
 echo "Wait for emulator"
 sleep 30
 
-docker exec son-emu-int-test mn --clean
-docker exec -d son-emu-int-test python src/emuvim/examples/sonata_y1_demo_topology_1.py
+docker exec son-emu-int-sdk-pipeline mn --clean
+docker exec -d son-emu-int-sdk-pipeline python src/emuvim/examples/sonata_y1_demo_topology_1.py
 
 echo "Wait for emulator"
 sleep 30
