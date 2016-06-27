@@ -23,7 +23,7 @@ printf "\n\n==> Create standalone project '%s' [son-workspace --project]\n\n" "$
 
 # Define global parameters
 set -xe
-timestamp="$(date +%s).$(date +%N)"
+#timestamp="$(date +%s).$(date +%N)"
 #package_dir="packages/package.$timestamp"
 
 # Create project

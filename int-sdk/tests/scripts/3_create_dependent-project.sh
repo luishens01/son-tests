@@ -9,24 +9,24 @@
 # Check arguments
 
 if [[ $# < 2 ]] || [[ $# > 4 ]]; then
-        echo "Usage: `basename "$0"` <workspace_location> <project_location> <gatekeeper_url> [<project template>]"
+        echo "Usage: `basename "$0"` <workspace_location> <project_location> [<project template>]"
         exit 1
 fi
  
-if [[ $# == 3 ]]; then
+if [[ $# == 2 ]]; then
         new_project=true
-elif [[ $# == 4 ]]; then
+elif [[ $# == 3 ]]; then
         new_project=false
-        project_template=$4
+        project_template=$3
 fi
 
 printf "\n\n==> Create *dependent* project '%s' [son-workspace --project]\n\n" "$2"
 
 # Define global parameters
 set -xe
-timestamp="$(date +%s).$(date +%N)"
-package_dir="packages/package.$timestamp"
-gatekeeper_url=$3
+#timestamp="$(date +%s).$(date +%N)"
+#package_dir="packages/package.$timestamp"
+#gatekeeper_url=$3
 
 # Create project
 
@@ -44,10 +44,10 @@ else
 fi
 
 # Package project
-printf "\n\n==> Package project '%s' [son-package --project]\n\n" "$2"
-son-package --workspace $1 --project $2 -d $package_dir
+#printf "\n\n==> Package project '%s' [son-package --project]\n\n" "$2"
+#son-package --workspace $1 --project $2 -d $package_dir
 
 # Push packaged project to Gatekeeper
-printf "\n\n==> Push packaged project to GateKeeper [son-push]\n\n"
-PACKAGE_FILE=$(find $package_dir/*.son -type f -printf "%f")
-son-push -U $package_dir/$PACKAGE_FILE $gatekeeper_url
+#printf "\n\n==> Push packaged project to GateKeeper [son-push]\n\n"
+#PACKAGE_FILE=$(find $package_dir/*.son -type f -printf "%f")
+#son-push -U $package_dir/$PACKAGE_FILE $gatekeeper_url
