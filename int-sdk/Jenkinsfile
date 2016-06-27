@@ -72,15 +72,15 @@ node {
 
        stage 'Test 2.5: Package Projects'
             sh "printheader 'Testing: Package standalone project'"
-            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws2 --project projects/prj3 -d packages/package.3.standalone -n sonata-demo-docker'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws2 --project projects/prj3 -d packages/package.3.standalone -n sonata-demo'"
             sh "printheader 'Testing: Package dependent project'"
-            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws2 --project projects/prj4 -d packages/package.4.dependent -n sonata-demo-docker'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws2 --project projects/prj4 -d packages/package.4.dependent -n sonata-demo'"
 
        stage 'Test 2.6: Push Projects to Service Platform GK'
             sh "printheader 'Testing: Push package (project standalone) to SP-GK'"
-            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.3.standalone/sonata-demo-docker.son http://sp.int3.sonata-nfv.eu:32001'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.3.standalone/sonata-demo.son http://sp.int3.sonata-nfv.eu:32001'"
             sh "printheader 'Testing: Push package (project dependent) to SP-GK'"
-            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.4.dependent/sonata-demo-docker.son http://sp.int3.sonata-nfv.eu:32001'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.4.dependent/sonata-demo.son http://sp.int3.sonata-nfv.eu:32001'"
 
        stage 'Clean Environment'
             sh "printheader 'Clean dir structure, clean catalogue and prepare environment'"
