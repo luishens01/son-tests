@@ -74,7 +74,7 @@ fi
 # check 3 - gtksrv: request created
 # -- getting request id
 LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-gtksrv%20AND%20message%3A*SELECT+"requests"*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
-if [[ $LOGMESSAGE  ==  *SELECT[[:space:]]\"\"requests* ]] ;
+if [[ $LOGMESSAGE  ==  *SELECT[[:space:]][[:space:]]\"\"requests* ]] ;
 then
 	STRTOFIND="\[\"\"id\"\", \"\""
 	STRINDEX=$(echo $LOGMESSAGE | grep -aob '\[\"\"id\"\", \"\"' | grep -oE '[0-9]+')
