@@ -79,22 +79,22 @@ echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
 
 if [[ $LOGMESSAGE  ==  *INSERT[[:space:]]INTO[[:space:]]\"requests* ]] ;
 then
-	STRTOFIND="\[\"service_uuid\", \"" 
-	STRINDEX=$(echo $LOGMESSAGE | grep -aob '\[\"service_uuid\", \"' | grep -oE '[0-9]+')
+	STRTOFIND="\[\"\"service_uuid\"\", \"\"" 
+	STRINDEX=$(echo $LOGMESSAGE | grep -aob '\[\"\"service_uuid\"\", \"\"' | grep -oE '[0-9]+')
 	STRINDEX=$(($STRINDEX + ${#STRTOFIND} -1))
 	SERVICEID=${LOGMESSAGE:STRINDEX:36}
 	echo "</td><td align='center' bgcolor=lightgreen>" >> $REP_DIR/intermediate_Info.html
-	echo "PASSED"		
+	echo "PASSED" >> $REP_DIR/intermediate_Info.html		
 else
 	echo "</td><td align='center' bgcolor=red>" >> $REP_DIR/intermediate_Info.html
-	echo "FAILED"
+	echo "FAILED" >> $REP_DIR/intermediate_Info.html
 fi
 # -- getting request id
 LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-gtksrv%20AND%20message%3A*SELECT+"requests"*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
 if [[ $LOGMESSAGE  ==  *SELECT[[:space:]]\"requests* ]] ;
 then
-	STRTOFIND="\[\"id\", \""
-	STRINDEX=$(echo $LOGMESSAGE | grep -aob '\[\"id\", \"' | grep -oE '[0-9]+')
+	STRTOFIND="\[\"\"id\"\", \"\""
+	STRINDEX=$(echo $LOGMESSAGE | grep -aob '\[\"\"id\"\", \"\"' | grep -oE '[0-9]+')
 	STRINDEX=$(($STRINDEX + ${#STRTOFIND}))
 	REQUESTID=${LOGMESSAGE:STRINDEX:36}
 fi
@@ -108,10 +108,10 @@ echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
 if [[ $LOGMESSAGE  ==  *received[[:space:]]on[[:space:]]service.instances.create[[:space:]]corr_id:[[:space:]]$REQUESTID* ]] ;
 then		
 	echo "</td><td align='center' bgcolor=lightgreen>" >> $REP_DIR/intermediate_Info.html
-	echo "PASSED"		
+	echo "PASSED" >> $REP_DIR/intermediate_Info.html		
 else
 	echo "</td><td align='center' bgcolor=red>" >> $REP_DIR/intermediate_Info.html
-	echo "FAILED"
+	echo "FAILED" >> $REP_DIR/intermediate_Info.html
 fi
 
 # check 5 - servicelifecyclemanagement: instance.create ok (pening...)
