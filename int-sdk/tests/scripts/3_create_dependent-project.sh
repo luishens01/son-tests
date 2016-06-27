@@ -44,10 +44,10 @@ else
 fi
 
 # Package project
-printf "\n\n==> Package project '%s' [son-package --project]\n\n" "$2"
-son-package --workspace $1 --project $2 -d $package_dir
+#printf "\n\n==> Package project '%s' [son-package --project]\n\n" "$2"
+#son-package --workspace $1 --project $2 -d $package_dir
 
 # Push packaged project to Gatekeeper
-printf "\n\n==> Push packaged project to GateKeeper [son-push]\n\n"
-PACKAGE_FILE=$(find $package_dir/*.son -type f -printf "%f")
-son-push -U $package_dir/$PACKAGE_FILE $gatekeeper_url
+#printf "\n\n==> Push packaged project to GateKeeper [son-push]\n\n"
+#PACKAGE_FILE=$(find $package_dir/*.son -type f -printf "%f")
+#son-push -U $package_dir/$PACKAGE_FILE $gatekeeper_url
