@@ -35,14 +35,16 @@ HOST=$(hostname)
 echo "Filesystem usage for host <strong>$HOST</strong><br>
 Last updated: <strong>$(date)</strong><br><br>
 <table border='1'>
-<tr><th class='header'>Module</td>
+<tr>
+<th class='header'>Step</td>
+<th class='header'>Module</td>
 <th class='header'>Description</td>
 <th class='header'>Info</td>
-<th class='header'>Test Status</td>
+<th class='header'>Step Status</td>
 </tr>" >> $REP_DIR/intermediate_Info.html
 
 # check 1 - gtkapi: POST received
-echo "<tr><td align='center'>son-gtkapi</td>" >> $REP_DIR/intermediate_Info.html
+echo "<tr><td align='center'>01</td><td align='center'>son-gtkapi</td>" >> $REP_DIR/intermediate_Info.html
 echo "<td align='center'>POST /requests received</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
 LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-gtkapi%20AND%20message%3A*POST*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
 echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
@@ -57,7 +59,7 @@ else
 fi
 
 # check 2
-echo "<tr><td align='center'>son-gtksrv</td>" >> $REP_DIR/intermediate_Info.html
+echo "<tr><td align='center'>02</td><td align='center'>son-gtksrv</td>" >> $REP_DIR/intermediate_Info.html
 echo "<td align='center'>POST /requests received</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
 LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-gtksrv%20AND%20message%3A*POST*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
 echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
@@ -83,10 +85,11 @@ then
 	REQUESTID=${LOGMESSAGE:STRINDEX:36}
 fi
 
-echo "<tr><td align='center'>son-gtksrv</td>" >> $REP_DIR/intermediate_Info.html
-echo "<td align='center'>request created</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
+echo "<tr><td align='center'>03</td><td align='center'>son-gtksrv</td>" >> $REP_DIR/intermediate_Info.html
+echo "<td align='center'>Request created</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
 LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-gtksrv%20AND%20message%3A*INSERT+INTO+"requests"*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
-echo $LOGMESSAGE "Request Id: " $REQUESTID >> $REP_DIR/intermediate_Info.html
+LOWERCASEREQUESTID=$(echo $REQUESTID | tr '[:upper:]' '[:lower:]')
+echo $LOGMESSAGE "Request Id: " $LOWERCASEREQUESTID >> $REP_DIR/intermediate_Info.html
 LOGMESSAGE=$(echo "${LOGMESSAGE^^}" | tr -s " ")
 if [[ $LOGMESSAGE  ==  *INSERT[[:space:]]INTO[[:space:]]\"\"REQUESTS* ]] ;
 then
@@ -102,8 +105,8 @@ else
 fi
 
 # check 4 - servicelifecyclemanagement: service.instances.create received
-echo "<tr><td align='center'>servicelifecyclemanagement</td>" >> $REP_DIR/intermediate_Info.html
-echo "<td align='center'>instance creation request received</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
+echo "<tr><td align='center'>04</td><td align='center'>servicelifecyclemanagement</td>" >> $REP_DIR/intermediate_Info.html
+echo "<td align='center'>Instance creation request received</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
 LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Aservicelifecyclemanagement%20AND%20message%3A*received+on+service.instances.create*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
 echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
 LOGMESSAGE=$(echo "${LOGMESSAGE^^}" | tr -s " ")
@@ -116,8 +119,69 @@ else
 	echo "FAILED" >> $REP_DIR/intermediate_Info.html
 fi
 
-# check 5 - servicelifecyclemanagement: instance.create ok (pening...)
+# check 5 - son-sp-infrabstract: Received message on infrastructure.service.deploy
+echo "<tr><td align='center'>05</td><td align='center'>son-sp-infrabstract</td>" >> $REP_DIR/intermediate_Info.html
+echo "<td align='center'>Received message on infrastructure.service.deploy</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
+LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-sp-infrabstract%20AND%20message%3A*Received message on infrastructure.service.deploy*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
+echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
+LOGMESSAGE=$(echo "${LOGMESSAGE^^}" | tr -s " ")
+if [[ $LOGMESSAGE  ==  *RECEIVED[[:space:]]MESSAGE[[:space:]]ON[[:space:]]INFRASTRUCTURE.SERVICE.DEPLOY* ]] ;
+then		
+	echo "</td><td align='center' bgcolor=lightgreen>" >> $REP_DIR/intermediate_Info.html
+	echo "PASSED" >> $REP_DIR/intermediate_Info.html		
+else
+	echo "</td><td align='center' bgcolor=red>" >> $REP_DIR/intermediate_Info.html
+	echo "FAILED" >> $REP_DIR/intermediate_Info.html
+fi
 
-# check 6 - son-sp-infrabstract: ... (pending)
+# check 6 - servicelifecyclemanagement: Deployment reply received from IA
+echo "<tr><td align='center'>06</td><td align='center'>servicelifecyclemanagement</td>" >> $REP_DIR/intermediate_Info.html
+echo "<td align='center'>Deployment reply received from IA</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
+LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-sp-infrabstract%20AND%20message%3A*Deployment reply received from IA*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
+echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
+LOGMESSAGE=$(echo "${LOGMESSAGE^^}" | tr -s " ")
+if [[ $LOGMESSAGE  ==  *DEPLOYMENT[[:space:]]REPLY[[:space:]]RECEIVED[[:space:]]FROM[[:space:]]IA[[:space:]]FOR[[:space:]]INSTANCE[[:space:]]UUID[[:space:]]$REQUESTID** ]] ;
+then		
+	echo "</td><td align='center' bgcolor=lightgreen>" >> $REP_DIR/intermediate_Info.html
+	echo "PASSED" >> $REP_DIR/intermediate_Info.html		
+else
+	echo "</td><td align='center' bgcolor=red>" >> $REP_DIR/intermediate_Info.html
+	echo "FAILED" >> $REP_DIR/intermediate_Info.html
+fi
+
+# check 7 - servicelifecyclemanagement: inform gk of result of deployment
+echo "<tr><td align='center'>07</td><td align='center'>servicelifecyclemanagement</td>" >> $REP_DIR/intermediate_Info.html
+echo "<td align='center'>Inform gk of result of deployment</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
+LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-sp-infrabstract%20AND%20message%3A*inform gk of result of deployment*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
+echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
+LOGMESSAGE=$(echo "${LOGMESSAGE^^}" | tr -s " ")
+if [[ $LOGMESSAGE  ==  *INFORM[[:space:]]GK[[:space:]]OF[[:space:]]RESULT[[:space:]]OF[[:space:]]DEPLOYMENT[[:space:]]FOR[[:space:]]SERVICE[[:space:]]WITH[[:space:]]UUID* ]] ;
+then
+	STRTOFIND="WITH UUID " 
+	STRINDEX=$(echo $LOGMESSAGE | grep -aob 'WITH UUID ' | grep -oE '[0-9]+')
+	STRINDEX=$(($STRINDEX + ${#STRTOFIND}))
+	SERVICEINSTANCEID=${LOGMESSAGE:STRINDEX:36}
+	LOWERCASESERVICEINSTANCEID=$(echo $SERVICEINSTANCEID | tr '[:upper:]' '[:lower:]')	
+	echo "</td><td align='center' bgcolor=lightgreen>" >> $REP_DIR/intermediate_Info.html
+	echo "PASSED" >> $REP_DIR/intermediate_Info.html		
+else
+	echo "</td><td align='center' bgcolor=red>" >> $REP_DIR/intermediate_Info.html
+	echo "FAILED" >> $REP_DIR/intermediate_Info.html
+fi
+
+# check 8 - son-catalogue-repos: retrieve instances
+echo "<tr><td align='center'>08</td><td align='center'>son-catalogue-repos</td>" >> $REP_DIR/intermediate_Info.html
+echo "<td align='center'>Retrieve Service Instance from SP Repository</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
+LOGMESSAGE=$(curl -X GET -H "Content-Type:application/json" "http://sp.int3.sonata-nfv.eu:4002/records/nsr/ns-instances/$LOWERCASESERVICEINSTANCEID")
+echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
+LOGMESSAGE=$(echo "${LOGMESSAGE^^}" | tr -s " ")
+if [[ $LOGMESSAGE  ==  *$SERVICEINSTANCEID* ]] ;
+then		
+	echo "</td><td align='center' bgcolor=lightgreen>" >> $REP_DIR/intermediate_Info.html
+	echo "PASSED" >> $REP_DIR/intermediate_Info.html		
+else
+	echo "</td><td align='center' bgcolor=red>" >> $REP_DIR/intermediate_Info.html
+	echo "FAILED" >> $REP_DIR/intermediate_Info.html
+fi
 
 echo "</table></BODY></HTML>" >> $REP_DIR/intermediate_Info.html
