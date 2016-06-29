@@ -191,7 +191,7 @@ echo "<td align='center'>Retrieve Service Instance from SP Repository</td><td al
 LOGMESSAGE=$(curl -X GET -H "Content-Type:application/json" "http://sp.int3.sonata-nfv.eu:4002/records/nsr/ns-instances/$LOWERCASESERVICEINSTANCEID")
 echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
 LOGMESSAGE=$(echo "${LOGMESSAGE^^}" | tr -s " ")
-if [[ $LOGMESSAGE  ==  *$SERVICEINSTANCEID* ]] ;
+if [[ $SERVICEINSTANCEID != "" && $LOGMESSAGE  ==  *$SERVICEINSTANCEID* ]] ;
 then		
 	echo "</td><td align='center' bgcolor=lightgreen>" >> $REP_DIR/intermediate_Info.html
 	echo "PASSED" >> $REP_DIR/intermediate_Info.html		
