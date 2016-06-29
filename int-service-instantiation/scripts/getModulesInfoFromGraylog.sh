@@ -148,7 +148,7 @@ fi
 echo "<tr><td align='center'>06</td><td align='center'>servicelifecyclemanagement</td>" >> $REP_DIR/intermediate_Info.html
 echo "<td align='center'>Deployment reply received from IA</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
 # info: get graylog servicelifecyclemanagement messages that include "Deployment reply received from IA"
-LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword?query=container_name%3Aservicelifecyclemanagement%20AND%20message%3ADeployment%20reply%20received%20from%20IA&keyword=last%205%20minutes&fields=container_name%2Cmessage")
+LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword?query=container_name%3Aservicelifecyclemanagement%20AND%20message%3A*Deployment%20reply%20received%20from%20IA*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
 
 echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
 # info: uppercase(LOGMESSAGE) and delete duplicated spaces
@@ -166,7 +166,7 @@ fi
 echo "<tr><td align='center'>07</td><td align='center'>servicelifecyclemanagement</td>" >> $REP_DIR/intermediate_Info.html
 echo "<td align='center'>Inform gk of result of deployment</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
 # info: get from graylog servicelifecyclemanagement messages that include "inform gk of result of deployment"
-LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword?query=container_name%3Aservicelifecyclemanagement%20AND%20message%3Ainform%20gk%20of%20result%20of%20deployment&keyword=last%205%20minutes&fields=container_name%2Cmessage")
+LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword?query=container_name%3Aservicelifecyclemanagement%20AND%20message%3A*inform%20gk%20of%20result%20of%20deployment*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
 echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
 # info: uppercase(LOGMESSAGE) and delete duplicated spaces
 LOGMESSAGE=$(echo "${LOGMESSAGE^^}" | tr -s " ")
