@@ -75,15 +75,10 @@ fi
 
 # check 3 - gtksrv: request created
 # -- getting request id
-LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/universal/keyword/export?query=container_name%3Ason-gtksrv%20AND%20message%3A*SELECT+"requests"*&keyword=last%205%20minutes&fields=container_name%2Cmessage")
+LOGMESSAGE=$(curl -X GET "http://sp.int3.sonata-nfv.eu:32001/requests")
 LOGMESSAGE=$(echo "${LOGMESSAGE^^}" | tr -s " ")
-if [[ $LOGMESSAGE  ==  *SELECT[[:space:]]\"\"REQUESTS* ]] ;
-then
-	STRTOFIND="\"\"ID\"\", \"\""	
-	STRINDEX=$(echo $LOGMESSAGE | grep -aob  "\"\"ID\"\", \"\"" | grep -oE '[0-9]+')	
-	STRINDEX=$(($STRINDEX + ${#STRTOFIND}))		
-	REQUESTID=${LOGMESSAGE:STRINDEX:36}
-fi
+LOGMESSAGE=$(echo $LOGMESSAGE| awk -F"\"ID\":\"" '{print $NF}')
+REQUESTID=${LOGMESSAGE:0:36}
 
 echo "<tr><td align='center'>03</td><td align='center'>son-gtksrv</td>" >> $REP_DIR/intermediate_Info.html
 echo "<td align='center'>Request created</td><td align='center'>" >> $REP_DIR/intermediate_Info.html
