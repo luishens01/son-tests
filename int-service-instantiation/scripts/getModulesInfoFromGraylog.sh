@@ -153,7 +153,7 @@ LOGMESSAGE=$(curl -X GET "http://admin:s0n%40t%40@10.31.11.37:12900/search/unive
 echo $LOGMESSAGE >> $REP_DIR/intermediate_Info.html
 # info: uppercase(LOGMESSAGE) and delete duplicated spaces
 LOGMESSAGE=$(echo "${LOGMESSAGE^^}" | tr -s " ")
-if [[ $LOGMESSAGE  ==  *DEPLOYMENT[[:space:]]REPLY[[:space:]]RECEIVED[[:space:]]FROM[[:space:]]IA[[:space:]]FOR[[:space:]]INSTANCE[[:space:]]UUID[[:space:]]$REQUESTID** ]] ;
+if [[ $LOGMESSAGE  ==  *DEPLOYMENT[[:space:]]REPLY[[:space:]]RECEIVED[[:space:]]FROM[[:space:]]IA[[:space:]]FOR[[:space:]]INSTANCE[[:space:]]UUID[[:space:]]$REQUESTID* ]] ;
 then		
 	echo "</td><td align='center' bgcolor=lightgreen>" >> $REP_DIR/intermediate_Info.html
 	echo "PASSED" >> $REP_DIR/intermediate_Info.html		
