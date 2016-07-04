@@ -25,6 +25,9 @@ node {
        stage 'Test Prometheus reconfiguration'
             echo 'Check Prometheus reconfiguration (New Service)'
             sh 'int-mon/tests/check_newserv_conf.sh'
+       stage 'Test Prometheus Alerts'
+            echo 'Check connection between Prometheus and son-broker'
+            sh 'int-mon/tests/check_MON2Mbroker_connection.sh'
 
        stage 'Notifications'
             echo 'Sending mails'

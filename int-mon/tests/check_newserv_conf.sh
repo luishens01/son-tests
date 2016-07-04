@@ -1,6 +1,6 @@
 #!/bin/bash
 
-resp=$(curl -s -X POST http://sp.int3.sonata-nfv.eu:8000/api/v1/service/new -d @int-mon/resources/new_srv.json -H "Accept: application/json" -H "Content-Type: application/json")
+resp=$(curl -s -X POST http://sp.int3.sonata-nfv.eu:8000/api/v1/service/new -d @int-mon/resources/new_srv_slm.json -H "Accept: application/json" -H "Content-Type: application/json")
 
 if [[ $(echo $resp | python -mjson.tool | grep "success") != *"success"* ]] ;
   then
@@ -17,7 +17,7 @@ if [[ "$srvs" -gt 0 ]];
   srv_found=0
   while [  $index -lt $srvs ]; do
     srv_name=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["results"]['$index']["sonata_srv_id"]')
-    if [[ $srv_name == "TEST_NS859674" ]] ;
+    if [[ $srv_name == "005606ed-be7d-4ce3-983c-847039e3a5a3" ]] ;
       then
       id=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["results"]['$index']["id"]')
       srv_found=1

@@ -1,0 +1,4 @@
+# TYPE vm_cpu_perc_test gauge
+vm_cpu_perc_test{core="cpu",id="0123456789",instance="INT_TEST_VNF",job="vnf"}15
+
+
