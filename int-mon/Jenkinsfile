@@ -11,7 +11,7 @@ node {
 
        stage 'Deploy'
             echo 'Install test Environment'			
-	    sh 'int-mon/deploytestenv.sh'
+	        sh 'int-mon/deploytestenv.sh'
 
        stage 'Test monitoring server'
             echo 'Check monitoring server'
