@@ -10,9 +10,8 @@ node {
             
 
        stage 'Deploy'
-            echo 'Install test Environment'			
-	        sh 'int-mon/deploytestenv.sh'
-
+            echo 'Install test Environment'
+            sh 'int-mon/deploytestenv.sh'
        stage 'Test monitoring server'
             echo 'Check monitoring server'
             sh 'int-mon/tests/check_MON2DB_connection.sh'
