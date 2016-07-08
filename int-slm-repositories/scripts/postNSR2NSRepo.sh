@@ -9,7 +9,7 @@ echo $resp
 code=$(echo "$resp" | tail -n1)
 echo "Code: $code"
 
-if [[ $code != 201 ]] ;
+if [[ $code != 200 ]] ;
   then
     echo "Error: Response error $code"
     exit -1
