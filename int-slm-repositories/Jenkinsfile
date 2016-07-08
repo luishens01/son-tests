@@ -21,7 +21,7 @@ node {
             echo 'Testing Phase: scripts'
             sh 'int-slm-repositories/scripts/postNSR2NSRepo.sh'
             sh 'int-slm-repositories/scripts/postVNFR2NFRepo.sh'
-            # sh 'int-slm-repositories/scripts/postNSRVNFR2MonRepo.sh'
+            // sh 'int-slm-repositories/scripts/postNSRVNFR2MonRepo.sh'
 
             stage 'Showing report'
                         echo 'Showing report'
