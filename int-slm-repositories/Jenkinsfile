@@ -17,8 +17,13 @@ node {
        stage 'Testing'
             echo 'Testing Phase'
             sh 'int-slm-repositories/tests.sh'
+            
+            echo 'Testing Phase: scripts'
+            sh 'int-slm-repositories/scripts/postNSR2NSRepo.sh'
+            sh 'int-slm-repositories/scripts/postVNFR2NFRepo.sh'
+            # sh 'int-slm-repositories/scripts/postNSRVNFR2MonRepo.sh'
 
-           stage 'Showing report'
+            stage 'Showing report'
                         echo 'Showing report'
                         publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'htmlReport.html', reportName: 'HTML Report'])
 
@@ -29,7 +34,7 @@ node {
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
                         subject: 'project build successful',
-                        to: 'shuaib.siddiqui@i2cat.net'
+                        to: 'shuaib.siddiqui@i2cat.net, , dani.guija@i2cat.net'
         }
 
 
@@ -40,7 +45,7 @@ node {
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
             subject: 'project build error',
-            to: 'shuaib.siddiqui@i2cat.net'
+            to: 'shuaib.siddiqui@i2cat.net, dani.guija@i2cat.net'
         }
 
     finally {
