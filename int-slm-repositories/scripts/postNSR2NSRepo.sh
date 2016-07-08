@@ -3,7 +3,7 @@
 printf "\n\n======== POST NSR to NS repository ========\n\n\n"
 # -- POST NSR to NS repository
 # curl -H "Content-Type: application/json" -X  POST --d @int-slm-repositories/resources/nsr.json http://api.int.sonata-nfv.eu:4002/records/nsr/ns-instances
-resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X POST -d @int-slm-repositories/resources/nsr.json http://api.int.sonata-nfv.eu:4002/records/nsr/ns-instances)
+resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X POST -d @int-slm-repositories/resources/nsr.json http://sp.int3.sonata-nfv.eu:4002/records/nsr/ns-instances)
 echo $resp
 
 code=$(echo "$resp" | tail -n1)
