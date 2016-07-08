@@ -23,9 +23,9 @@ node {
             sh 'int-slm-repositories/scripts/postVNFR2NFRepo.sh'
             // sh 'int-slm-repositories/scripts/postNSRVNFR2MonRepo.sh'
 
-            stage 'Showing report'
-                        echo 'Showing report'
-                        publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'htmlReport.html', reportName: 'HTML Report'])
+            //stage 'Showing report'
+            //            echo 'Showing report'
+            //            publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'htmlReport.html', reportName: 'HTML Report'])
 
        stage 'Notifications'
             echo 'Sending mails'
