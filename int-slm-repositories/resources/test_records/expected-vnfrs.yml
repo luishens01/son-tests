@@ -1,0 +1,286 @@
+---
+-
+  connection_points:
+    -
+      id: "vnf:cp01"
+      type:
+        address: "10.0.0.1"
+    -
+      id: "vnf:cp02"
+      type:
+        address: "10.0.0.2"
+    -
+      id: "vnf:cp03"
+      type:
+        address: "10.0.0.3"
+  descriptor_reference: e9fc0ebc-82d1-4690-8736-1c5e34dd7285
+  descriptor_version: vnfr-schema-01
+  id: 645db4fa-a714-4cba-9617-4001477d0000
+  status: offline
+  version: "1"
+  virtual_deployment_units:
+    -
+      id: vdu01
+      monitoring_parameters:
+        -
+          name: vm_cpu_perc
+          unit: Percentage
+        -
+          name: vm_mem_perc
+          unit: Percentage
+        -
+          name: vm_disk_usage_perc
+          unit: Percentage
+        -
+          name: vm_net_rx_Bps
+          unit: kbps
+        -
+          name: vm_net_tx_Bps
+          unit: kbps
+        -
+          name: vm_net_rx_MB
+          unit: MB
+        -
+          name: vm_net_tx_MB
+          unit: MB
+      number_of_instances: 1
+      resource_requirements:
+        cpu:
+          vcpus: 1
+        memory:
+          size: 2
+          size_unit: GB
+        storage:
+          size: 10
+          size_unit: GB
+      vdu_reference: "iperf-vnf:vdu01"
+      vm_image: TestVM
+      vnfc_instance:
+        -
+          connection_points:
+            -
+              id: "vdu01:cp01"
+              type:
+                address: "10.31.12.124"
+            -
+              id: "vdu01:cp02"
+              type:
+                address: "172.0.3.98"
+                netmask: "255.255.255.248"
+            -
+              id: "vdu01:cp03"
+              type:
+                address: "172.0.3.106"
+                netmask: "255.255.255.248"
+          id: 9df6a98f-9e11-4cb7-b3c0-InAdUnitTest-02
+          vc_id: 1772a2ce-3bbb-4dca-b39d-42980bd7bc1c
+          vim_id: 5b780368-0f66-4c7a-8c10-4b7213100605
+  virtual_links:
+    -
+      connection_points_reference:
+        - "vdu01:cp01"
+        - "vnf:mgmt"
+      connectivity_type: E-LAN
+      id: mgmt
+    -
+      connection_points_reference:
+        - "vdu01:cp02"
+        - "vnf:input"
+      connectivity_type: E-Line
+      id: input
+    -
+      connection_points_reference:
+        - "vdu01:cp03"
+        - "vnf:output"
+      connectivity_type: E-Line
+      id: output
+-
+  connection_points:
+    -
+      id: "vnf:cp04"
+      type:
+        address: "10.0.0.4"
+    -
+      id: "vnf:cp05"
+      type:
+        address: "10.0.0.5"
+    -
+      id: "vnf:cp06"
+      type:
+        address: "10.0.0.6"
+  descriptor_reference: 5db88a42-b9e1-49d7-8d9f-5e70b549895b
+  descriptor_version: vnfr-schema-01
+  id: 6a15313f-cb0a-4540-baa2-77cc6b3f0000
+  status: offline
+  version: "1"
+  virtual_deployment_units:
+    -
+      id: vdu01
+      monitoring_parameters:
+        -
+          name: vm_cpu_perc
+          unit: Percentage
+        -
+          name: vm_mem_perc
+          unit: Percentage
+        -
+          name: vm_disk_usage_perc
+          unit: Percentage
+        -
+          name: vm_net_rx_Bps
+          unit: kbps
+        -
+          name: vm_net_tx_Bps
+          unit: kbps
+        -
+          name: vm_net_rx_MB
+          unit: MB
+        -
+          name: vm_net_tx_MB
+          unit: MB
+      number_of_instances: 1
+      resource_requirements:
+        cpu:
+          vcpus: 1
+        memory:
+          size: 2
+          size_unit: GB
+        storage:
+          size: 10
+          size_unit: GB
+      vdu_reference: "firewall-vnf:vdu01"
+      vm_image: TestVM
+      vnfc_instance:
+        -
+          connection_points:
+            -
+              id: "vdu01:cp01"
+              type:
+                address: "10.31.12.125"
+            -
+              id: "vdu01:cp02"
+              type:
+                address: "172.0.3.114"
+                netmask: "255.255.255.248"
+            -
+              id: "vdu01:cp03"
+              type:
+                address: "172.0.3.122"
+                netmask: "255.255.255.248"
+          id: 9df6a98f-9e11-4cb7-b3c0-InAdUnitTest-02
+          vc_id: 0cd43432-f6ea-49ab-8d36-6f025f4b8e67
+          vim_id: 5b780368-0f66-4c7a-8c10-4b7213100605
+  virtual_links:
+    -
+      connection_points_reference:
+        - "vdu01:cp01"
+        - "vnf:mgmt"
+      connectivity_type: E-LAN
+      id: mgmt
+    -
+      connection_points_reference:
+        - "vdu01:cp02"
+        - "vnf:input"
+      connectivity_type: E-Line
+      id: input
+    -
+      connection_points_reference:
+        - "vdu01:cp03"
+        - "vnf:output"
+      connectivity_type: E-Line
+      id: output
+-
+  connection_points:
+    -
+      id: "vnf:cp07"
+      type:
+        address: "10.0.0.7"
+    -
+      id: "vnf:cp08"
+      type:
+        address: "10.0.0.8"
+    -
+      id: "vnf:cp09"
+      type:
+        address: "10.0.0.9"
+  descriptor_reference: d1f511c5-7be7-41c2-a07d-0f2d6526c29d
+  descriptor_version: vnfr-schema-01
+  id: 8a0aa837-ec1c-44e5-9907-898f64010000
+  status: offline
+  version: "1"
+  virtual_deployment_units:
+    -
+      id: vdu01
+      monitoring_parameters:
+        -
+          name: vm_cpu_perc
+          unit: Percentage
+        -
+          name: vm_mem_perc
+          unit: Percentage
+        -
+          name: vm_disk_usage_perc
+          unit: Percentage
+        -
+          name: vm_net_rx_Bps
+          unit: kbps
+        -
+          name: vm_net_tx_Bps
+          unit: kbps
+        -
+          name: vm_net_rx_MB
+          unit: MB
+        -
+          name: vm_net_tx_MB
+          unit: MB
+      number_of_instances: 1
+      resource_requirements:
+        cpu:
+          vcpus: 1
+        memory:
+          size: 2
+          size_unit: GB
+        storage:
+          size: 10
+          size_unit: GB
+      vdu_reference: "tcpdump-vnf:vdu01"
+      vm_image: TestVM
+      vnfc_instance:
+        -
+          connection_points:
+            -
+              id: "vdu01:cp01"
+              type:
+                address: "10.31.12.126"
+            -
+              id: "vdu01:cp02"
+              type:
+                address: "172.0.3.131"
+                netmask: "255.255.255.248"
+            -
+              id: "vdu01:cp03"
+              type:
+                address: "172.0.3.138"
+                netmask: "255.255.255.248"
+          id: 9df6a98f-9e11-4cb7-b3c0-InAdUnitTest-02
+          vc_id: dc62df11-18e8-45b5-a869-e3828b9e93fe
+          vim_id: 5b780368-0f66-4c7a-8c10-4b7213100605
+  virtual_links:
+    -
+      connection_points_reference:
+        - "vdu01:cp01"
+        - "vnf:mgmt"
+      connectivity_type: E-LAN
+      id: mgmt
+    -
+      connection_points_reference:
+        - "vdu01:cp02"
+        - "vnf:input"
+      connectivity_type: E-Line
+      id: input
+    -
+      connection_points_reference:
+        - "vdu01:cp03"
+        - "vnf:output"
+      connectivity_type: E-Line
+      id: output
