@@ -56,6 +56,16 @@ if [ "$is_running" = "false" ]; then
 fi
 
 ## TODO Add Monitoring dockers
+# Mysql (Monitoring database)
+# Clean database
+# Removing
+docker rm -fv son-monitor-mysql
+sleep 5
+docker run -d -p 3306:3306 --name son-monitor-mysql registry.sonata-nfv.eu:5000/son-monitor-mysql
+while ! nc -z sp.int3.sonata-nfv.eu 3306; do
+  sleep 1 && echo -n .; # waiting for mysql
+done;
+
 
 export DOCKER_HOST="unix:///var/run/docker.sock"
 
