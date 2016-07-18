@@ -15,7 +15,7 @@ echo "Body: $service"
 
 echo $code
 
-if [[ $code != 200 ]] ;
+if [[ $code != 20[0-1] ]] ;
   then
     echo "Error: Response error $code"
   exit -1
@@ -32,7 +32,7 @@ echo "Code: $code1"
 service1=$(echo "$resp1" | head -n-1)
 echo "Body: $service1"
 
-if [[ $code1 != 200 ]] ;
+if [[ $code1 != 20[0-1] ]] ;
   then
     echo "Error: Response error $code"
   exit -1
