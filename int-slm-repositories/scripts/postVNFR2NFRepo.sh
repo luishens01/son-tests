@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+set -e
 
 printf "\n\n======== POST VNFR to VNF repository ========\n\n\n"
 # -- insert VNFR

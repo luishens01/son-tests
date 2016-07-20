@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+set -e
 
 printf "\n\n======== POST NSR to NS repository ========\n\n\n"
 # -- POST NSR to NS repository

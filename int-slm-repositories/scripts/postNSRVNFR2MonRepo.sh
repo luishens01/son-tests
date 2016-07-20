@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+set -e
 
 printf "\n\n======== POST NSR/VNFR to Monitoring Repository ========\n\n\n"
 # -- Post NSR/VNFR to Monitoring Repository
