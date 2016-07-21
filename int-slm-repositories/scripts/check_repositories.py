@@ -80,7 +80,8 @@ class checkRepositories(unittest.TestCase):
             self.assertEqual(vnfr['virtual_links'], related_vnfr['virtual_links'], "Wrong virtual_links information in VNFR [" + vnfr['uuid'] + "]")
 
 
-
+    # TODO remove skip
+    @unittest.skip("monitoring manager not available")
     def testMonitoring(self):
 
         # [1] Get services from monitoring manager

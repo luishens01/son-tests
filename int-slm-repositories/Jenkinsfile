@@ -19,9 +19,7 @@ node {
             sh 'int-slm-repositories/tests.sh'
             
             echo 'Testing Phase: scripts'
-            sh 'int-slm-repositories/scripts/postNSR2NSRepo.sh'
-            sh 'int-slm-repositories/scripts/postVNFR2NFRepo.sh'
-            // sh 'int-slm-repositories/scripts/postNSRVNFR2MonRepo.sh'
+            sh 'int-slm-repositories/scripts/execute_test.sh'
 
             //stage 'Showing report'
             //            echo 'Showing report'
@@ -34,7 +32,7 @@ node {
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
                         subject: 'project build successful',
-                        to: 'shuaib.siddiqui@i2cat.net, , dani.guija@i2cat.net'
+                        to: 'shuaib.siddiqui@i2cat.net, , dani.guija@i2cat.net, adrian.rosello@i2cat.net'
         }
 
 
@@ -45,7 +43,7 @@ node {
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
             subject: 'project build error',
-            to: 'shuaib.siddiqui@i2cat.net, dani.guija@i2cat.net'
+            to: 'shuaib.siddiqui@i2cat.net, dani.guija@i2cat.net, adrian.rosello@i2cat.net'
         }
 
     finally {
