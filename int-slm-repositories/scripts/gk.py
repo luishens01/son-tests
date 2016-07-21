@@ -47,7 +47,9 @@ def main():
 
 
 def callback(ch, method, properties, body):
-    print(" [x] Received %r" % (body))
+    print(" [x] GK - Received %r" % (body))
+
+
 
 
 if __name__ == '__main__':
