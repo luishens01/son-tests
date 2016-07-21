@@ -7,8 +7,6 @@ node {
     try {
        stage 'Checkout'
             checkout scm
-			sh 'chmod +x int-bss-gkeeper/*.sh'
-			sh 'chmod +x int-bss-gkeeper/scripts/*.sh'
 
        stage 'Deploy'
             echo 'Push to int-server'			
