@@ -2,9 +2,9 @@ import requests
 import unittest
 import yaml
 
-NSR_REPOSITORY_URL = "http://10.31.11.36:4002/records/nsr/"
-VNFR_REPOSITORY_URL = "http://10.31.11.36:4002/records/vnfr/"
-MONITORING_REPOSITORY_URL= "http://10.31.11.36:8000/api/v1/services"
+NSR_REPOSITORY_URL = "http://sp.int3.sonata-nfv.eu:4002/records/nsr/"
+VNFR_REPOSITORY_URL = "http://sp.int3.sonata-nfv.eu:4002/records/vnfr/"
+MONITORING_REPOSITORY_URL= "http://sp.int3.sonata-nfv.eu:8000/api/v1/services"
 
 class checkRepositories(unittest.TestCase):
 
