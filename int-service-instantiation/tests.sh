@@ -18,7 +18,4 @@ while [ "$x" -lt 100 -a ! -e $(pwd)/reports/service_Instantiation_E2E.html ]; do
 		docker cp son-bss:/usr/local/yeoman/SonataBSS/E2E_tests/reports .
 done
 
-# -- Retrieve information
-int-service-instantiation/scripts/getModulesInfoFromGraylog.sh
-
 export DOCKER_HOST="unix:///var/run/docker.sock"
