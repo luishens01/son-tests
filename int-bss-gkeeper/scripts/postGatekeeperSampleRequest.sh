@@ -9,7 +9,7 @@ message=$(echo $message| awk -F"\"uuid\":\"" '{print $NF}')
 uuid=${SERVICES:0:36}
 
 printf "\n\n======== Insert request  ========\n\n\n"
-resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X POST --data-binary '{"service_uuid":"$uuid"}' http://sp.int3.sonata-nfv.eu:32001/requests)
+resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X POST --data-binary '{"service_uuid":"'$uuid'"}' http://sp.int3.sonata-nfv.eu:32001/requests)
 echo $resp
 
 code=$(echo "$resp" | tail -n1)
