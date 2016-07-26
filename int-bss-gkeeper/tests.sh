@@ -1,6 +1,7 @@
 #!/bin/bash
 export DOCKER_HOST="tcp://sp.int3.sonata-nfv.eu:2375"
-docker rm -fv son-bss
+
+if ! [[ "$(docker inspect -f {{.State.Running}} son-bss 2> /dev/null)" == "" ]]; then docker rm -fv son-bss ; fi
 set -x
 set -e
 
