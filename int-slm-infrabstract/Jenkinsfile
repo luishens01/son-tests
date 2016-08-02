@@ -49,6 +49,10 @@ node {
             throw err
         }
 
+        /* Clean the OpenStack envorinoment */
+        sh 'int-slm-infrabstract/clean.sh'
+
+
     }
 
 }
