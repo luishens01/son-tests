@@ -120,7 +120,6 @@ class DemoPlugin1(ManoBasePlugin):
                 os._exit(1)
         if 'status' in msg.keys() and (properties.correlation_id == self.correlation_id):
             if msg['status'] == 'READY':
-                self.removeService(msg)
                 os._exit(0)
 
     def removeService(self, msg):
