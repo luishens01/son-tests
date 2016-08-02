@@ -8,18 +8,6 @@ set -x
 # -- build the trigger-container
 docker build -t slm_ia_trigger ./test-trigger
 
-apt-get update && apt-get install -y \
-	python2.7 \
-	python-pip \
-	python-dev \
-	python-setuptools;
-
-pip install --upgrade pip; 
-pip install --upgrade virtualenv; \
-pip install python-keystoneclient; \
-pip install python-heatclient;
-
-
 # -- run slm and infrabstract containers
 # -- the Int Infrastructure is already running
 # docker-compose -f int-slm-infrabstract/scripts/docker-compose.yml down

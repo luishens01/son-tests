@@ -7,7 +7,6 @@ node {
     try {
        stage 'Checkout'
             checkout scm
-                        sh 'chmod +x int-slm-infrabstract/*.sh'
 
        stage 'Deploy'
             echo 'Push to int-server'
