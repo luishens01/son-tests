@@ -39,8 +39,8 @@ RUN python setup.py install
 WORKDIR /plugin
 RUN python setup.py develop
 WORKDIR /plugin/test_trigger
-RUN chmod +x clean.sh
-RUN chmod +x test.sh
+#RUN chmod +x clean.sh
+#RUN chmod +x test.sh
 
 CMD ['/plugin/test_trigger/test.sh'.'/plugin/test_trigger/clean.sh']
 
