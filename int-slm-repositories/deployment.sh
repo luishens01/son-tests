@@ -1,14 +1,20 @@
 #!/bin/bash
 ### WORK INPROGRESS
+set -x
+set -e
 
 #DEPLOYMENT
 export DOCKER_HOST="tcp://sp.int3.sonata-nfv.eu:2375"
 
+#Removing the containers to refresh the versions
+set +x
+docker rm -fv son-mongo
+docker rm -fv son-monitor-mysql
+docker rm -fv son-monitor-manager
+set -x
+
+
 # MONGODB (CATALOGUE-REPOS)
-# Clean database
-# Removing
-docker rm -fv son-mongo 
-sleep 5
 # Starting
 docker run -d -p 27017:27017 --name son-mongo mongo
 while ! nc -z sp.int3.sonata-nfv.eu 27017; do
@@ -16,15 +22,16 @@ while ! nc -z sp.int3.sonata-nfv.eu 27017; do
 done;
 
 # MySQL (Monitoring)
-# Clean database
-# Removing
-docker rm -fv son-monitor-mysql
-sleep 5
 # Starting
 docker run -d -p 3306:3306 --name son-monitor-mysql registry.sonata-nfv.eu:5000/son-monitor-mysql
 while ! nc -z sp.int3.sonata-nfv.eu 27017; do
   sleep 1 && echo -n .; # waiting for mysql
 done;
+
+#Starting son-monitor to create the mysql databases:
+docker run -d --name son-monitor-manager --add-host mysql:10.31.11.36 --add-host prometheus:10.31.11.36 -p 8000:8000 -v /tmp/monitoring/mgr:/var/log/apache2 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-monitor-manager
+sleep 30
+
 
 # Check if RabbitMQ is running
 if ! nc -z sp.int3.sonata-nfv.eu 5672; then
@@ -55,23 +62,4 @@ if [ "$is_running" = "false" ]; then
   done
 fi
 
-## TODO Add Monitoring dockers
-
 export DOCKER_HOST="unix:///var/run/docker.sock"
-
-#DEPLOYMENT
-#export DOCKER_HOST="tcp://sp.int3.sonata-nfv.eu:2375"
-
-# --run run SLM and catalogue/repositories containers
-#docker-compose -f int-slm-repositories/scripts/docker-compose.yml down
-#docker-compose -f int-slm-repositories/scripts/docker-compose.yml up -d
-#sleep 10
-
-# -- Post NSR/VNFR to NS, NF and Monitoring repositories
-#int-slm-repositories/scripts/postNSR2NSRepo.sh
-#int-slm-repositories/scripts/postVNFR2NFRepo.sh
-#int-slm-repositories/scripts/postNSRVNFR2MonRepo.sh
-#sleep 5
-
-# -- SLM
-#export DOCKER_HOST="unix:///var/run/docker.sock"
