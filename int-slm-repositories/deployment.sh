@@ -8,7 +8,7 @@ export DOCKER_HOST="tcp://sp.int3.sonata-nfv.eu:2375"
 
 #Removing the containers to refresh the versions
 set +x
-docker rm -fv son-mongo 
+docker rm -fv son-mongo
 docker rm -fv son-monitor-mysql
 docker rm -fv son-monitor-manager
 set -x
