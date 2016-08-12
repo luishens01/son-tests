@@ -72,4 +72,6 @@ docker run -d -i --name 'son-cli-int-test' --net='host' --pid='host' --privilege
 
 # prepare son-cli-int-test container for tests
 docker cp int-sdk/tests son-cli-int-test:/
+docker exec son-cli-int-test apt-get clean
+docker exec son-cli-int-test apt-get update
 docker exec son-cli-int-test apt-get install -y curl unzip
