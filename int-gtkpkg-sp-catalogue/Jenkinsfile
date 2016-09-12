@@ -28,6 +28,10 @@ node {
             echo 'GET Functions'
             sh 'int-gtkpkg-sp-catalogue/tests3.sh'
 
+       stage 'Test4: GET Packages'
+            echo 'GET Packages'
+            sh 'int-gtkpkg-sp-catalogue/tests4.sh'
+
        stage 'Notifications'
             echo 'Sending mails'
 
