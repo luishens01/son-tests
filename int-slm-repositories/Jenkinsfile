@@ -28,7 +28,7 @@ node {
        stage 'Notifications'
             echo 'Sending mails'
 
-            mail body: 'project build successful',
+            mail body: 'int-slm-repositories project build successful',
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
                         subject: 'project build successful',
@@ -39,7 +39,7 @@ node {
     catch (caughtError) {
         err = caughtError
         currentBuild.result = "FAILURE"
-            mail body: "project build error: ${err}" ,
+            mail body: "int-slm-repositories project build error: ${err}" ,
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
             subject: 'project build error',
