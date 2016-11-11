@@ -16,8 +16,8 @@ node {
             echo 'GK and Catalogues UP'
             sh 'int-gtkpkg-sp-catalogue/tests.sh'
 
-       stage 'Test1: POST Package'
-            echo 'POST Package'
+       stage 'Test1: POST SON Package'
+            echo 'POST SON Package'
             sh 'int-gtkpkg-sp-catalogue/tests1.sh'
        
        stage 'Test2: GET Services'
@@ -31,6 +31,10 @@ node {
        stage 'Test4: GET Packages'
             echo 'GET Packages'
             sh 'int-gtkpkg-sp-catalogue/tests4.sh'
+
+       stage 'Test5: GET SON Package'
+                   echo 'GET SON Package'
+                   sh 'int-gtkpkg-sp-catalogue/tests5.sh'
 
        stage 'Notifications'
             echo 'Sending mails'
