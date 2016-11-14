@@ -10,7 +10,7 @@ echo "Code: $code"
 package=$(echo "$resp" | head -n-1)
 echo "Body: $package"
 
-uuid=$(echo $package  |  python -mjson.tool | grep "uuid" | awk -F'[=:]' '{print $2}' | sed 's/\"//g' | tr -d ',')
+uuid=$(echo $package  |  python -mjson.tool | grep "uuid" | awk -F'[=:]' '{print $2}' | sed 's/\"//g' | tr -d ',' | tr -d '[:space:]')
 echo "UUID: $uuid"
 
 if [[ $code != 200 ]] ;
