@@ -10,7 +10,7 @@ echo "Code: $code"
 service=$(echo "$resp" | head -n-1)
 echo "Body: $service"
 
-uuid=$(echo $service  |  python -mjson.tool | grep "uuid" | awk -F'[=:]' '{print $2}' | sed 's/\"//g' | tr -d ',')
+uuid=$(echo $service  |  python -mjson.tool | grep "uuid" | awk -F'[=:]' '{print $2}' | sed 's/\"//g' | tr -d ',' | tr -d '[:space:]')
 echo "UUID: $uuid"
 
 if [[ $code != 200 ]] ;

@@ -4,10 +4,12 @@ resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X GET h
 echo $resp
 
 package=$(echo "$resp" | head -n-1)
-uuid=$(echo $package  |  python -mjson.tool | grep "uuid" | awk -F'[=:]' '{print $2}' | sed 's/\"//g' | tr -d ',')
+uuid=$(echo $package  |  python -mjson.tool | grep "uuid" | awk -F'[=:]' '{print $2}' | sed 's/\"//g' | tr -d ',' | tr -d '[:space:]')
 echo "UUID: $uuid"
 
 printf "\n\n======== GET SON Package from Gatekeeper ========\n\n\n"
+#url=$(echo http://sp.int3.sonata-nfv.eu:32001/packages/${uuid})
+#echo "URL: $url"
 resp=$(curl -qSfsw '\n%{http_code}' -X GET http://sp.int3.sonata-nfv.eu:32001/packages/${uuid}) 2>/dev/null
 echo $resp
 
