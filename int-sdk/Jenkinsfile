@@ -37,10 +37,11 @@ node {
        stage 'Test 1.5: Package Projects'
             sh "printheader 'Testing: Package standalone project'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj1 -d packages/package.1.standalone -n sonata-demo-docker'"
-       //     sh "printheader 'Testing: Package dependent project'"
-       //     sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj2 -d packages/package.2.dependent -n sonata-demo-docker'"
 
-       stage 'Test 1.6: Push Projects to emu GK'
+            //sh "printheader 'Testing: Package dependent project'"
+            //sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws1 --project projects/prj2 -d packages/package.2.dependent -n sonata-demo-docker'"
+
+       //stage 'Test 1.6: Push Projects to emu GK'
             sh "printheader 'Testing: Push package (project standalone) to emulator GK'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.1.standalone/sonata-demo-docker.son http://127.0.0.1:5000'"
        //     sh "printheader 'Testing: Push package (project dependent) to emulator GK'"
@@ -76,7 +77,7 @@ node {
        //     sh "printheader 'Testing: Package dependent project'"
        //     sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-package --workspace workspaces/ws2 --project projects/prj4 -d packages/package.4.dependent -n sonata-demo'"
 
-       stage 'Test 2.6: Push Projects to Service Platform GK'
+       // stage 'Test 2.6: Push Projects to Service Platform GK'
             sh "printheader 'Testing: Push package (project standalone) to SP-GK'"
             sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-push -U packages/package.3.standalone/sonata-demo.son http://sp.int3.sonata-nfv.eu:32001'"
        //     sh "printheader 'Testing: Push package (project dependent) to SP-GK'"
