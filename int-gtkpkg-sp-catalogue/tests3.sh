@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 printf "\n\n======== GET Function from Gatekeeper  ========\n\n\n"
-resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X GET http://sp.int.sonata-nfv.eu:32001/functions?fields=uuid,name,version,vendor) 2>/dev/null
+resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X GET http://sp.int.sonata-nfv.eu:32001/api/v2/functions?fields=uuid,name,version,vendor) 2>/dev/null
 echo $resp
 
 code=$(echo "$resp" | tail -n1)

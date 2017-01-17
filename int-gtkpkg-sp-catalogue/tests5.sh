@@ -12,7 +12,7 @@
 #echo "Code: $code"
 
 printf "\n\n======== GET Package UUID from Gatekeeper  ========\n\n\n"
-resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X GET http://sp.int3.sonata-nfv.eu:32001/packages) 2>/dev/null
+resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/packages) 2>/dev/null
 echo $resp
 
 package=$(echo "$resp" | head -n-1)
@@ -22,7 +22,7 @@ echo "UUID: $uuid"
 printf "\n\n======== GET SON Package from Gatekeeper ========\n\n\n"
 #url=$(echo http://sp.int3.sonata-nfv.eu:32001/packages/${uuid})
 #echo "URL: $url"
-resp=$(curl -qSfsw '\n%{http_code}' -X GET http://sp.int3.sonata-nfv.eu:32001/packages/${uuid}) 2>/dev/null
+resp=$(curl -qSfsw '\n%{http_code}' -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/packages/${uuid}) 2>/dev/null
 echo $resp
 
 code=$(echo "$resp" | tail -n1)
