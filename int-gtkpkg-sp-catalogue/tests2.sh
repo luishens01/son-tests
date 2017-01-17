@@ -18,3 +18,15 @@ if [[ $code != 200 ]] ;
     echo "Error: Response error $code"
     exit -1
 fi
+
+resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/services/$uuid) 2>/dev/null
+echo $resp
+
+code=$(echo "$resp" | tail -n1)
+echo "Code: $code"
+
+if [[ $code != 200 ]] ;
+  then
+    echo "Error: Response error $code"
+    exit -1
+fi
