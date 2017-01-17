@@ -5,7 +5,7 @@
 # It receives one argument, the message to be printed.
 #
 
-if [[ $# != 1 ]]; then
+if (( $# != 1 )); then
         echo "Usage: `basename "$0"` <message>"
         exit 1
 fi
