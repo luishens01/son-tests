@@ -10,11 +10,11 @@ node {
 
        stage 'Deploy'
             echo 'Push to int-server'
-                        sh 'int-slm-infrabstract/deployment.sh'
+                        sh 'int-slm-infrabstractV1/deployment.sh'
 
        stage 'Testing'
             echo 'Testing Phase'
-            sh 'int-slm-infrabstract/tests.sh'
+            sh 'int-slm-infrabstractV1/tests.sh'
 
        stage 'Notifications'
             echo 'Sending mails'
@@ -44,7 +44,7 @@ node {
         }
 
         /* Clean the OpenStack envorinoment */
-        sh 'int-slm-infrabstract/clean.sh'
+        sh 'int-slm-infrabstractV1/clean.sh'
 
 
     }
