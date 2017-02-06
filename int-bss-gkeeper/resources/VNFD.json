@@ -1,10 +1,41 @@
-{
-  "descriptor_versio": "vnfd-schema-01",
+[
+  {
+  "descriptor_version": "vnfd-schema-01",
   "vendor": "eu.sonata-nfv",
   "name": "firewall-vnf",
-  "version": "0.1",
+  "version": "0.3",
   "author": "Steven van Rossem, iMinds",
   "description": "\"A first firewall VNF descriptor\"\n",
+  "function_specific_managers": [
+    {
+      "id": "fms01",
+      "description": "A FSM based on Ubuntu 16.04 LTS.",
+      "image": "ubuntu:16.04",
+      "options": [
+        {
+          "key": "myKey",
+          "value": "myValue"
+        }
+      ]
+    },
+    {
+      "id": "fms02",
+      "image": "ubuntu:14.04",
+      "resource_requirements": {
+        "docker_version": "1.12"
+      },
+      "options": [
+        {
+          "key": "myKey",
+          "value": "myValue"
+        },
+        {
+          "key": "myOhterKey",
+          "value": "myOtherValue"
+        }
+      ]
+    }
+  ],
   "virtual_deployment_units": [
     {
       "id": "vdu01",
@@ -152,6 +183,169 @@
       ]
     }
   ]
+},
+{
+  "descriptor_version": "vnfd-schema-01",
+  "vendor": "eu.sonata-nfv",
+  "name": "iperf-vnf",
+  "version": "0.2",
+  "author": "Steven van Rossem, iMinds",
+  "description": "\"A first iperf VNF descriptor. The iperf VNF  acts as a traffic source.\"\n",
+  "virtual_deployment_units": [
+    {
+      "id": "vdu01",
+      "vm_image": "file:///docker_files/iperf/Dockerfile",
+      "vm_image_format": "docker",
+      "resource_requirements": {
+        "cpu": {
+          "vcpus": 1
+        },
+        "memory": {
+          "size": 2,
+          "size_unit": "GB"
+        },
+        "storage": {
+          "size": 10,
+          "size_unit": "GB"
+        }
+      },
+      "connection_points": [
+        {
+          "id": "vdu01:cp01",
+          "type": "interface"
+        },
+        {
+          "id": "vdu01:cp02",
+          "type": "interface"
+        },
+        {
+          "id": "vdu01:cp03",
+          "type": "interface"
+        }
+      ]
+    }
+  ],
+  "virtual_links": [
+    {
+      "id": "mgmt",
+      "connectivity_type": "E-LAN",
+      "connection_points_reference": [
+        "vdu01:cp01",
+        "mgmt"
+      ]
+    },
+    {
+      "id": "input",
+      "connectivity_type": "E-Line",
+      "connection_points_reference": [
+        "vdu01:cp02",
+        "input"
+      ]
+    },
+    {
+      "id": "output",
+      "connectivity_type": "E-Line",
+      "connection_points_reference": [
+        "vdu01:cp03",
+        "output"
+      ]
+    }
+  ],
+  "connection_points": [
+    {
+      "id": "mgmt",
+      "type": "interface"
+    },
+    {
+      "id": "input",
+      "type": "interface"
+    },
+    {
+      "id": "output",
+      "type": "interface"
+    }
+  ]
+},
+{
+  "descriptor_version": "vnfd-schema-01",
+  "vendor": "eu.sonata-nfv",
+  "name": "tcpdump-vnf",
+  "version": "0.2",
+  "author": "Steven van Rossem, iMinds",
+  "description": "\"A first tcpdump VNF descriptor. The tcpdump  VNF acts as a traffic sink.\"\n",
+  "virtual_deployment_units": [
+    {
+      "id": "vdu01",
+      "vm_image": "file:///docker_files/tcpdump/Dockerfile",
+      "vm_image_format": "docker",
+      "resource_requirements": {
+        "cpu": {
+          "vcpus": 1
+        },
+        "memory": {
+          "size": 2,
+          "size_unit": "GB"
+        },
+        "storage": {
+          "size": 10,
+          "size_unit": "GB"
+        }
+      },
+      "connection_points": [
+        {
+          "id": "vdu01:cp01",
+          "type": "interface"
+        },
+        {
+          "id": "vdu01:cp02",
+          "type": "interface"
+        },
+        {
+          "id": "vdu01:cp03",
+          "type": "interface"
+        }
+      ]
+    }
+  ],
+  "virtual_links": [
+    {
+      "id": "mgmt",
+      "connectivity_type": "E-LAN",
+      "connection_points_reference": [
+        "vdu01:cp01",
+        "mgmt"
+      ]
+    },
+    {
+      "id": "input",
+      "connectivity_type": "E-Line",
+      "connection_points_reference": [
+        "vdu01:cp02",
+        "input"
+      ]
+    },
+    {
+      "id": "output",
+      "connectivity_type": "E-Line",
+      "connection_points_reference": [
+        "vdu01:cp03",
+        "output"
+      ]
+    }
+  ],
+  "connection_points": [
+    {
+      "id": "mgmt",
+      "type": "interface"
+    },
+    {
+      "id": "input",
+      "type": "interface"
+    },
+    {
+      "id": "output",
+      "type": "interface"
+    }
+  ]
 }
-
-
+]
