@@ -6,7 +6,7 @@ set -e
 set -x
 
 # -- build the trigger-container
-docker build -t slm_ia_trigger ./int-slm-infrabstract/test-trigger
+docker build -t slm_ia_trigger ./int-slm-infrabstractV1/test-trigger
 
 # -- run slm and infrabstract containers
 # -- the Int Infrastructure is already running
