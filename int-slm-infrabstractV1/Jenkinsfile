@@ -1,0 +1,54 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+            checkout scm
+
+       stage 'Deploy'
+            echo 'Push to int-server'
+                        sh 'int-slm-infrabstract/deployment.sh'
+
+       stage 'Testing'
+            echo 'Testing Phase'
+            sh 'int-slm-infrabstract/tests.sh'
+
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'project build successful',
+                        to: 'shuaib.siddiqui@i2cat.net'
+        }
+
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'project build error',
+            to: 'shuaib.siddiqui@i2cat.net'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+        /* Clean the OpenStack envorinoment */
+        sh 'int-slm-infrabstract/clean.sh'
+
+
+    }
+
+}
+
+
