@@ -32,8 +32,7 @@ node {
 
        stage 'Test 1.6: Push Projects to SP'
             sh "printheader 'Testing: Push package (project standalone) to SP'"
-            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests;
-            son-access -w workspaces/ws1 push --upload packages/package.1.standalone/sonata-demo-docker.son'"
+            sh "docker exec son-cli-int-test /bin/bash -c 'cd /tests; son-access -w workspaces/ws1 push --upload packages/package.1.standalone/sonata-demo-docker.son'"
 
        stage 'Clean Environment'
             sh "printheader 'Clean dir structure, clean catalogue and prepare environment'"
