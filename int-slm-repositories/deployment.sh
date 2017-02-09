@@ -10,7 +10,7 @@ export DOCKER_HOST="tcp://sp.int3.sonata-nfv.eu:2375"
 #set +x
 set +e
 docker rm -fv son-mongo
-docker rm -fv son-monitor-mysql
+docker rm -fv son-monitor-postgres
 docker rm -fv son-monitor-manager
 #set -x
 set -e
@@ -24,13 +24,13 @@ done;
 
 # MySQL (Monitoring)
 # Starting
-docker run -d -p 3306:3306 --name son-monitor-mysql registry.sonata-nfv.eu:5000/son-monitor-mysql
-while ! nc -z sp.int3.sonata-nfv.eu 27017; do
-  sleep 1 && echo -n .; # waiting for mysql
+docker run -d -p 5433:5432 --name son-monitor-postgres -e POSTGRES_DB=monitoring -e POSTGRES_USER=monitoringuser -e POSTGRES_PASSWORD=sonata ntboes/postgres-uuid
+while ! nc -z sp.int3.sonata-nfv.eu 5433; do
+  sleep 1 && echo -n .; # waiting for postgres
 done;
 
 #Starting son-monitor to create the mysql databases:
-docker run -d --name son-monitor-manager --add-host mysql:10.31.11.36 --add-host prometheus:10.31.11.36 -p 8000:8000 -v /tmp/monitoring/mgr:/var/log/apache2 --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-monitor-manager
+docker run -d --name son-monitor-manager --add-host postgsql:10.30.0.112 --add-host prometheus:10.30.0.112 -p 8000:8000 -v /tmp/monitoring/mgr:/var/log/apache2 registry.sonata-nfv.eu:5000/son-monitor-manager
 sleep 30
 
 
