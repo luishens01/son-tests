@@ -49,7 +49,6 @@ class DemoPlugin1(ManoBasePlugin):
         # Examples to demonstrate how a plugin can listen to certain events:
         self.manoconn.register_async_endpoint(self._on_example_request, "example.plugin.*.request")
         self.manoconn.register_notification_endpoint(self._on_example_notification,"example.plugin.*.notification")
-        self.manoconn.subscribe(self.on_infrastructure_adaptor_reply, "infrastructure.service.remove")
 
     def run(self):
         """
@@ -58,6 +57,7 @@ class DemoPlugin1(ManoBasePlugin):
         LOG.info('corr_id:'+self.correlation_id)
         time.sleep(30)
         LOG.info('Timeout')
+        self.deregister()
         os._exit(1)
 
     def on_registration_ok(self):
@@ -78,9 +78,11 @@ class DemoPlugin1(ManoBasePlugin):
         if 'request_status' in msg.keys() and (properties.correlation_id == self.correlation_id):
             if msg['request_status'] == 'SUCCESS':
                 LOG.info('instance removed succesfully')
+                self.deregister()
                 os._exit(0)
             else:
                 LOG.error('error during service remove')
+                self.deregister()
                 os._exit(1)
 
     def removeService(self,id):

@@ -75,6 +75,7 @@ class DemoPlugin1(ManoBasePlugin):
         LOG.debug('corr_id:'+self.correlation_id)
         time.sleep(360)
         LOG.debug('Timeout')
+        self.deregister()
         os._exit(1)
 
     def on_registration_ok(self):
@@ -117,10 +118,12 @@ class DemoPlugin1(ManoBasePlugin):
         if 'error' in msg.keys() and (properties.correlation_id == self.correlation_id):
             if msg['error'] != None:
                 LOG.debug(msg['error'])
+                self.deregister()
                 os._exit(1)
         if 'status' in msg.keys() and (properties.correlation_id == self.correlation_id):
             if msg['status'] == 'READY':
                 LOG.info('OUTPUT:'+msg['nsr']['id'])
+                self.deregister()
                 os._exit(0)
 
     def removeService(self, msg):
