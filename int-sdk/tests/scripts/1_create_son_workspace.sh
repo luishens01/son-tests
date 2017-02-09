@@ -21,6 +21,6 @@ son-workspace --init --debug --workspace $1
 
 # Configure workspace
 printf "\n\n==> Configure workspace '%s'\n\n" "$1"
-sed -ri '/^.*catalogue_servers:|id:|publish:|url:.*$/d' $1/workspace.yml
-echo -e "catalogue_servers:\n- id: cat1\n  publish: 'yes'\n  url: $cat_server1" >> $1/workspace.yml
+# sed -ri '/^.*catalogue_servers:|id:|publish:|url:.*$/d' $1/workspace.yml
+# echo -e "catalogue_servers:\n- id: cat1\n  publish: 'yes'\n  url: $cat_server1" >> $1/workspace.yml
 
