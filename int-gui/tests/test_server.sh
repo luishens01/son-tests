@@ -10,7 +10,7 @@ if [ -z "$contId" ];
 fi
 
 
-result=$(docker exec $contId grunt check_server | grep Done)
+result=$(docker exec $contId grunt check_server --force | grep Done)
 
 if [ -z "$result" ];
  then
