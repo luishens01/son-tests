@@ -55,7 +55,7 @@ class DemoPlugin1(ManoBasePlugin):
         Plugin logic. Does nothing in our example.
         """
         LOG.info('corr_id:'+self.correlation_id)
-        time.sleep(30)
+        time.sleep(120)
         LOG.info('Timeout')
         self.deregister()
         os._exit(1)
