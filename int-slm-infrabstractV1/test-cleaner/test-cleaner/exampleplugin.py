@@ -75,8 +75,8 @@ class DemoPlugin1(ManoBasePlugin):
     def on_infrastructure_adaptor_reply(self, ch, method, properties, message):
         LOG.debug(json.loads(message))
         msg = json.loads(message)
-        if 'request_status' in msg.keys() and (properties.correlation_id == self.correlation_id):
-            if msg['request_status'] == 'SUCCESS':
+        if 'status' in msg.keys() and (properties.correlation_id == self.correlation_id):
+            if msg['status'] == 'SUCCESS':
                 LOG.info('instance removed succesfully')
                 self.deregister()
                 os._exit(0)
