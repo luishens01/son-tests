@@ -10,9 +10,9 @@ node {
                         sh 'chmod +x int-slm-repositories/*.sh'
                         sh 'chmod +x int-slm-repositories/scripts/*.sh'
 
-       stage 'Deploy'
-            echo 'Push to int-server'
-                        sh 'int-slm-repositories/deployment.sh'
+       //stage 'Deploy'
+       //     echo 'Push to int-server'
+       //                 sh 'int-slm-repositories/deployment.sh'
 
        stage 'Testing'
             echo 'Testing Phase'
