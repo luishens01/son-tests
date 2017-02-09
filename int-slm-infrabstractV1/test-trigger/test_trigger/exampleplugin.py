@@ -47,26 +47,11 @@ class DemoPlugin1(ManoBasePlugin):
         # We have to call our super class here
         super(self.__class__, self).declare_subscriptions()
         # Examples to demonstrate how a plugin can listen to certain events:
-        self.manoconn.register_async_endpoint(
-            self._on_example_request,  # call back method (expected to return a response message)
-            "example.plugin.*.request")
-        self.manoconn.register_notification_endpoint(
-            self._on_example_notification,  # call back method
-            "example.plugin.*.notification")
-
-        #Faking the IA, currently disabled.
-#        self.manoconn.register_notification_endpoint(
-#            self.on_service_deploy_request,
-#            "infrastructure.service.deploy")
-#
-        # Activate this to sniff and print all messages on the broker
-#        self.manoconn.subscribe(self.callback_print, "infrastructure.service.deploy")
-
+        self.manoconn.register_async_endpoint(self._on_example_request, "example.plugin.*.request")
+        self.manoconn.register_notification_endpoint(self._on_example_notification, "example.plugin.*.notification")
         #We need to receive all messages from the slm intended for the gk
         self.manoconn.subscribe(self.on_slm_messages, "service.instances.create")
-
         self.manoconn.subscribe(self.on_list, "infrastructure.management.compute.list")
-        #self.manoconn.subscribe(self.on_infrastructure_adaptor_reply, "infrastructure.service.remove")
 
     def run(self):
         """
@@ -86,11 +71,6 @@ class DemoPlugin1(ManoBasePlugin):
 
     def on_lifecycle_start(self, ch, method, properties, message):
         super(self.__class__, self).on_lifecycle_start(ch, method, properties, message)
-
-        #We don't add VIM(s) in integration environment. The IA is configured
-        # vim_message = json.dumps({'tenant':'iMinds', 'wr_type' : 'compute', 'vim_type': 'Mock', 'vim_address' : 'http://localhost:9999', 'username' : 'Eve', 'pass':'Operator'})
-	#self.manoconn.call_async(self.on_infrastructure_adaptor_reply, 'infrastructure.management.compute.add',vim_message)
-        #time.sleep(3)
 
         #At deployment, this plugin generates a service request, identical to how the GK will do it in the future.
         message = self.createGkNewServiceRequestMessage()
@@ -125,16 +105,6 @@ class DemoPlugin1(ManoBasePlugin):
                 LOG.info('OUTPUT:'+msg['nsr']['id'])
                 self.deregister()
                 os._exit(0)
-
-    def removeService(self, msg):
-        id = msg['nsr']['id']
-        LOG.debug('removing the deployed service')
-        vim_message = json.dumps({'instance_uuid':id,'vim_uuid':'1111-22222222-33333333-4444'})
-        LOG.debug('sending message:',vim_message)
-        self.manoconn.call_async(self.on_infrastructure_adaptor_reply, 'infrastructure.service.remove',vim_message)
-        time.sleep(30)
-
-
 
     def callback_print(self, ch, method, properties, message):
 
@@ -184,15 +154,8 @@ class DemoPlugin1(ManoBasePlugin):
 
         return yaml.dump(service_request)
 
-    def createInfrastructureAdapterResponseMessage(self):
-        path_descriptors = 'test_records/'
-
-        ia_nsr = yaml.load(open(path_descriptors + 'ia-nsr.yml','r'))
-
-        return str(ia_nsr)
-
     def on_list(self, ch, method, properties, message):
-        LOG.debug(properties)
+        LOG.debug("IA VIM list: " + message)
 
 
 def main():
