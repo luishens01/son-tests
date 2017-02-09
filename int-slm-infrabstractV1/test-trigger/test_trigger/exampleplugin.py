@@ -16,7 +16,7 @@ sys.path.append("../son-mano-base")
 from sonmanobase.plugin import ManoBasePlugin
 
 logging.basicConfig(level=logging.INFO)
-LOG = logging.getLogger("plugin:example-plugin-1")
+LOG = logging.getLogger("plugin:int_test_trigger")
 LOG.setLevel(logging.DEBUG)
 
 
@@ -72,9 +72,10 @@ class DemoPlugin1(ManoBasePlugin):
         """
         Plugin logic. Does nothing in our example.
         """
-        print('corr_id:'+self.correlation_id)
+        LOG.debug('corr_id:'+self.correlation_id)
         time.sleep(360)
-        print('Timeout')
+        LOG.debug('Timeout')
+        self.deregister()
         os._exit(1)
 
     def on_registration_ok(self):
@@ -103,7 +104,7 @@ class DemoPlugin1(ManoBasePlugin):
 
     def on_infrastructure_adaptor_reply(self, ch, method, properties, message):
 
-        print('infra response: ' + str(json.loads(str(message, "utf-8"))))
+        LOG.debug('infra response: ' + str(json.loads(str(message, "utf-8"))))
 
     def on_slm_messages(self, ch, method, properties, message):
         """
@@ -111,22 +112,25 @@ class DemoPlugin1(ManoBasePlugin):
         """
         msg = yaml.load(message)
 
-        print("RESPONSE FROM GK START")
-        print(msg)
-        print("RESPONSE FROM GK END")
+        LOG.debug("RESPONSE FROM SLM START")
+        LOG.debug(yaml.dump(msg))
+        LOG.debug("RESPONSE FROM SLM END")
         if 'error' in msg.keys() and (properties.correlation_id == self.correlation_id):
             if msg['error'] != None:
-                print(msg['error'])
+                LOG.debug(msg['error'])
+                self.deregister()
                 os._exit(1)
         if 'status' in msg.keys() and (properties.correlation_id == self.correlation_id):
             if msg['status'] == 'READY':
+                LOG.info('OUTPUT:'+msg['nsr']['id'])
+                self.deregister()
                 os._exit(0)
 
     def removeService(self, msg):
         id = msg['nsr']['id']
-        print('removing the deployed service')
+        LOG.debug('removing the deployed service')
         vim_message = json.dumps({'instance_uuid':id,'vim_uuid':'1111-22222222-33333333-4444'})
-        print('sending message:',vim_message)
+        LOG.debug('sending message:',vim_message)
         self.manoconn.call_async(self.on_infrastructure_adaptor_reply, 'infrastructure.service.remove',vim_message)
         time.sleep(30)
 
@@ -134,8 +138,8 @@ class DemoPlugin1(ManoBasePlugin):
 
     def callback_print(self, ch, method, properties, message):
 
-        print('correlation_id: ' + str(properties.correlation_id))
-        print('message: ' + str(message))
+        LOG.debug('correlation_id: ' + str(properties.correlation_id))
+        LOG.debug('message: ' + str(message))
 
     def on_service_deploy_request(self, ch, method, properties, message):
         """
@@ -150,20 +154,20 @@ class DemoPlugin1(ManoBasePlugin):
         """
         Only used for the examples.
         """
-        print("Example message: %r " % message)
+        LOG.debug("Example message: %r " % message)
         return json.dumps({"content" : "my response"})
 
     def _on_example_request_response(self, ch, method, properties, message):
         """
         Only used for the examples.
         """
-        print("Example message: %r " % message)
+        LOG.debug("Example message: %r " % message)
 
     def _on_example_notification(self, ch, method, properties, message):
         """
         Only used for the examples.
         """
-        print("Example message: %r " % message)
+        LOG.debug("Example message: %r " % message)
 
     def createGkNewServiceRequestMessage(self):
         """
@@ -188,7 +192,7 @@ class DemoPlugin1(ManoBasePlugin):
         return str(ia_nsr)
 
     def on_list(self, ch, method, properties, message):
-        print(properties)
+        LOG.debug(properties)
 
 
 def main():

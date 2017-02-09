@@ -7,6 +7,10 @@ set -x
 
 # -- build the trigger-container
 docker build -t slm_ia_trigger ./int-slm-infrabstractV1/test-trigger
+docker build -t slm_ia_cleaner ./int-slm-infrabstractV1/test-cleaner
+
+echo "" > ./int-slm-infrabstractV1/triggerLog.txt
+echo "" > ./int-slm-infrabstractV1/instanceId.conf
 
 # -- run slm and infrabstract containers
 # -- the Int Infrastructure is already running
@@ -22,4 +26,5 @@ docker build -t slm_ia_trigger ./int-slm-infrabstractV1/test-trigger
 # sleep 180
 
 #export DOCKER_HOST="unix:///var/run/docker.sock"
+
 

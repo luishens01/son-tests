@@ -4,7 +4,7 @@
 ## Some general information regarding this
 ## VNF descriptor.
 ##
-descriptor_version: "vnfd-schema-01"
+descriptor_version: "vnfd-schema-02"
 vendor: "eu.sonata-nfv"
 name: "fw-vnf"
 version: "0.1"
