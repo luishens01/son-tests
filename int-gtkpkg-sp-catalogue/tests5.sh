@@ -21,11 +21,6 @@ uuid=$(echo $package  |  python -mjson.tool | grep -w "uuid" | awk -F'[=:]' '{pr
 echo "SON_PACKAGE_UUID: $son_package_uuid"
 echo "UUID: $uuid"
 
-#foo=${uuid#$son_package_uuid}
-#echo "FOO!: $foo"
-
-
-
 printf "\n\n======== GET Package from Gatekeeper ========\n\n\n"
 #url=$(echo http://sp.int3.sonata-nfv.eu:32001/packages/${uuid})
 #echo "URL: $url"
@@ -58,7 +53,7 @@ echo "Not implemented yet"
 #fi
 
 printf "\n\n======== GET SON Package UUID from Catalogue  ========\n\n\n"
-resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X GET http://sp.int3.sonata-nfv.eu:4002/catalogues/son-packages) 2>/dev/null
+resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -X GET http://sp.int3.sonata-nfv.eu:4002/catalogues/api/v2/son-packages) 2>/dev/null
 echo $resp
 
 package=$(echo "$resp" | head -n-1)
@@ -69,7 +64,7 @@ printf "\n\n======== GET SON Package from Catalogue ========\n\n\n"
 #echo "Not implemented yet"
 #url=$(echo http://sp.int3.sonata-nfv.eu:4002/catalogues/son-packages/${uuid})
 #echo "URL: $url"
-resp=$(curl -qSfsw '\n%{http_code}' -X GET http://sp.int3.sonata-nfv.eu:4002/catalogues/son-packages/${son_package_uuid}) 2>/dev/null
+resp=$(curl -qSfsw '\n%{http_code}' -X GET http://sp.int3.sonata-nfv.eu:4002/catalogues/api/v2/son-packages/${son_package_uuid}) 2>/dev/null
 echo $resp
 
 code=$(echo "$resp" | tail -n1)
