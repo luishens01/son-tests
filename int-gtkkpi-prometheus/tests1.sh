@@ -38,3 +38,5 @@ if [[ !("$counter_value" == "$((first_value+3))") ]]; then
 	echo "Error: Counter did not be incremented"
 	exit -1
 fi
+
+echo "Success: Counter incremented"

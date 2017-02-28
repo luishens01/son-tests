@@ -12,6 +12,8 @@ echo "There are $counter_value registered KPIs in the system"
 
 if [[$counter_value -lt 2]] ;
 	then
-		echo "Error: Counter did not be incremented"
+		echo "Error: KPIs list does not contain any element"
 		exit -1
 fi
+
+echo "Success: KPIs list retrieved"

@@ -54,3 +54,5 @@ if [[ !("$counter_value" == "$((first_value+2))") ]]; then
 	echo "Error: Counter did not be decremented"
 	exit -1
 fi
+
+echo "Success: gauge incremented and decremented"
