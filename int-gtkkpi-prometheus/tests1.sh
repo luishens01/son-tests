@@ -10,6 +10,7 @@ if [[ $code != 201 ]] ;
     	exit -1
 fi
 resp=$(curl -H 'Content-Type: application/json' -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_counter&base_labels[label1]=value1&base_labels[label2]=value2)
+echo $resp
 first_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
 echo "Counter example_counter created/updated with value $first_value"
 
