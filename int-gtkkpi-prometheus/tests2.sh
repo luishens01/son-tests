@@ -23,6 +23,7 @@ while [  $index -lt 3 ]; do
     		echo "Error: Response error $code"
     		exit -1
 	fi
+	index=$((index+1))
 done
 
 # Get the couter value
