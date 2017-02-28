@@ -3,8 +3,6 @@ printf "\n\n======== GET all sonata KPIs ========\n\n\n"
 
 # Get the KPIs
 resp=$(curl -H 'Content-Type: application/json' -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis)
-kpis_len=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print len(obj["results"])')
-if [[ "$srvs" -gt 0 ]];
 
 # KPIs list size
 counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["data"]')
