@@ -1,0 +1,53 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+            checkout scm
+            sh 'chmod +x int-gtkkpi-prometheus/*.sh'            
+
+       stage 'Test1: Create and Increment KPI counter'
+            echo 'KPI counter test'
+            sh 'int-gtkkpi-prometheus/tests1.sh'
+
+       stage 'Test2: Create, Increment and Decrement KPI gauge'
+            echo 'KPI gauge test'
+            sh 'int-gtkkpi-prometheus/tests2.sh'       
+       
+       stage 'Test3: Get all sonata KPIs'
+            echo 'GET all sonata KPIs'
+            sh 'int-gtkkpi-prometheus/tests3.sh'
+     
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'int-gtkkpi-prometheus project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'project build successful',
+                        to: 'srodriguez@optaresolutions.com, jbonnet@alticelabs.com'
+        }
+
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "int-gtkkpi-prometheus project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'project build error',
+            to: 'srodriguez@optaresolutions.com, jbonnet@alticelabs.com'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+
+}
