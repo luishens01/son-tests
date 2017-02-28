@@ -31,10 +31,9 @@ resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-
 counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
 echo "Counter example_counter incremented. New value: $counter_value"
 
-if [[$counter_value -ne $first_value+3]] ;
-	then
-		echo "Error: Counter did not be incremented"
-		exit -1
+if [[ !("$counter_value" == "$((first_value+3))") ]]; then
+	echo "Error: Counter did not be incremented"
+	exit -1
 fi
 
 # It increments the gauge (-1)
@@ -51,8 +50,7 @@ resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-
 counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
 echo "Counter example_counter decremented. New value: $counter_value"
 
-if [[ !($counter_value == $first_value+2)]] ;
-	then
-		echo "Error: Counter did not be decremented"
-		exit -1
+if [[ !("$counter_value" == "$((first_value+2))") ]]; then
+	echo "Error: Counter did not be decremented"
+	exit -1
 fi
