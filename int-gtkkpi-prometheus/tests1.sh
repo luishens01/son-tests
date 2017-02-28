@@ -13,7 +13,7 @@ resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-
 echo $resp
 first_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
 
-echo "Counter example_counter created/updated with value ${first_value%.*}"
+echo "Counter example_counter created/updated with value $first_value"
 
 # It increments the counter (+3)
 index=1
@@ -32,9 +32,9 @@ done
 # Get the couter value
 resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_counter -d base_labels[label1]=value1 -d base_labels[label2]=value2)
 counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
-echo "Counter example_counter incremented. New value: ${counter_value%.*}"
+echo "Counter example_counter incremented. New value: $counter_value"
 
-if [[${counter_value%.*} -ne ${first_value%.*}+3]] ;
+if [[$counter_value -ne $first_value+3]] ;
 	then
 		echo "Error: Counter did not be incremented"
 		exit -1
