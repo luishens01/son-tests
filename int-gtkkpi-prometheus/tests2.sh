@@ -11,7 +11,7 @@ if [[ $code != 201 ]] ;
 fi
 resp=$(curl -H 'Content-Type: application/json' -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_gauge&base_labels[label1]=value3&base_labels[label2]=value4)
 first_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
-echo "Gauge example_gauge created/updated with value "+$first_value
+echo "Gauge example_gauge created/updated with value $first_value"
 
 # It increments the gauge (+3)
 index=1
@@ -28,7 +28,7 @@ done
 # Get the couter value
 resp=$(curl -H 'Content-Type: application/json' -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_gauge&base_labels[label1]=value3&base_labels[label2]=value4)
 counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
-echo "Counter example_counter incremented. New value: "+$counter_value
+echo "Counter example_counter incremented. New value: $counter_value"
 
 if [[$counter_value -ne $first_value+3]] ;
 	then
@@ -48,7 +48,7 @@ fi
 # Get the couter value
 resp=$(curl -H 'Content-Type: application/json' -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_gauge&base_labels[label1]=value3&base_labels[label2]=value4)
 counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
-echo "Counter example_counter decremented. New value: "+$counter_value
+echo "Counter example_counter decremented. New value: $counter_value"
 
 if [[$counter_value -ne $first_value+2]] ;
 	then

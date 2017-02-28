@@ -8,7 +8,7 @@ if [[ "$srvs" -gt 0 ]];
 
 # KPIs list size
 counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["data"]')
-echo "There are "+$counter_value+" registered KPIs in the system"
+echo "There are $counter_value registered KPIs in the system"
 
 if [[$counter_value -lt 2]] ;
 	then
