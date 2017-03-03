@@ -10,7 +10,7 @@ fi
 echo "Success: Catalogues-DB found"
 
 # Contact Gatekeeper
-status_code=$(curl -s -o /dev/null -w "%{http_code}" http://sp.int3.sonata-nfv.eu:32001/)
+status_code=$(curl -s -o /dev/null -w "%{http_code}" http://sp.int3.sonata-nfv.eu:32001/api)
 
 if [[ $status_code != 20* ]] ;
   then
