@@ -27,9 +27,6 @@ def main():
     that its registered correctly.
     After this, we try to remotely stop the plugin.
     """
-    # give plugin some time to start
-    time.sleep(3)
-
     if len(sys.argv) < 2:
         print("PM endpoint needed as first argument.")
         exit(1)
