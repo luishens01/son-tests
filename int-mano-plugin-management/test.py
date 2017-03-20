@@ -40,7 +40,6 @@ def main():
         raise BaseException("Test plugin record was not found!")
 
     # check test plugin record
-    print(str(test_info))
     if test_info.get("state") != "RUNNING":
         raise BaseException("Test plugin state != RUNNING")
 
