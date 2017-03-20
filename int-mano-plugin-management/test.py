@@ -27,6 +27,9 @@ def main():
     that its registered correctly.
     After this, we try to remotely stop the plugin.
     """
+    # give plugin some time to start
+    time.sleep(3)
+
     if len(sys.argv) < 2:
         print("PM endpoint needed as first argument.")
         exit(1)
@@ -37,6 +40,7 @@ def main():
         raise BaseException("Test plugin record was not found!")
 
     # check test plugin record
+    print(str(test_info))
     if test_info.get("state") != "RUNNING":
         raise BaseException("Test plugin state != RUNNING")
 
