@@ -9,7 +9,7 @@ if [[ $code != 201 ]] ;
     	echo "Error: Response error $code"
     	exit -1
 fi
-resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_counter -d base_labels[label1]=value1 -d base_labels[label2]=value2)
+resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_counter&instance=gtkkpi&base_labels[label1]=value1&base_labels[label2]=value2)
 echo $resp
 first_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
 
@@ -30,7 +30,7 @@ while [  $index -lt 3 ]; do
 done
 
 # Get the couter value
-resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_counter -d base_labels[label1]=value1 -d base_labels[label2]=value2)
+resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_counter&instance=gtkkpi&base_labels[label1]=value1&base_labels[label2]=value2)
 counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
 echo "Counter example_counter incremented. New value: $counter_value"
 
