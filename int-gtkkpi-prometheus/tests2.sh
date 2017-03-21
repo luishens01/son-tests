@@ -9,7 +9,7 @@ if [[ $code != 201 ]] ;
     	echo "Error: Response error $code"
     	exit -1
 fi
-resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_gauge&instance=gtkkpi&job=sonata&base_labels%5Blabel1%5D=value3&base_labels%5Blabel2%5D=value4)
+resp=$(curl -H 'Content-Type: application/json' -X GET -G 'http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_gauge&instance=gtkkpi&job=sonata&base_labels%5Blabel1%5D=value3&base_labels%5Blabel2%5D=value4')
 first_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
 echo "Gauge example_gauge created/updated with value $first_value"
 
@@ -27,7 +27,7 @@ while [  $index -lt 3 ]; do
 done
 
 # Get the couter value
-resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_gauge&instance=gtkkpi&job=sonata&base_labels%5Blabel1%5D=value3&base_labels%5Blabel2%5D=value4)
+resp=$(curl -H 'Content-Type: application/json' -X GET -G 'http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_gauge&instance=gtkkpi&job=sonata&base_labels%5Blabel1%5D=value3&base_labels%5Blabel2%5D=value4')
 counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
 echo "Counter example_counter incremented. New value: $counter_value"
 
@@ -46,7 +46,7 @@ if [[ $code != 201 ]] ;
 fi
 
 # Get the couter value
-resp=$(curl -H 'Content-Type: application/json' -X GET -G http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_gauge&instance=gtkkpi&job=sonata&base_labels%5Blabel1%5D=value3&base_labels%5Blabel2%5D=value4)
+resp=$(curl -H 'Content-Type: application/json' -X GET -G 'http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_gauge&instance=gtkkpi&job=sonata&base_labels%5Blabel1%5D=value3&base_labels%5Blabel2%5D=value4')
 counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
 echo "Counter example_counter decremented. New value: $counter_value"
 
