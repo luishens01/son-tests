@@ -19,7 +19,7 @@ node {
 			
 	   stage 'Showing report'
 			echo 'Showing report'
-			publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: '*.html', reportName: 'HTML Report'])
+			publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'int-usr-management/reports', reportFiles: '*.html', reportName: 'HTML Report'])
 
        stage 'Notifications'
             echo 'Sending mails'
