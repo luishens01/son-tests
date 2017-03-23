@@ -74,6 +74,7 @@ module.exports = function(grunt) {
 
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);		
 		
-	grunt.registerTask('test', ['protractor_webdriver', 'protractor:run', 'watch:protractor']);
+	//grunt.registerTask('test', ['protractor_webdriver', 'protractor:run', 'watch:protractor']);
+	grunt.registerTask('test', ['protractor_webdriver', 'protractor:run']);
 		
 }; 
