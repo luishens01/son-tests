@@ -6,7 +6,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,7 +32,7 @@
     
         beforeEach(function() {
             browser.driver.manage().window().maximize();                
-            browser.get('http://'+browser.params.host+':'+browser.params.port);
+            browser.get('https://'+browser.params.host+':'+browser.params.port);
         });
         
         it('title must be SonataBSS', function() {
@@ -40,7 +40,7 @@
         });
 
         it('redirection to login page', function() {        
-            expect(browser.getCurrentUrl()).toBe('http://'+browser.params.host+':'+browser.params.port+'/#/login');
+            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.host+':'+browser.params.port+'/#/login');
         });       
 
         it('registration successful', function() {            
@@ -56,7 +56,7 @@
     
         beforeEach(function() {
             browser.driver.manage().window().maximize();                
-            browser.get('http://'+browser.params.host+':'+browser.params.port);
+            browser.get('https://'+browser.params.host+':'+browser.params.port);
         });
         
         it('title must be SonataBSS', function() {
@@ -64,14 +64,14 @@
         });
 
         it('redirection to login page', function() {        
-            expect(browser.getCurrentUrl()).toBe('http://'+browser.params.host+':'+browser.params.port+'/#/login');
+            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.host+':'+browser.params.port+'/#/login');
         });        
 
         it('login successful; redirection to NSDs page', function() {            
             browser.driver.findElement(by.id('username')).sendKeys('sonata');
             browser.driver.findElement(by.id('password')).sendKeys('sonata');
             browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
-            expect(browser.getCurrentUrl()).toBe('http://'+browser.params.host+':'+browser.params.port+'/#/nSDs');
+            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.host+':'+browser.params.port+'/#/nSDs');
         });
     });    
 });
