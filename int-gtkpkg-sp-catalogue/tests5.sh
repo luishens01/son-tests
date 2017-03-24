@@ -63,7 +63,7 @@ echo "SON_PACKAGE_UUID: $son_package_uuid"
 printf "\n\n======== GET SON Package from Catalogue ========\n\n\n"
 #url=$(echo http://sp.int3.sonata-nfv.eu:4002/catalogues/son-packages/${uuid})
 #echo "URL: $url"
-resp=$(curl -qSfsw '\n%{http_code}' -X GET http://sp.int3.sonata-nfv.eu:4002/catalogues/api/v2/son-packages/${son_package_uuid}) 2>/dev/null
+resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/zip" -X GET http://sp.int3.sonata-nfv.eu:4002/catalogues/api/v2/son-packages/${son_package_uuid}) 2>/dev/null
 echo $resp
 
 code=$(echo "$resp" | tail -n1)
