@@ -47,6 +47,9 @@ exports.config = {
     'phantomjs.cli.args': ['--web-security=false', '--ignore-ssl-errors=true'/*, '--webdriver-loglevel=DEBUG', '--webdriver-logfile=./E2E_tests/protractor.log'*/]
   },
      
+  jasmineNodeOpts: {
+    defaultTimeoutInterval: 900000
+  },
   
   onPrepare: function() {
      process.argv.forEach((val, index, array) => {
