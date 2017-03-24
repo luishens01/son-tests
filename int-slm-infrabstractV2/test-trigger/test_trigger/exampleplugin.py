@@ -68,10 +68,10 @@ class DemoPlugin1(ManoBasePlugin):
         self.manoconn.subscribe(self.on_list, "infrastructure.management.compute.list")
         #self.manoconn.subscribe(self.on_infrastructure_adaptor_reply, "infrastructure.service.remove")
 
-        self.manoconn.subscribe(on_vnf_deploy, 'infrastructure.function.deploy')
-        self.manoconn.subscribe(on_prepare, 'infrastructure.service.prepare')
-        self.manoconn.subscribe(on_chain, 'infrastructure.service.chain')
-        self.manoconn.subscribe(on_configure_wan, 'infrastructure.wan.configure')
+        self.manoconn.subscribe(self.on_vnf_deploy, 'infrastructure.function.deploy')
+        self.manoconn.subscribe(self.on_prepare, 'infrastructure.service.prepare')
+        self.manoconn.subscribe(self.on_chain, 'infrastructure.service.chain')
+        self.manoconn.subscribe(self.on_configure_wan, 'infrastructure.wan.configure')
 
     def run(self):
         """
@@ -196,7 +196,7 @@ class DemoPlugin1(ManoBasePlugin):
     def on_list(self, ch, method, properties, message):
         LOG.debug("infrastructure.list: " + message)
 
-    def vnf_deploy(self, ch, method, properties, message):
+    def on_vnf_deploy(self, ch, method, properties, message):
         LOG.debug("function.deploy: " + message)
 
     def on_prepare(self, ch, method, properties, message):
