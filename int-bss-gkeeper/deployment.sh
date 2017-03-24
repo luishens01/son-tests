@@ -9,5 +9,5 @@ cd int-bss-gkeeper/resources
 npm install
 node ./node_modules/protractor/bin/webdriver-manager update
 ## -- insert NSD/VNFD
-../scripts/postCatalogueSampleDescriptors.sh
-../scripts/postGatekeeperSampleRequest.sh
+#../scripts/postCatalogueSampleDescriptors.sh
+#../scripts/postGatekeeperSampleRequest.sh
