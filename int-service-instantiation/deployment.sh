@@ -1,3 +1,7 @@
 #!/bin/bash
-## -- insert NSD/VNFD
-#int-service-instantiation/scripts/postCatalogueSampleDescriptors.sh
+
+cd int-service-instantiation/resources
+#curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+#sudo apt-get install -y nodejs
+npm install
+node ./node_modules/protractor/bin/webdriver-manager update
