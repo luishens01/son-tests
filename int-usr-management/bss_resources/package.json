@@ -1,0 +1,14 @@
+{
+  "name": "int-usr-management",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-protractor-runner": "^4.0.0",
+    "grunt-protractor-webdriver": "^0.2.5",
+    "phantomjs-prebuilt": "2.1.14",
+    "protractor": "^4.0.14",
+    "protractor-jasmine2-html-reporter": "0.0.7",
+    "matchdep": "^1.0.1"
+  }
+}
