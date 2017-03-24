@@ -6,7 +6,7 @@
 ## @author Felipe Vicens
 ##
 ---
-descriptor_version: "nsd-schema-02"
+descriptor_version: "2.0"
 
 vendor: "eu.sonata-nfv.service-descriptor"
 name: "sonata-demo-1"
