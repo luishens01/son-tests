@@ -1,17 +1,29 @@
 """
- Copyright 2015-2017 Paderborn University
+Copyright (c) 2015 SONATA-NFV
+ALL RIGHTS RESERVED.
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-   http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Neither the name of the SONATA-NFV [, ANY ADDITIONAL AFFILIATION]
+nor the names of its contributors may be used to endorse or promote
+products derived from this software without specific prior written
+permission.
+
+This work has been performed in the framework of the SONATA project,
+funded by the European Commission under Grant number 671517 through
+the Horizon 2020 and 5G-PPP programmes. The authors would like to
+acknowledge the contributions of their colleagues of the SONATA
+partner consortium (www.sonata-nfv.eu).
 """
 
 import logging
@@ -46,6 +58,7 @@ class ManoBasePlugin(object):
                  description=None,
                  auto_register=True,
                  wait_for_registration=True,
+                 start_running=True,
                  auto_heartbeat_rate=0.5):
         """
         Performs plugin initialization steps, e.g., connection setup
@@ -68,18 +81,18 @@ class ManoBasePlugin(object):
         # create and initialize broker connection
         self.manoconn = messaging.ManoBrokerRequestResponseConnection(self.name)
         # register subscriptions
+
         self.declare_subscriptions()
         # register to plugin manager
         if auto_register:
             self.register()
             if wait_for_registration:
                 self._wait_for_registration()
-        # add additional subscriptions
-        self._register_lifecycle_endpoints()
         # kick-off automatic heartbeat mechanism
         self._auto_heartbeat(auto_heartbeat_rate)
         # jump to run
-        self.run()
+        if start_running:
+            self.run()
 
     def __del__(self):
         """
@@ -89,6 +102,7 @@ class ManoBasePlugin(object):
         # de-register this plugin
         self.deregister()
         self.manoconn.stop_connection()
+        self.manoconn.stop_threads()
         del self.manoconn
 
     def _auto_heartbeat(self, rate):
@@ -180,6 +194,7 @@ class ManoBasePlugin(object):
         message = {"name": self.name,
                    "version": self.version,
                    "description": self.description}
+
         self.manoconn.call_async(self._on_register_response,
                                  "platform.management.plugin.register",
                                  json.dumps(message))
@@ -202,6 +217,9 @@ class ManoBasePlugin(object):
         LOG.info("Plugin registered with UUID: %r" % response.get("uuid"))
         # jump to on_registration_ok()
         self.on_registration_ok()
+        # subscribe to start topic
+        self._register_lifecycle_endpoints()
+        # start heartbeat mechanism
         self._send_heartbeat()
 
     def deregister(self):
@@ -213,7 +231,6 @@ class ManoBasePlugin(object):
         self.manoconn.call_async(self._on_deregister_response,
                                  "platform.management.plugin.deregister",
                                  json.dumps(message))
-
     def _on_deregister_response(self, ch, method, props, response):
         """
         Event triggered when de-register response is received.
