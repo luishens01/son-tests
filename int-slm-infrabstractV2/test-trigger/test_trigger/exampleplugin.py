@@ -97,6 +97,7 @@ class DemoPlugin1(ManoBasePlugin):
         #time.sleep(3)
 
         #At deployment, this plugin generates a service request, identical to how the GK will do it in the future.
+        LOG.info("Lifecycle started.")
         message = self.createGkNewServiceRequestMessage()
         #self.correlation_id = uuid.uuid4().hex
         self.manoconn.call_async(
@@ -183,7 +184,7 @@ class DemoPlugin1(ManoBasePlugin):
         vnfd2_descriptor = open(path_descriptors + 'fw-vnf-vnfd.yml','r')
 
         service_request = {'NSD': yaml.load(nsd_descriptor), 'VNFD1': yaml.load(vnfd1_descriptor), 'VNFD2': yaml.load(vnfd2_descriptor)}
-
+        LOG.info("Request created.")
         return yaml.dump(service_request)
 
     def createInfrastructureAdapterResponseMessage(self):
