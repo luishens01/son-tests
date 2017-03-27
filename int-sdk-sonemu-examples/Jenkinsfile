@@ -1,0 +1,30 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+        stage 'Checkout'
+            checkout scm
+            sh 'cd int-sdk-sonemu-examples'
+
+        stage 'Init'
+            echo 'Fetch and Start Service Containers'
+            sh './deployment.sh'
+
+    }
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+    }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+}
