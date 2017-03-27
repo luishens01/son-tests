@@ -11,8 +11,7 @@ node {
 
         stage('Init') {
             echo 'Fetch and Start Service Containers'
-            sh 'cd int-sdk-sonemu-examples'
-            sh './deployment.sh'
+            sh 'cd int-sdk-sonemu-examples && ./deployment.sh'
         }
 
     }
