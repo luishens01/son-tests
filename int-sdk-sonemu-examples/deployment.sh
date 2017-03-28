@@ -16,6 +16,8 @@ sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-co
 
 export DOCKER_HOST="unix:///var/run/docker.sock"
 docker login -u sonata-nfv -p s0n@t@ registry.sonata-nfv.eu:5000
+mkdir -p /tmp/workspace
+rm -rf /tmp/workspace/*
 
 
 #### FETCH SON-CLI ####
@@ -47,8 +49,9 @@ docker exec son-emu-int-sdk-pipeline ls -lrth /usr/local/bin
 # run son-cli in a docker container
 printheader "Run SON-CLI"
 docker rm -f son-cli-int-test || true
-docker run -d -i --name 'son-cli-int-test' --net='host' --pid='host' --privileged='true' \
+docker run -d -i --name 'son-cli-int-test' --workdir '/tmp/workspace' --net='host' --pid='host' --privileged='true' \
     -v '/var/run/docker.sock:/var/run/docker.sock' \
+    -v '/tmp/workspace:/tmp/workspace' \
     registry.sonata-nfv.eu:5000/son-cli
 
 # print state
