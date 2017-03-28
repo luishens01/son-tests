@@ -4,7 +4,7 @@ set -x
 
 #### PREPARE ENVIRONMENT ####
 sudo apt-get update -y -qq
-sudo apt-get install -y git realpath
+sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install -y git realpath
 sudo ln -sf $(realpath ../int-sdk/utils/print-header.sh) /usr/bin/printheader
 printheader "Prepare Environment"
 sudo apt-get remove -y docker docker-engine || true
