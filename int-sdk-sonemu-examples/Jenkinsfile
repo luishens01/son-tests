@@ -22,6 +22,7 @@ node {
     }
 
     finally {
+        sh 'docker rm -f son-emu-int-sdk-pipeline son-cli-int-test'
         /* Must re-throw exception to propagate error */
         if (err) {
             throw err
