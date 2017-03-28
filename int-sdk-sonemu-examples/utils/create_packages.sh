@@ -2,7 +2,6 @@
 set -e
 set -x
 
-### This script is mean to be executed inside the son-cli-int-test container
 
 docker exec son-cli-int-test son-workspace --init
 cd /tmp/workspace
