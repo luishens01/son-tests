@@ -3,14 +3,10 @@ set -e
 set -x
 
 #### PREPARE ENVIRONMENT ####
+printheader "Prepare Environment"
 sudo apt-get update -y -qq
 sudo apt-get install -y git realpath
 sudo ln -sf $(realpath ../int-sdk/utils/print-header.sh) /usr/bin/printheader
-
-printheader "Prepare Environment"
-sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y build-essential python-dev python-pip docker-engine
-
-
 
 export DOCKER_HOST="unix:///var/run/docker.sock"
 docker login -u sonata-nfv -p s0n@t@ registry.sonata-nfv.eu:5000
