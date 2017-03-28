@@ -40,9 +40,9 @@ docker run -d -i --name 'son-emu-int-sdk-pipeline' --net='host' --pid='host' --p
     -p 5000:5000 \
     -p 4242:4242 \
     registry.sonata-nfv.eu:5000/son-emu
-docker exec -it son-emu-int-sdk-pipeline apt-get update -y -qq
-docker exec -it son-emu-int-sdk-pipeline apt-get install -y screen coreutils
-docker exec -it son-emu-int-sdk-pipeline ls -lrth /usr/local/bin
+docker exec son-emu-int-sdk-pipeline apt-get update -y -qq
+docker exec son-emu-int-sdk-pipeline apt-get install -y screen coreutils
+docker exec son-emu-int-sdk-pipeline ls -lrth /usr/local/bin
 
 # run son-cli in a docker container
 printheader "Run SON-CLI"
