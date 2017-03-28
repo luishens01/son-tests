@@ -50,3 +50,8 @@ docker rm -f son-cli-int-test || true
 docker run -d -i --name 'son-cli-int-test' --net='host' --pid='host' --privileged='true' \
     -v '/var/run/docker.sock:/var/run/docker.sock' \
     registry.sonata-nfv.eu:5000/son-cli
+
+# print state
+printheader "State"
+docker ps -a
+docker ps -q | xargs -L 1 docker top
