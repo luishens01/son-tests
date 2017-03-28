@@ -18,6 +18,10 @@ node('jclouds') {
             sh 'cd int-sdk-sonemu-examples && ./utils/create_packages.sh'
         }
 
+        stage('Example 02') {
+            sh 'cd int-sdk-sonemu-examples && tests/02_empty_demo_service_package.sh'
+        }
+
     }
 
     catch (caughtError) {
