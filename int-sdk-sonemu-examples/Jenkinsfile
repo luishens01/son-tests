@@ -1,5 +1,5 @@
 #!groovy
-node {
+node('jclouds') {
 
     def err = null
     currentBuild.result = "SUCCESS"
