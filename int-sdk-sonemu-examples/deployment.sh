@@ -55,6 +55,6 @@ docker run -d -i --name 'son-cli-int-test' --workdir '/tmp/workspace' --net='hos
     registry.sonata-nfv.eu:5000/son-cli
 
 # print state
-printheader "State"
+printheader "(Info) State"
 docker ps -a
 docker ps -q | xargs -L 1 docker top
