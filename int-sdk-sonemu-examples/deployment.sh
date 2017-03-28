@@ -35,8 +35,8 @@ printheader "Run SON-EMU"
 docker rm -f son-emu-int-sdk-pipeline || true
 docker run -d -i --name 'son-emu-int-sdk-pipeline' --net='host' --pid='host' --privileged='true' \
     -v '/var/run/docker.sock:/var/run/docker.sock' \
-    -v "$(pwd)/utils/W:/usr/bin/W" \
-    -v "$(pwd)/utils/Cmd:/usr/bin/Cmd" \
+    -v "$(pwd)/utils/W:/usr/local/bin/W" \
+    -v "$(pwd)/utils/Cmd:/usr/local/bin/Cmd" \
     -p 5000:5000 \
     -p 4242:4242 \
     registry.sonata-nfv.eu:5000/son-emu
