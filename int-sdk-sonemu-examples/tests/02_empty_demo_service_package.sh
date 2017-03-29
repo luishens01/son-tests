@@ -8,14 +8,36 @@ SONEMU() {
     docker exec son-emu-int-sdk-pipeline "$@"
 }
 
+SONCLI() {
+    docker exec son-cli-int-test "$@"
+}
+
 ### Starting the topology
-docker exec son-emu-int-sdk-pipeline screen -L -S sonemu -d -m sudo python /son-emu/src/emuvim/examples/sonata_y1_demo_topology_1.py
+SONEMU screen -L -S sonemu -d -m sudo python /son-emu/src/emuvim/examples/sonata_y1_demo_topology_1.py
 ### Setup screen for immediate flusing
-docker exec son-emu-int-sdk-pipeline screen -S sonemu -X logfile flush 0
+SONEMU screen -S sonemu -X logfile flush 0
 ### Wait for the cli to start
-docker exec son-emu-int-sdk-pipeline W '^*** Starting CLI:' 60s
+SONEMU W '^*** Starting CLI:' 60s
 ### Print nodes
 SONEMU Cmd 'nodes'
 
-printheader "Containernet traces"
+SONCLI son-workspace --init
+SONCLI son-access config --platform_id emu --new --url http://127.0.0.1:5000 --default
+SONCLI son-access -p emu push --upload son-examples/service-projects/sonata-empty-service.son
+SONCLI son-access -p emu push --deploy latest
+
+SONEMU son-emu-cli compute list
+SONEMU sync # avoid text overlapping
+
+SONEMU Cmd 'empty_vnf2 ifconfig && echo "... checked empty_vnf2"'
+SONEMU W "^... checked empty_vnf2"
+SONEMU Cmd 'empty_vnf1 ping -c 2 empty_vnf2 && echo "... checked ping between empty_vnf1 and empty_vnf2"'
+SONEMU W "^... checked ping between empty_vnf1 and empty_vnf2"
+SONEMU Cmd 'empty_vnf2 ping -c 2 empty_vnf1 && echo "... checked ping between empty_vnf2 and empty_vnf1"'
+SONEMU W "^... checked ping between empty_vnf2 and empty_vnf1"
+
+SONEMU Cmd 'quit'
+W "^*** Done"
+
+printheader "(Result) https://github.com/sonata-nfv/son-emu/wiki/Example-2"
 SONEMU strings screenlog.0
