@@ -54,6 +54,9 @@ docker run -d -i --name 'son-cli-int-test' --workdir '/tmp/workspace' --net='hos
     -v '/var/run/docker.sock:/var/run/docker.sock' \
     -v '/tmp/workspace:/tmp/workspace' \
     registry.sonata-nfv.eu:5000/son-cli
+docker exec son-cli-int-test rm -rf /root/.son-workspace
+docker exec son-cli-int-test son-workspace --init
+docker exec son-cli-int-test son-access config --platform_id emu --new --url http://127.0.0.1:5000 --default
 
 # print state
 printheader "(Info) State"

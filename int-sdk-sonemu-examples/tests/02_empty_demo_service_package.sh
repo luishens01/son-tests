@@ -21,8 +21,6 @@ SONEMU W '^*** Starting CLI:' 60s
 ### Print nodes
 SONEMU Cmd 'nodes'
 
-SONCLI son-workspace --init
-SONCLI son-access config --platform_id emu --new --url http://127.0.0.1:5000 --default
 SONCLI son-access -p emu push --upload son-examples/service-projects/sonata-empty-service.son
 SONCLI son-access -p emu push --deploy latest
 
