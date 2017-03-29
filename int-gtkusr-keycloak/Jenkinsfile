@@ -1,0 +1,48 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+            checkout scm
+
+       stage 'Deploy and Clean'
+            echo 'Deployment'			
+			sh 'int-gtkusr-keycloak/deployment.sh'
+       
+       stage 'Test: Adapter and Keycloak UP'
+            echo 'Adapter and Keycloak UP''
+            sh 'int-gtkusr-keycloak/tests.sh'
+
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'int-gtkusr-keycloak project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'project build successful',
+                        to: 'dani.guija@i2cat.net, shuaib.siddiqui@i2cat.net, felipe.vicens@atos.net, jbonnet@alticelabs.com'
+        }
+
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "int-gtkusr-keycloak project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'project build error',
+            to: 'dani.guija@i2cat.net, shuaib.siddiqui@i2cat.net, felipe.vicens@atos.net, jbonnet@alticelabs.com'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+
+}
