@@ -4,5 +4,5 @@ set -x
 
 # Wait until a line appears in the screen session.
 # It starts from the beginning of the log and exits after the first match.
-local T=${2:-20s}
+T=${2:-20s}
 timeout -k 3s ${T} stdbuf -o0 grep -q -m 1 "^${1}" <(tail -F -n+0 screenlog.0)
