@@ -21,7 +21,9 @@ cat > ${SUBF} <<- EOF
 	EOF
 RES=0
 timeout -k 3s ${T} ${SUBF} "${1}" || RES=$?
-printheader "(Debug) screenlog.0"
-strings screenlog.0
 rm -f ${SUBF}
+if [ ! "$RES" = "0" ]; then
+    printheader "(Debug) screenlog.0"
+    strings screenlog.0
+fi
 exit ${RES}
