@@ -2,5 +2,5 @@
 set -e
 set -x
 
-echo 'Script Cmd'
-exit 0
+# Send a command to the screen session, aka into the containernet prompt
+screen -S sonemu -X stuff "${@}^M"
