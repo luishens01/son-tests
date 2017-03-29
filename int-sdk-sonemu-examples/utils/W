@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -x
 
 
 # Wait until a line appears in the screen session.
