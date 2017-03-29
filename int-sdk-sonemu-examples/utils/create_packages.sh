@@ -2,7 +2,7 @@
 set -e
 set -x
 
-printheader "Preparing workspave"
+printheader "Preparing workspace"
 cd /tmp/workspace
 git clone https://github.com/sonata-nfv/son-examples.git
 cd son-examples/vnfs
