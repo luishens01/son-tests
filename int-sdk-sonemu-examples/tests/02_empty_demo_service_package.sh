@@ -5,7 +5,7 @@ set -x
 printheader "https://github.com/sonata-nfv/son-emu/wiki/Example-2"
 
 SONEMU() {
-    docker exec son-emu-int-sdk-pipeline ${1}
+    docker exec son-emu-int-sdk-pipeline "$@"
 }
 
 ### Starting the topology
