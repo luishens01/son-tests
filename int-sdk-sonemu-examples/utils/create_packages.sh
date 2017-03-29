@@ -3,7 +3,6 @@ set -e
 set -x
 
 printheader "Preparing workspave"
-docker exec son-cli-int-test son-workspace --init
 cd /tmp/workspace
 git clone https://github.com/sonata-nfv/son-examples.git
 cd son-examples/vnfs
