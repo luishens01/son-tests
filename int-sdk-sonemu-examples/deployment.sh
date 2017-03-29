@@ -39,6 +39,7 @@ docker run -d -i --name 'son-emu-int-sdk-pipeline' --net='host' --pid='host' --p
     -v '/var/run/docker.sock:/var/run/docker.sock' \
     -v "$(pwd)/utils/W:/usr/local/bin/W" \
     -v "$(pwd)/utils/Cmd:/usr/local/bin/Cmd" \
+    -v "$(pwd)/../int-sdk/utils/print-header.sh:/usr/local/bin/printheader" \
     -p 5000:5000 \
     -p 4242:4242 \
     registry.sonata-nfv.eu:5000/son-emu
