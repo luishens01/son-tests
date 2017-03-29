@@ -29,18 +29,18 @@ SONCLI son-access -p emu push --deploy latest
 SONEMU son-emu-cli compute list
 SONEMU sync # avoid text overlapping
 
-SONEMU Cmd 'empty_vnf1 ifconfig && echo "... checked empty_vnf1"'
+SONEMU Cmd 'empty_vnf1 ifconfig && echo -e "\n... checked empty_vnf1"'
 SONEMU W "^... checked empty_vnf1"
-SONEMU Cmd 'empty_vnf2 ifconfig && echo "... checked empty_vnf2"'
+SONEMU Cmd 'empty_vnf2 ifconfig && echo -e "\n... checked empty_vnf2"'
 SONEMU W "^... checked empty_vnf2"
 ### Warning: while executing the echo command, the name of a nvf is substituted by its ip
-SONEMU Cmd 'empty_vnf1 ping -v -c 2 empty_vnf2 && echo "... checked ping between Empty_vnf1 and Empty_vnf2"'
+SONEMU Cmd 'empty_vnf1 ping -v -c 2 empty_vnf2 && echo -e "\n... checked ping between Empty_vnf1 and Empty_vnf2"'
 SONEMU W "^... checked ping between Empty_vnf1 and Empty_vnf2"
-SONEMU Cmd 'empty_vnf1 ping -v -c 2 200.0.0.2 && echo "... checked ping between Empty_vnf1 and 200.0.0.2"'
+SONEMU Cmd 'empty_vnf1 ping -v -c 2 200.0.0.2 && echo -e "\n... checked ping between Empty_vnf1 and 200.0.0.2"'
 SONEMU W "^... checked ping between Empty_vnf1 and 200.0.0.2"
-SONEMU Cmd 'empty_vnf2 ping -v -c 2 empty_vnf1 && echo "... checked ping between Empty_vnf2 and Empty_vnf1"'
+SONEMU Cmd 'empty_vnf2 ping -v -c 2 empty_vnf1 && echo -e "\n... checked ping between Empty_vnf2 and Empty_vnf1"'
 SONEMU W "^... checked ping between Empty_vnf2 and Empty_vnf1"
-SONEMU Cmd 'empty_vnf2 ping -v -c 2 200.0.0.1 && echo "... checked ping between Empty_vnf2 and 200.0.0.1"'
+SONEMU Cmd 'empty_vnf2 ping -v -c 2 200.0.0.1 && echo -e "\n... checked ping between Empty_vnf2 and 200.0.0.1"'
 SONEMU W "^... checked ping between Empty_vnf2 and 200.0.0.1"
 
 SONEMU Cmd 'quit'
