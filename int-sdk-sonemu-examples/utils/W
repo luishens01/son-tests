@@ -21,9 +21,9 @@ cat > ${SUBF} <<- EOF
 	    sleep 0.5s
 	done
 	EOF
-timeout -k 3s ${T} ${SUBF} "${1}"
+RES=0
+timeout -k 3s ${T} ${SUBF} "${1}" || RES=$?
 printheader "(Debug) screenlog.0"
 strings screenlog.0
-RES=$?
 rm -f ${SUBF}
 exit ${RES}
