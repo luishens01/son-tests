@@ -16,3 +16,6 @@ docker exec son-emu-int-sdk-pipeline screen -S sonemu -X logfile flush 0
 docker exec son-emu-int-sdk-pipeline W '^*** Starting CLI:' 60s
 ### Print nodes
 SONEMU Cmd 'nodes'
+
+printheader "Containernet traces"
+SONEMU strings screenlog.0
