@@ -70,7 +70,7 @@ class DemoPlugin1(ManoBasePlugin):
 
         self.manoconn.subscribe(self.on_vnf_deploy, 'infrastructure.function.deploy')
         self.manoconn.subscribe(self.on_prepare, 'infrastructure.service.prepare')
-        self.manoconn.subscribe(self.on_chain, 'infrastructure.service.chain')
+        self.manoconn.subscribe(self.on_chain, 'infrastructure.service.chain.configure')
         self.manoconn.subscribe(self.on_configure_wan, 'infrastructure.wan.configure')
 
     def run(self):

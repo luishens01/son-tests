@@ -93,5 +93,3 @@ forwarding_graphs:
           - connection_point_ref: "ns:output"
             position: 6
 uuid: 9df6a98f-9e11-4cb7-b3c0-b1375e7ca1a1
-instance_uuid: 9df6a98f-9e11-4cb7-b3c0-InAdUnitTest
-
