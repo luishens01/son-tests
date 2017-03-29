@@ -12,9 +12,7 @@ SUBF=$(mktemp)
 chmod +x ${SUBF}
 cat > ${SUBF} <<- EOF
 	#!/bin/bash -e
-	set -x
 	while true; do
-	    strings screenlog.0
 	    if strings screenlog.0 | grep -m 1 "\${1}"; then
 	        exit 0
 	    fi
