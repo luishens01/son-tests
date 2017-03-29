@@ -15,7 +15,7 @@ sudo apt-get update -y -qq
 sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install -y docker-ce
 
 export DOCKER_HOST="unix:///var/run/docker.sock"
-docker login -u sonata-nfv -p s0n@t@ registry.sonata-nfv.eu:5000
+docker login -u ${SONATA_REGISTRY_USER:-foo} -p ${SONATA_REGISTRY_PASSWORD:-bar} ${SONATA_REGISTRY_ADDRESS:-somewhere:1234}
 mkdir -p /tmp/workspace
 rm -rf /tmp/workspace/*
 
