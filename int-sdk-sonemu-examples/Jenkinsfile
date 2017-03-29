@@ -16,6 +16,7 @@ node('jclouds') {
         }
 
         stage('Creating the package') {
+            sh 'cd int-sdk-sonemu-examples && ./utils/cleanup_sonemu.sh'
             sh 'cd int-sdk-sonemu-examples && ./utils/create_packages.sh'
         }
 
