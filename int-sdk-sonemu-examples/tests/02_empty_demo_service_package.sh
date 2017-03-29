@@ -44,7 +44,7 @@ SONEMU Cmd 'empty_vnf2 ping -v -c 2 200.0.0.1 && echo "... checked ping between 
 SONEMU W "^... checked ping between Empty_vnf2 and 200.0.0.1"
 
 SONEMU Cmd 'quit'
-W "^*** Done"
+SONEMU W "^*** Done"
 
-printheader "(Result) https://github.com/sonata-nfv/son-emu/wiki/Example-2"
+printheader "(Result) OK for https://github.com/sonata-nfv/son-emu/wiki/Example-2"
 SONEMU strings screenlog.0
