@@ -2,7 +2,26 @@
 set -e
 set -x
 
+
 # Wait until a line appears in the screen session.
 # It starts from the beginning of the log and exits after the first match.
 T=${2:-20s}
-timeout -k 3s ${T} stdbuf -o0 grep -q -m 1 "^${1}" <(tail -F -n+0 screenlog.0)
+#timeout -k 3s ${T} stdbuf -o0 grep -q -m 1 "^${1}" <(tail -F -n+0 screenlog.0)
+# (HACK) As Jenkins blocks subshell, we must use an intermediate script
+SUBF=$(mktemp)
+chmod +x ${SUBF}
+cat > ${SUBF} <<- EOF
+	#!/bin/bash -e
+	while true; do
+	    if strings screenlog.0 | grep -m 1 "\${1}"; then
+	        exit 0
+	    fi
+	    sleep 0.5s
+	done
+	EOF
+timeout -k 3s ${T} ${SUBF} "${1}"
+printheader "(Debug) screenlog.0"
+strings screenlog.0
+RES=$?
+rm -f ${SUBF}
+exit ${RES}
