@@ -24,7 +24,7 @@ SONEMU son-emu-cli compute start -d dc1 -n client -i sonatanfv/sonata-empty-vnf
 SONEMU son-emu-cli compute start -d dc2 -n server -i sonatanfv/sonata-empty-vnf
 SONEMU son-emu-cli network add -b -src client:client-eth0 -dst server:server-eth0
 
-SONEMU Cmd 'client ping -v -c 2 server && echo "... checked ping"'
+SONEMU Cmd 'client ping -v -c 2 server && sync && echo -e "\\n... checked ping"'
 SONEMU W "^... checked ping"
 
 
