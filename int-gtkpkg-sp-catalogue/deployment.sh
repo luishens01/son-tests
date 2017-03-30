@@ -27,7 +27,7 @@ done;
 sleep 5
 
 # populate gtksrv database
-docker run -i -e DATABASE_HOST=sp.int3.sonata-nfv.eu -e MQSERVER=amqp://guest:guest@sp.int3.sonata-nfv.eu:5672 -e RACK_ENV=integration -e CATALOGUES_URL=http://sp.int3.sonata-nfv.eu:4002/catalogues -e DATABASE_HOST=sp.int3.sonata-nfv.eu -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest --rm=true --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtksrv bundle exec rake db:migrate
+docker run -i -e DATABASE_HOST=sp.int3.sonata-nfv.eu -e MQSERVER=amqp://guest:guest@sp.int3.sonata-nfv.eu:5672 -e RACK_ENV=integration -e CATALOGUES_URL=http://sp.int3.sonata-nfv.eu:4002/catalogues/api/v2 -e DATABASE_HOST=sp.int3.sonata-nfv.eu -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest --rm=true --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtksrv bundle exec rake db:migrate
 sleep 5
 docker run -i -e DATABASE_HOST=sp.int3.sonata-nfv.eu -e MQSERVER=amqp://guest:guest@sp.int3.sonata-nfv.eu:5672 -e RACK_ENV=integration -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest --rm=true --log-driver=gelf --log-opt gelf-address=udp://10.31.11.37:12900 registry.sonata-nfv.eu:5000/son-gtkvim bundle exec rake db:migrate
 docker rm -fv son-sp-infrabstract
