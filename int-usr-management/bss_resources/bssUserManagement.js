@@ -44,11 +44,17 @@
         });       
 
         it('registration successful', function() {            
+            browser.driver.findElement(by.xpath('//a[. = "Register"]')).click();
+            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.host+':'+browser.params.port+'/#/register');
+            browser.driver.findElement(by.id('firstName')).sendKeys('sonata');
+            browser.driver.findElement(by.id('lastName')).sendKeys('sonata');
             browser.driver.findElement(by.id('username')).sendKeys('sonata');
             browser.driver.findElement(by.id('password')).sendKeys('sonata');
-            browser.driver.findElement(by.xpath('//button[. = "Register"]')).click();
+            browser.driver.findElement(by.id('userEmail')).sendKeys('sonata@mail.com');
+            browser.driver.findElement(by.xpath('//button[. = "Register"]')).click();            
             modal = element(by.id('success'));
-            expect(modal.isDisplayed()).toBe(true); 
+            expect(modal.isDisplayed()).toBe(true);
+            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.host+':'+browser.params.port+'/#/login');
         });
     });
 

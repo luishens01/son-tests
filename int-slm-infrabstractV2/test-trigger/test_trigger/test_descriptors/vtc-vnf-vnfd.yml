@@ -115,4 +115,3 @@ monitoring_rules:
       - name: "notification04"
         type: "rabbitmq_message"
 uuid: 6a15313f-cb0a-4540-baa2-77cc6b3f1234
-instance_uuid: 6a15313f-cb0a-4540-baa2-77cc6b3f0001

@@ -6,15 +6,15 @@
 ##
 descriptor_version: "vnfd-schema-02"
 vendor: "eu.sonata-nfv"
-name: "fw-vnf"
+name: "vFoo-vnf"
 version: "0.1"
-author: "Steven Van Rossem, Ghent University, steven.vanrossem@intec.ugent.be"
-description: "A firewall based on Ryu Openflow controller + openvswitch (2 ports: input+output) in a single VNF"
+author: "D. Valocchi, UCL"
+description: "A mock VNF composed of two VNFC, one traffic-processing and a back-end"
 ##
 ## The virtual deployment unit.
 ##
 virtual_deployment_units:
-  - id: "1"
+  - id: "vdu01"
     vm_image: "http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img"
     vm_image_format: "qcow2"
     resource_requirements:
@@ -33,7 +33,26 @@ virtual_deployment_units:
         type: "internal"
       - id: "vdu01:eth2"
         type: "internal"
-
+      - id: "vdu01:eth3"
+        type: "internal"
+  - id: "vdu02"
+    vm_image: "http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img"
+    vm_image_format: "qcow2"
+    resource_requirements:
+      cpu:
+        vcpus: 1
+      memory:
+        size: 1
+        size_unit: "GB"
+      storage:
+        size: 1
+        size_unit: "GB"
+    connection_points:
+      - id: "vdu02:eth0"
+        type: "public"
+      - id: "vdu02:eth1"
+        type: "internal"
+  
 ##
 ## The virtual links that interconnect
 ## the different connections points.
@@ -43,6 +62,7 @@ virtual_links:
     connectivity_type: "E-LAN"
     connection_points_reference:
       - "vdu01:eth0"
+      - "vdu02:eth0"
       - "mgmt"
   - id: "input"
     connectivity_type: "E-Line"
@@ -54,11 +74,18 @@ virtual_links:
     connection_points_reference:
       - "vdu01:eth2"
       - "vnf:output"
+  - id: "internal"
+    connectivity_type: "E-LAN"
+    connection_points_reference:
+      - "vdu01:eth3"
+      - "vdu02:eth1"
+
 
 ##
 ## The VNF connection points to the 
 ## outside world.
 ##
+
 connection_points:
   - id: "vnf:mgmt"
     type: "public"
@@ -66,4 +93,4 @@ connection_points:
     type: "internal"
   - id: "vnf:output"
     type: "internal"
-uuid: 6a15313f-cb0a-4540-baa2-77cc6b3f5678
+uuid: 6a15313f-cb0a-4540-baa2-77cc6b3f1010

@@ -29,6 +29,11 @@ network_functions:
     vnf_vendor: "eu.sonata-nfv"
     vnf_name: "fw-vnf"
     vnf_version: "0.1"
+  - vnf_id: "vnf_vFoo"
+    vnf_vendor: "eu.sonata-nfv"
+    vnf_name: "vFoo-vnf"
+    vnf_version: "0.1"
+
 ##
 ## The NS connection points to the
 ## outside world.
@@ -51,6 +56,7 @@ virtual_links:
     connection_points_reference:
       - "vnf_vtc:mgmt"
       - "vnf_firewall:mgmt"
+      - "vnf_vFoo:mgmt"
       - "ns:mgmt"
   - id: "input-2-fw"
     connectivity_type: "E-Line"
@@ -62,11 +68,17 @@ virtual_links:
     connection_points_reference:
       - "vnf_firewall:output"
       - "vnf_vtc:input"
-  - id: "vtc-2-output"
+  - id: "vtc-2-vFoo"
     connectivity_type: "E-Line"
     connection_points_reference:
       - "vnf_vtc:output"
+      - "vnf_vFoo:input"
+  - id: "vFoo-2-out"
+    connectivity_type: "E-Line"
+    connection_points_reference:
+      - "vnf_vFoo:output"
       - "ns:output"
+
 ##
 ## The forwarding graphs.
 ##
@@ -76,6 +88,8 @@ forwarding_graphs:
     number_of_virtual_links: 3
     constituent_vnfs:
       - "vnf_vtc"
+      - "vnf_firewall"
+      - "vnf_vFoo"
     network_forwarding_paths:
       - fp_id: "ns:fg01:fp01"
         policy: "none"
@@ -90,8 +104,10 @@ forwarding_graphs:
             position: 4
           - connection_point_ref: "vnf_vtc:output"
             position: 5
-          - connection_point_ref: "ns:output"
+          - connection_point_ref: "vnf_vFoo:input"
             position: 6
+          - connection_point_ref: "vnf_vFoo:output"
+            position: 7
+          - connection_point_ref: "ns:output"
+            position: 8
 uuid: 9df6a98f-9e11-4cb7-b3c0-b1375e7ca1a1
-instance_uuid: 9df6a98f-9e11-4cb7-b3c0-InAdUnitTest
-
