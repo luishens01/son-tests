@@ -47,7 +47,8 @@ module.exports = function(grunt) {
 				args: {
 					params: {
 						host: [grunt.option('host')],
-						port: [grunt.option('port')]
+						port: [grunt.option('port')],
+						protocol: [grunt.option('protocol')]
 					}
 				}
 			},		  
