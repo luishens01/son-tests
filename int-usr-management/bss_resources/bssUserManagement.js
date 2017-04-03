@@ -32,7 +32,7 @@
     
         beforeEach(function() {
             browser.driver.manage().window().maximize();                
-            browser.get('https://'+browser.params.host+':'+browser.params.port);
+            browser.get(browser.params.protocol+'://'+browser.params.host+':'+browser.params.port);
         });
         
         it('title must be SonataBSS', function() {
@@ -40,21 +40,26 @@
         });
 
         it('redirection to login page', function() {        
-            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.host+':'+browser.params.port+'/#/login');
+            expect(browser.getCurrentUrl()).toBe(browser.params.protocol+'://'+browser.params.host+':'+browser.params.port+'/#/login');
         });       
 
         it('registration successful', function() {            
             browser.driver.findElement(by.xpath('//a[. = "Register"]')).click();
-            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.host+':'+browser.params.port+'/#/register');
+            expect(browser.getCurrentUrl()).toBe(browser.params.protocol+'://'+browser.params.host+':'+browser.params.port+'/#/register');
             browser.driver.findElement(by.id('firstName')).sendKeys('sonata');
             browser.driver.findElement(by.id('lastName')).sendKeys('sonata');
             browser.driver.findElement(by.id('username')).sendKeys('sonata');
             browser.driver.findElement(by.id('password')).sendKeys('sonata');
             browser.driver.findElement(by.id('userEmail')).sendKeys('sonata@mail.com');
-            browser.driver.findElement(by.xpath('//button[. = "Register"]')).click();            
-            modal = element(by.id('success'));
+            browser.driver.findElement(by.xpath('//button[. = "Register"]')).click();                        
+            modal = element.all(by.className('modal-dialog')).first();
             expect(modal.isDisplayed()).toBe(true);
-            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.host+':'+browser.params.port+'/#/login');
+        });
+
+        it('returning to login page', function() {
+            browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
+            browser.waitForAngular();            
+            expect(browser.getCurrentUrl()).toBe(browser.params.protocol+'://'+browser.params.host+':'+browser.params.port+'/#/login');
         });
     });
 
@@ -62,7 +67,7 @@
     
         beforeEach(function() {
             browser.driver.manage().window().maximize();                
-            browser.get('https://'+browser.params.host+':'+browser.params.port);
+            browser.get(browser.params.protocol+'://'+browser.params.host+':'+browser.params.port);
         });
         
         it('title must be SonataBSS', function() {
@@ -70,14 +75,14 @@
         });
 
         it('redirection to login page', function() {        
-            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.host+':'+browser.params.port+'/#/login');
+            expect(browser.getCurrentUrl()).toBe(browser.params.protocol+'://'+browser.params.host+':'+browser.params.port+'/#/login');
         });        
 
         it('login successful; redirection to NSDs page', function() {            
             browser.driver.findElement(by.id('username')).sendKeys('sonata');
             browser.driver.findElement(by.id('password')).sendKeys('sonata');
             browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
-            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.host+':'+browser.params.port+'/#/nSDs');
+            expect(browser.getCurrentUrl()).toBe(browser.params.protocol+'://'+browser.params.host+':'+browser.params.port+'/#/nSDs');
         });
     });    
 });
