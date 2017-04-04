@@ -12,7 +12,6 @@ SONCLI() {
     docker exec son-cli-int-test "$@"
 }
 
-SONEMU sed -i 's/enable_learning=False/enable_learning=True/' /son-emu/src/emuvim/examples/sonata_y1_demo_topology_1.py
 
 ### Starting the topology
 SONEMU screen -L -S sonemu -d -m sudo python /son-emu/src/emuvim/examples/sonata_y1_demo_topology_1.py
