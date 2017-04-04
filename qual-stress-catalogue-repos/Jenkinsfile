@@ -1,0 +1,64 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+            checkout scm
+
+       stage 'Deploy and Clean Database'
+            echo 'Deployment'			
+			sh 'qual-stress-catalogue-repos/deployment.sh'
+       
+       stage 'Test: Check catalogue-repos API is UP'
+            echo 'Check catalogue-repos API is UP'
+            sh 'qual-stress-catalogue-repos/tests.sh'
+
+       stage 'Test 1: Stress son-package files API'
+            echo 'Stress son-package files API'
+            sh 'qual-stress-catalogue-repos/tests1.sh'
+
+       stage 'Test 2: Stress NSD API'
+            echo 'Stress NSD API'
+            sh 'qual-stress-catalogue-repos/tests2.sh'
+
+       stage 'Test 3: Stress VNFD API'
+            echo 'Stress VNFD API'
+            sh 'qual-stress-catalogue-repos/tests3.sh'
+
+       stage 'Test 4: Stress PD API'
+            echo 'Stress PD API'
+            sh 'qual-stress-catalogue-repos/tests4.sh'
+
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'qual-stress-catalogue-repos project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'project build successful',
+                        to: 'dani.guija@i2cat.net, shuaib.siddiqui@i2cat.net, felipe.vicens@atos.net, jbonnet@alticelabs.com'
+        }
+
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "qual-stress-catalogue-repos project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'project build error',
+            to: 'dani.guija@i2cat.net, shuaib.siddiqui@i2cat.net, felipe.vicens@atos.net, jbonnet@alticelabs.com'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+
+}
