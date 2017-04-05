@@ -52,7 +52,7 @@ wait_for_web sp.int3.sonata-nfv.eu:5601 200
 while ! nc -z localhost 5601; do
   sleep 1 && echo -n .; # waiting for gtkusr
 done;
-echo son-gtkusr-keycloak Ready!
+echo son-keycloak Ready!
 
 sleep 5
 
