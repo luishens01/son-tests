@@ -11,7 +11,7 @@ echo $resp
 token=$(echo $resp | grep "access_token")
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Bearer $token" \
--X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize) 2>/dev/null
+-X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize?path=/services&method=POST) 2>/dev/null
 echo $resp
 
 code=$(echo "$resp" | tail -n1)
@@ -35,7 +35,7 @@ echo $resp
 token=$(echo $resp | grep "access_token")
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Bearer $token" \
--X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize) 2>/dev/null
+-X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize?path=/services&method=POST) 2>/dev/null
 echo $resp
 
 code=$(echo "$resp" | tail -n1)
@@ -53,13 +53,13 @@ echo "Credentials: $creds"
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Basic $creds" \
 -H "Content-Type: application/x-www-form-urlencoded" \
--d '' -X POST http://sp.int3.sonata-nfv.eu:5600/api/v1/login/user)
+-d '' -X POST http://sp.int3.sonata-nfv.eu:5600/api/v1/login/service)
 echo $resp
 
 token=$(echo $resp | grep "access_token")
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Bearer $token" \
--X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize) 2>/dev/null
+-X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize?path=/requests&method=GET) 2>/dev/null
 echo $resp
 
 code=$(echo "$resp" | tail -n1)
