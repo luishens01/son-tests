@@ -10,7 +10,7 @@
 #echo "Success: UM_Adapter-DB found"
 
 # Contact Gatekeeper - gtkusr
-status_code=$(curl -s -o /dev/null -w "%{http_code}" http://sp.int3.sonata-nfv.eu:5600/admin)
+status_code=$(curl -s -o /dev/null -w "%{http_code}" http://sp.int3.sonata-nfv.eu:5600/)
 
 if [[ $status_code != 20* ]] ;
   then
