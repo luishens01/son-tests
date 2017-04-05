@@ -32,8 +32,8 @@ function wait_for_web() {
 echo Stopping and removing containers
 docker stop son-gtkusr &&
 docker rm -fv son-gtkusr &&
-docker stop sonata-keycloak &&
-docker rm -fv sonata-keycloak &&
+docker stop son-keycloak &&
+docker rm -fv son-keycloak &&
 sleep 5
 
 echo Building new containers
