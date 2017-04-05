@@ -49,9 +49,6 @@ echo son-gtkusr Ready!
 echo Waiting for son-gtkusr-keycloak ...
 # while ! nc -z sp.int3.sonata-nfv.eu 5601; do
 wait_for_web sp.int3.sonata-nfv.eu:5601 200
-while ! nc -z localhost 5601; do
-  sleep 1 && echo -n .; # waiting for gtkusr
-done;
 echo son-keycloak Ready!
 
 sleep 5
