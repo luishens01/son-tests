@@ -29,4 +29,4 @@ if [[ $status_code != 20* ]] ;
 fi
 echo "Success: Keycloak found"
 echo "Waiting for configuration load..."
-sleep 70s
+sleep 60s
