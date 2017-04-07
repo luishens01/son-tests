@@ -47,7 +47,7 @@ if [[ $code != 40* ]] ;
     exit -1
 fi
 
-printf "\n\n======== GET User (Micro-service) Authorize to GTKUSR ==\n\n\n"
+printf "\n\n======== GET Service (Micro-service) Authorize to GTKUSR ==\n\n\n"
 creds=$(echo -n 'son-catalogue:1234' | base64)
 echo "Credentials: $creds"
 
@@ -65,7 +65,7 @@ echo $resp
 code=$(echo "$resp" | tail -n1)
 echo "Code: $code"
 
-if [[ $code != 20* ]] ;
+if [[ $code != 40* ]] ;
   then
     echo "Error: Response error $code"
     exit -1
