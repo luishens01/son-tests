@@ -12,6 +12,7 @@ token=$(echo $resp | awk '{print $1}' | python -mjson.tool | grep "access_token"
 echo $token
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Bearer $token" \
+-H "Content-Type: application/x-www-form-urlencoded" \
 -X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize?path=/services&method=POST) 2>/dev/null
 echo $resp
 
@@ -37,6 +38,7 @@ token=$(echo $resp | awk '{print $1}' | python -mjson.tool | grep "access_token"
 echo $token
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Bearer $token" \
+-H "Content-Type: application/x-www-form-urlencoded" \
 -X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize?path=/services&method=POST) 2>/dev/null
 echo $resp
 
@@ -62,6 +64,7 @@ token=$(echo $resp | awk '{print $1}' | python -mjson.tool | grep "access_token"
 echo $token
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Bearer $token" \
+-H "Content-Type: application/x-www-form-urlencoded" \
 -X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize?path=/requests&method=GET) 2>/dev/null
 echo $resp
 
