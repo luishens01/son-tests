@@ -12,23 +12,23 @@ node {
             echo 'Deployment'			
 			sh 'int-gtkusr-keycloak/deployment.sh'
        
-       stage 'Test: Adapter (son-gtkusr) and Keycloak UP'
+       stage 'Test1: Adapter (son-gtkusr) and Keycloak UP'
             echo 'Adapter (son-gtkusr) and Keycloak UP'
             sh 'int-gtkusr-keycloak/tests.sh'
 
-       stage 'Test1: Registration of users and service'
+       stage 'Test2: Registration of users and service'
                    echo 'Registration of developer, customer and service'
                    sh 'int-gtkusr-keycloak/tests1.sh'
 
-       stage 'Test2: Login of users and service'
+       stage 'Test3: Login of users and service'
                    echo 'Login of developer, customer and service'
                    sh 'int-gtkusr-keycloak/tests2.sh'
 
-       stage 'Test3: Authorization of users and service'
+       stage 'Test4: Authorization of users and service'
                    echo 'Authorization of developer, customer and service'
                    sh 'int-gtkusr-keycloak/tests3.sh'
 
-       stage 'Test4: Logout of users and service'
+       stage 'Test5: Logout of users and service'
                    echo 'Logout of developer, customer and service'
                    sh 'int-gtkusr-keycloak/tests4.sh'
 
