@@ -8,7 +8,8 @@ resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Basic $creds" \
 -d '' -X POST http://sp.int3.sonata-nfv.eu:5600/api/v1/login/user)
 echo $resp
 
-token=$(echo $resp | grep "access_token")
+token=$(echo $resp | awk '{print $1}' | python -mjson.tool | grep "access_token" | awk -F ':[ \t]*' '{print $2}' | sed 's/,//g' | sed 's/"//g')
+echo $token
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Bearer $token" \
 -X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize?path=/services&method=POST) 2>/dev/null
@@ -32,7 +33,8 @@ resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Basic $creds" \
 -d '' -X POST http://sp.int3.sonata-nfv.eu:5600/api/v1/login/user)
 echo $resp
 
-token=$(echo $resp | grep "access_token")
+token=$(echo $resp | awk '{print $1}' | python -mjson.tool | grep "access_token" | awk -F ':[ \t]*' '{print $2}' | sed 's/,//g' | sed 's/"//g')
+echo $token
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Bearer $token" \
 -X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize?path=/services&method=POST) 2>/dev/null
@@ -56,7 +58,8 @@ resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Basic $creds" \
 -d '' -X POST http://sp.int3.sonata-nfv.eu:5600/api/v1/login/service)
 echo $resp
 
-token=$(echo $resp | grep "access_token")
+token=$(echo $resp | awk '{print $1}' | python -mjson.tool | grep "access_token" | awk -F ':[ \t]*' '{print $2}' | sed 's/,//g' | sed 's/"//g')
+echo $token
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Bearer $token" \
 -X GET http://sp.int3.sonata-nfv.eu:5600/api/v1/authorize?path=/requests&method=GET) 2>/dev/null
