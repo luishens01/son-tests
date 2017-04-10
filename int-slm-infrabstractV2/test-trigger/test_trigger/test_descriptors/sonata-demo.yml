@@ -16,6 +16,24 @@ description: >
   "The network service descriptor for the SONATA demo,
    comprising a Virtual Traffic Classifier"
 
+
+# service_specific_managers:
+#  - image: "tsoenen/ssmplace"
+#    id: "sonssmdefaultplacement1"
+#    options:
+#      - key: "type"
+#        value: "placement"
+#  - image: "tsoenen/ssmtask"
+#    id: "sonssmdefaulttask1"
+#    options:
+#      - key: "type"
+#        value: "task"
+#  - image: "tsoenen/ssmconfiguration"
+#    id: "sonssmdefaultconfiguration1"
+#    options:
+#      - key: "type"
+#        value: "configure"
+
 ##
 ## The various network functions this service
 ## is composed of.
@@ -40,10 +58,14 @@ network_functions:
 ##
 connection_points:
   - id: "ns:mgmt"
+    #interface: "ipv4"
+    #type: "management"
     type: "public"
   - id: "ns:input"
+    #interface: "ipv4"
     type: "external"
   - id: "ns:output"
+    #interface: "ipv4"
     type: "external"
 
 ##
