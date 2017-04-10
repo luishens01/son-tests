@@ -1,0 +1,64 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+            checkout scm
+
+       stage 'Deploy and Clean'
+            echo 'Deployment'			
+			sh 'int-gtkusr-keycloak/deployment.sh'
+       
+       stage 'Test1: Adapter (son-gtkusr) and Keycloak UP'
+            echo 'Adapter (son-gtkusr) and Keycloak UP'
+            sh 'int-gtkusr-keycloak/tests.sh'
+
+       stage 'Test2: Registration of users and service'
+                   echo 'Registration of developer, customer and service'
+                   sh 'int-gtkusr-keycloak/tests1.sh'
+
+       stage 'Test3: Login of users and service'
+                   echo 'Login of developer, customer and service'
+                   sh 'int-gtkusr-keycloak/tests2.sh'
+
+       stage 'Test4: Authorization of users and service'
+                   echo 'Authorization of developer, customer and service'
+                   sh 'int-gtkusr-keycloak/tests3.sh'
+
+       stage 'Test5: Logout of users and service'
+                   echo 'Logout of developer, customer and service'
+                   sh 'int-gtkusr-keycloak/tests4.sh'
+
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'int-gtkusr-keycloak project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'project build successful',
+                        to: 'dani.guija@i2cat.net, shuaib.siddiqui@i2cat.net, felipe.vicens@atos.net, jbonnet@alticelabs.com'
+        }
+
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "int-gtkusr-keycloak project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'project build error',
+            to: 'dani.guija@i2cat.net, shuaib.siddiqui@i2cat.net, felipe.vicens@atos.net, jbonnet@alticelabs.com'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+
+}
