@@ -35,7 +35,7 @@ node {
     catch (caughtError) {
         err = caughtError
         currentBuild.result = "FAILURE"
-            mail body: "project build error: ${err}" ,
+            mail body: "int-usr-management project build error: ${err}" ,
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
             subject: 'project build error',
