@@ -10,6 +10,7 @@ node ./node_modules/protractor/bin/webdriver-manager update
 #
 
 export DOCKER_HOST="tcp://sp.int3.sonata-nfv.eu:2375"
+
 # MONGODB (USER_MANAGEMENT) Not implemented yet
 
 # Clean database
@@ -46,7 +47,13 @@ sleep 5
 cd ../..
 
 echo Building new containers
-docker-compose -f int-usr-management/um_resources/docker-compose_run.yml up -d
+
+echo gtkusr
+docker run --name son-gtkusr --net=sonata --network-alias=son-gtkusr -d -p 5600:5600 -e KEYCLOAK_ADDRESS=son-keycloak -e KEYCLOAK_PORT=5601 -e KEYCLOAK_PATH=auth -e SONATA_REALM=sonata -e CLIENT_NAME=adapter --log-driver=gelf --log-opt gelf-address=udp://10.30.0.219:12900 registry.sonata-nfv.eu:5000/son-gtkusr
+
+echo keycloak
+docker run --name son-keycloak -d -p 5601:5601 --net=sonata --network-alias=son-keycloak -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin --log-driver=gelf --log-opt gelf-address=udp://10.30.0.219:12900 registry.sonata-nfv.eu:5000/son-keycloak
+
 
 echo Waiting for son-gtkusr ...
 # while ! nc -z sp.int3.sonata-nfv.eu 5600; do
