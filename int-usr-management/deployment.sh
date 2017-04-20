@@ -43,6 +43,8 @@ docker stop son-keycloak &&
 docker rm -fv son-keycloak &&
 sleep 5
 
+cd ../..
+
 echo Building new containers
 docker-compose -f int-usr-management/um_resources/docker-compose_run.yml up -d
 
