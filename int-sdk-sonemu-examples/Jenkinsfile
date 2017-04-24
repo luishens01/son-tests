@@ -1,0 +1,49 @@
+#!groovy
+node('jclouds') {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+        stage('Checkout') {
+            checkout scm
+            sh 'env'
+        }
+
+        stage('Init') {
+            echo 'Fetch and Start Service Containers'
+            sh 'cd int-sdk-sonemu-examples && ./deployment.sh'
+        }
+
+        stage('Creating the package') {
+            sh 'cd int-sdk-sonemu-examples && ./utils/create_packages.sh'
+        }
+
+        stage('Example 02') {
+            sh 'cd int-sdk-sonemu-examples && ./utils/cleanup_sonemu.sh'
+            sh 'cd int-sdk-sonemu-examples && tests/02_empty_demo_service_package.sh'
+        }
+
+        /*
+        stage('Example 01') {
+            sh 'cd int-sdk-sonemu-examples && ./utils/cleanup_sonemu.sh'
+            sh 'cd int-sdk-sonemu-examples && tests/01_manually_started_vnfs.sh'
+        }
+        */
+
+    }
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+    }
+
+    finally {
+        sh 'docker rm -f son-emu-int-sdk-pipeline son-cli-int-test'
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+}
