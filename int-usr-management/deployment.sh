@@ -67,7 +67,7 @@ echo Waiting for son-gtkusr public-key ...
 wait_for_web sp.int3.sonata-nfv.eu:5600/api/v1/public-key 200
 echo son-gtkusr is able to return public-key!
 
-sleep 10
+sleep 20
 
 echo Starting Tests
 
