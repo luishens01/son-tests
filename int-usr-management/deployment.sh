@@ -36,6 +36,7 @@ sleep 5
 cd ../..
 
 echo Building new containers
+# docker-compose -f int-gtkusr-keycloak/resources/docker-compose_run.yml up -d
 
 #Mongo
 docker run -d -p 27017:27017 --name son-mongo --net=sonata --network-alias=son-mongo --log-driver=gelf --log-opt gelf-address=udp://10.30.0.219:12900 mongo
@@ -43,13 +44,13 @@ while ! nc -z sp.int3.sonata-nfv.eu 27017; do
   sleep 1 && echo -n .; # waiting for mongo
 done;
 
-# Adapter - gtkusr (GATEKEEPER)
-echo gtkusr
-docker run --name son-gtkusr --net=sonata --network-alias=son-gtkusr -d -p 5600:5600 -e KEYCLOAK_ADDRESS=son-keycloak -e KEYCLOAK_PORT=5601 -e KEYCLOAK_PATH=auth -e SONATA_REALM=sonata -e CLIENT_NAME=adapter --log-driver=gelf --log-opt gelf-address=udp://10.30.0.219:12900 registry.sonata-nfv.eu:5000/son-gtkusr
-
-# Keycloak
+#Keycloak
 echo keycloak
 docker run --name son-keycloak -d -p 5601:5601 --net=sonata --network-alias=son-keycloak -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin --log-driver=gelf --log-opt gelf-address=udp://10.30.0.219:12900 registry.sonata-nfv.eu:5000/son-keycloak
+
+#Gatekeeper User Management
+echo gtkusr
+docker run --name son-gtkusr --net=sonata --network-alias=son-gtkusr -d -p 5600:5600 -e KEYCLOAK_ADDRESS=son-keycloak -e KEYCLOAK_PORT=5601 -e KEYCLOAK_PATH=auth -e SONATA_REALM=sonata -e CLIENT_NAME=adapter --add-host mongo:10.30.0.112 --log-driver=gelf --log-opt gelf-address=udp://10.30.0.219:12900 registry.sonata-nfv.eu:5000/son-gtkusr
 
 echo Waiting for son-gtkusr ...
 # while ! nc -z sp.int3.sonata-nfv.eu 5600; do
@@ -66,8 +67,8 @@ echo Waiting for son-gtkusr public-key ...
 wait_for_web sp.int3.sonata-nfv.eu:5600/api/v1/public-key 200
 echo son-gtkusr is able to return public-key!
 
-sleep 5
+sleep 10
 
-#echo Starting Tests
+echo Starting Tests
 
 export DOCKER_HOST="unix:///var/run/docker.sock"
