@@ -1,0 +1,53 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+            checkout scm
+            
+       stage 'Deploy'
+            echo 'Install test Environment'
+            sh 'int-mon-websockets/deploytestenv.sh'
+       stage 'Get metrics list'
+            echo 'Get list of the available metrics'
+            sh 'int-mon-websockets/tests/get_metrics.sh'
+       stage 'Creation of a new WS'
+            echo 'Request of a new WS'
+            sh 'int-mon-websockets/tests/get_ws_url.sh'
+       stage 'Collect monitoting data'     
+            echo 'Conect to WS'
+            sh 'int-mon-websockets/tests/connect_ws.sh'
+       
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'MONITOR-WS test executed successful',
+                        to: 'pkarkazis@synelixis.com'
+        }
+
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'MONITOR-WS test failed',
+            to: 'pkarkazis@synelixis.com'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+
+}

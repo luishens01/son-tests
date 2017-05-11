@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+set -x
+
+# Send a command to the screen session, aka into the containernet prompt
+screen -S sonemu -X stuff "${@}^M"
