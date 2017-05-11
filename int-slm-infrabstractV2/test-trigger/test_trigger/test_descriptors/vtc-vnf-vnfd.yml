@@ -32,14 +32,13 @@ virtual_deployment_units:
         unit: "Mbps"
     connection_points:
       - id: "vdu01:eth0"
-        #interface: "ipv4"
-        #type: "management"
-        type: "public"
+        interface: "ipv4"
+        type: "management"
       - id: "vdu01:eth1"
-        #interface: "ipv4"
+        interface: "ipv4"
         type: "internal"
       - id: "vdu01:eth2"
-        #interface: "ipv4"
+        interface: "ipv4"
         type: "external"
 
 virtual_links:
@@ -64,15 +63,14 @@ virtual_links:
 
 connection_points:
 - id: "vnf:mgmt"
-  #interface: "ipv4"
-  #type: "management"
-  type: "public"
+  interface: "ipv4"
+  type: "management"
 - id: "vnf:input"
-  #interface: "ipv4"
-  type: internal
+  interface: "ipv4"
+  type: "internal"
 - id: "vnf:output"
-  #interface: "ipv4"
-  type: external
+  interface: "ipv4"
+  type: "external"
 
 monitoring_rules:
   - name: "mon:rule:vm_cpu_perc"
