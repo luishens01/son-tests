@@ -67,10 +67,10 @@ connection_points:
   type: "management"
 - id: "vnf:input"
   interface: "ipv4"
-  type: internal
+  type: "internal"
 - id: "vnf:output"
   interface: "ipv4"
-  type: external
+  type: "external"
 
 monitoring_rules:
   - name: "mon:rule:vm_cpu_perc"
