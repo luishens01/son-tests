@@ -15,16 +15,16 @@ description: "A firewall based on Ryu Openflow controller + openvswitch (2 ports
 ##
 virtual_deployment_units:
   - id: "1"
-    vm_image: "http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img"
+    vm_image: "sonata-vfw"
     vm_image_format: "qcow2"
     resource_requirements:
       cpu:
-        vcpus: 1
+        vcpus: 2
       memory:
-        size: 1
+        size: 4
         size_unit: "GB"
       storage:
-        size: 1
+        size: 40
         size_unit: "GB"
     connection_points:
       - id: "vdu01:eth0"
@@ -34,7 +34,7 @@ virtual_deployment_units:
         interface: "ipv4"
         type: "external"
       - id: "vdu01:eth2"
-        #interface: "ipv4"
+        interface: "ipv4"
         type: "internal"
 
 ##
@@ -72,4 +72,3 @@ connection_points:
   - id: "vnf:output"
     interface: "ipv4"
     type: "internal"
-uuid: 6a15313f-cb0a-4540-baa2-77cc6b3f5678
