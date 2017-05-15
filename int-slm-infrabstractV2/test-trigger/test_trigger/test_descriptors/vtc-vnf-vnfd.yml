@@ -103,3 +103,4 @@ monitoring_rules:
     notification:
       - name: "notification04"
         type: "rabbitmq_message"
+uuid: 9df6a98f-9e11-4cb7-b3c0-b1375e7ca1aa

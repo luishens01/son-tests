@@ -72,3 +72,4 @@ connection_points:
   - id: "vnf:output"
     interface: "ipv4"
     type: "internal"
+uuid: 9df6a98f-9e11-4cb7-b3c0-b1375e7ca1a9
