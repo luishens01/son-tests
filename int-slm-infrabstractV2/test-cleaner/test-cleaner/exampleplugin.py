@@ -76,7 +76,7 @@ class DemoPlugin1(ManoBasePlugin):
         LOG.debug(json.loads(message))
         msg = json.loads(message)
         if 'request_status' in msg.keys() and (properties.correlation_id == self.correlation_id):
-            if msg['request_status'] == 'SUCCESS':
+            if msg['request_status'] == 'COMPLETED':
                 LOG.info('instance removed succesfully')
                 os._exit(0)
             else:
