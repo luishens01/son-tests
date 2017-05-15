@@ -11,7 +11,7 @@ if [[ $code != 201 ]] ;
 fi
 resp=$(curl -H 'Content-Type: application/json' -X GET -G 'http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_counter&instance=gtkkpi&job=sonata&base_labels%5Blabel1%5D=value1&base_labels%5Blabel2%5D=value2')
 echo $resp
-first_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
+first_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["data"]["value"]')
 
 echo "Counter example_counter created/updated with value $first_value"
 
@@ -31,7 +31,7 @@ done
 
 # Get the couter value
 resp=$(curl -H 'Content-Type: application/json' -X GET -G 'http://sp.int3.sonata-nfv.eu:32001/api/v2/kpis?name=example_counter&instance=gtkkpi&job=sonata&base_labels%5Blabel1%5D=value1&base_labels%5Blabel2%5D=value2')
-counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]')
+counter_value=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["data"]["value"]')
 echo "Counter example_counter incremented. New value: $counter_value"
 
 if [[ !("$counter_value" == "$((first_value+3))") ]]; then
