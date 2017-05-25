@@ -28,12 +28,16 @@ virtual_deployment_units:
         size_unit: "GB"
     connection_points:
       - id: "vdu01:eth0"
-        type: "public"
+        interface: "ipv4"
+        type: "management"
       - id: "vdu01:eth1"
+        interface: "ipv4"
         type: "internal"
       - id: "vdu01:eth2"
+        interface: "ipv4"
         type: "internal"
       - id: "vdu01:eth3"
+        interface: "ipv4"
         type: "internal"
   - id: "vdu02"
     vm_image: "http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img"
@@ -49,8 +53,10 @@ virtual_deployment_units:
         size_unit: "GB"
     connection_points:
       - id: "vdu02:eth0"
-        type: "public"
+        interface: "ipv4"
+        type: "management"
       - id: "vdu02:eth1"
+        interface: "ipv4"
         type: "internal"
   
 ##
@@ -88,9 +94,12 @@ virtual_links:
 
 connection_points:
   - id: "vnf:mgmt"
-    type: "public"
+    interface: "ipv4"
+    type: "external"
   - id: "vnf:input"
+    interface: "ipv4"
     type: "internal"
   - id: "vnf:output"
+    interface: "ipv4"
     type: "internal"
 uuid: 6a15313f-cb0a-4540-baa2-77cc6b3f1010
