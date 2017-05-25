@@ -34,6 +34,8 @@ docker stop son-gtkusr &&
 docker rm -fv son-gtkusr &&
 docker stop son-keycloak &&
 docker rm -fv son-keycloak &&
+# docker stop son-mongo &&
+# docker rm -fv son-mongo &&
 sleep 5
 
 echo Building new containers
