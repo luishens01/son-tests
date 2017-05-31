@@ -20,7 +20,8 @@ if [[ $code != 200 ]] ;
 fi
 
 # Test phase
-#resp=$(curl -qSfsw '\n%{http_code}' -F "package=@resources/sonata-demo.son" -X POST http://sp.int3.sonata-nfv.eu:32001/packages)
+#resp=$(curl -qSfsw '\n%{http_code}' -F "package=@resources/sonata-demo.son" -H "Authorization: Bearer $token" \
+# -X POST http://sp.int3.sonata-nfv.eu:32001/api/v2/packages)
 resp=$(curl -qSfsw '\n%{http_code}' -F "package=@int-gtkpkg-sp-catalogue/resources/sonata-demo.son" -H "Authorization: Bearer $token" \
 -X POST http://sp.int3.sonata-nfv.eu:32001/api/v2/packages)
 echo $resp
