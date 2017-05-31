@@ -40,9 +40,9 @@ if [[ $code != 200 ]] ;
 fi
 
 set -- $uuid
-# echo $1
-# echo $2
-# echo $3
+# echo "FUNCTION 1:"$1
+# echo "FUNCTION 2:"$2
+# echo "FUNCTION 3:"$3
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -H "Authorization: Bearer $token" \
 -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/functions/$1) 2>/dev/null
