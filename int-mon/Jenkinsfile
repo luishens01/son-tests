@@ -31,10 +31,10 @@ node {
        stage 'Notifications'
             echo 'Sending mails'
 
-            mail body: 'project build successful',
+            mail body: 'MONITOR int test executed successfully',
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
-                        subject: 'MONITOR project build successful',
+                        subject: 'MONITOR int test executed successfully',
                         to: 'pkarkazis@synelixis.com'
         }
 
@@ -42,7 +42,7 @@ node {
     catch (caughtError) {
         err = caughtError
         currentBuild.result = "FAILURE"
-            mail body: "project build error: ${err}" ,
+            mail body: "MONITOR int test  error: ${err}" ,
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
             subject: 'MONITOR project build error',

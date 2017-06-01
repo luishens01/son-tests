@@ -22,7 +22,7 @@ if [[ "$srvs" -gt 0 ]];
       id=$(echo $resp | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["results"]['$index']["id"]')
       srv_found=1
       echo "Success: New Service Post action done"
-      curl -s -X DELETE http://sp.int3.sonata-nfv.eu:8000/api/v1/service/$id/
+      curl -s -X DELETE http://sp.int3.sonata-nfv.eu:8000/api/v1/services/$srv_name/
     fi		
     let index=index+1 
   done
