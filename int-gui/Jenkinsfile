@@ -27,7 +27,7 @@ node {
        stage 'Notifications'
             echo 'Sending mails'
 
-            mail body: 'GUI int test executed successfully,
+            mail body: 'GUI int test executed successfully',
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
                         subject: 'GUI int test executed successfully',
