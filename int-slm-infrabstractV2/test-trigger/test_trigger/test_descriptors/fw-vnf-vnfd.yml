@@ -19,12 +19,12 @@ virtual_deployment_units:
     vm_image_format: "qcow2"
     resource_requirements:
       cpu:
-        vcpus: 2
+        vcpus: 1
       memory:
-        size: 4
+        size: 1
         size_unit: "GB"
       storage:
-        size: 40
+        size: 10
         size_unit: "GB"
     connection_points:
       - id: "vdu01:eth0"
