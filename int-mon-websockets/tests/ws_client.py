@@ -35,7 +35,7 @@ if __name__ == "__main__":
     global count
     count = 0
     url = 'http://sp.int3.sonata-nfv.eu:8000/api/v1/ws/new'
-    data = {"metric":"vm_cpu_perc","filters":["id='123456asdas255sdas'","type='vnf'"]}
+    data = {"metric":"vm_cpu_perc","filters":["type='vnf'"]}
     resp = None
     try: 
         req = urllib2.Request(url)
