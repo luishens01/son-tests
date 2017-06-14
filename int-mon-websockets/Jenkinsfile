@@ -24,10 +24,10 @@ node {
        stage 'Notifications'
             echo 'Sending mails'
 
-            mail body: 'project build successful',
+            mail body: 'MONITOR-WS test executed successfully',
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
-                        subject: 'MONITOR-WS test executed successful',
+                        subject: 'MONITOR-WS test executed successfully',
                         to: 'pkarkazis@synelixis.com'
         }
 
@@ -35,7 +35,7 @@ node {
     catch (caughtError) {
         err = caughtError
         currentBuild.result = "FAILURE"
-            mail body: "project build error: ${err}" ,
+            mail body: "MONITOR-WS test error: ${err}" ,
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
             subject: 'MONITOR-WS test failed',
