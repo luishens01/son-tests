@@ -6,7 +6,7 @@
 ##
 descriptor_version: "vnfd-schema-02"
 vendor: "eu.sonata-nfv"
-name: "fw-vnf"
+name: "vBar-vnf"
 version: "0.1"
 author: "Steven Van Rossem, Ghent University, steven.vanrossem@intec.ugent.be"
 description: "A firewall based on Ryu Openflow controller + openvswitch (2 ports: input+output) in a single VNF"
@@ -14,8 +14,8 @@ description: "A firewall based on Ryu Openflow controller + openvswitch (2 ports
 ## The virtual deployment unit.
 ##
 virtual_deployment_units:
-  - id: "1"
-    vm_image: "sonata-vfw"
+  - id: "vdu01"
+    vm_image: "http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img"
     vm_image_format: "qcow2"
     resource_requirements:
       cpu:
