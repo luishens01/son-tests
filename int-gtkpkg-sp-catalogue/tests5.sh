@@ -15,7 +15,7 @@ printf "\n\n======== GET Package UUID and SON_PACKAGE_UUID from Gatekeeper  ====
 ### Login phase
 echo "Authenticating to the Service Platform..."
 
-resp=$(curl -qSfsw '\n%{http_code}' -d '{"username":"demo","password":"demo"}' \
+resp=$(curl -qSfsw '\n%{http_code}' -d '{"username":"jenkins","password":"1234"}' \
 http://sp.int3.sonata-nfv.eu:32001/api/v2/sessions)
 echo $resp
 

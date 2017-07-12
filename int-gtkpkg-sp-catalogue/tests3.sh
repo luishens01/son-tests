@@ -4,7 +4,7 @@ printf "\n\n======== GET Function from Gatekeeper  ========\n\n\n"
 ### Login phase
 echo "Authenticating to the Service Platform..."
 
-resp=$(curl -qSfsw '\n%{http_code}' -d '{"username":"demo","password":"demo"}' \
+resp=$(curl -qSfsw '\n%{http_code}' -d '{"username":"jenkins","password":"1234"}' \
 http://sp.int3.sonata-nfv.eu:32001/api/v2/sessions)
 echo $resp
 
@@ -40,9 +40,9 @@ if [[ $code != 200 ]] ;
 fi
 
 set -- $uuid
-# echo $1
-# echo $2
-# echo $3
+# echo "FUNCTION 1:"$1
+# echo "FUNCTION 2:"$2
+# echo "FUNCTION 3:"$3
 
 resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -H "Authorization: Bearer $token" \
 -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/functions/$1) 2>/dev/null

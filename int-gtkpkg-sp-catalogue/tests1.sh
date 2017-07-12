@@ -3,7 +3,7 @@ printf "\n\n======== POST Package to Gatekeeper ========\n\n\n"
 ### Login phase
 echo "Authenticating to the Service Platform..."
 
-resp=$(curl -qSfsw '\n%{http_code}' -d '{"username":"demo","password":"demo"}' \
+resp=$(curl -qSfsw '\n%{http_code}' -d '{"username":"jenkins","password":"1234"}' \
 http://sp.int3.sonata-nfv.eu:32001/api/v2/sessions)
 echo $resp
 
@@ -20,7 +20,8 @@ if [[ $code != 200 ]] ;
 fi
 
 # Test phase
-#resp=$(curl -qSfsw '\n%{http_code}' -F "package=@resources/sonata-demo.son" -X POST http://sp.int3.sonata-nfv.eu:32001/packages)
+#resp=$(curl -qSfsw '\n%{http_code}' -F "package=@resources/sonata-demo.son" -H "Authorization: Bearer $token" \
+# -X POST http://sp.int3.sonata-nfv.eu:32001/api/v2/packages)
 resp=$(curl -qSfsw '\n%{http_code}' -F "package=@int-gtkpkg-sp-catalogue/resources/sonata-demo.son" -H "Authorization: Bearer $token" \
 -X POST http://sp.int3.sonata-nfv.eu:32001/api/v2/packages)
 echo $resp

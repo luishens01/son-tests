@@ -1,0 +1,1 @@
+{"username": "sonata01", "enabled": true, "totp": false, "emailVerified": false, "firstName": "User", "lastName": "Sample", "email": "sonata01.admin@email.com", "credentials": [ {"type": "password", "value": "1234"} ], "requiredActions": [], "federatedIdentities": [], "attributes": {"userType": ["admin"]}, "realmRoles": [], "clientRoles": {}, "groups": []}

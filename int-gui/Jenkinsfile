@@ -27,10 +27,10 @@ node {
        stage 'Notifications'
             echo 'Sending mails'
 
-            mail body: 'project build successful',
+            mail body: 'GUI int test executed successfully',
                         from: 'sonata-nfv@gmail.com',
                         replyTo: 'sonata-nfv@gmail.com',
-                        subject: 'project build successful',
+                        subject: 'GUI int test executed successfully',
                         to: 'pkarkazis@synelixis.com'
         }
 
@@ -38,10 +38,10 @@ node {
     catch (caughtError) {
         err = caughtError
         currentBuild.result = "FAILURE"
-            mail body: "project build error: ${err}" ,
+            mail body: "GUI int test error: ${err}" ,
             from: 'sonata-nfv@gmail.com',
             replyTo: 'sonata-nfv@gmail.com',
-            subject: 'project build error',
+            subject: 'GUI int test error',
             to: 'pkarkazis@synelixis.com'
         }
 
