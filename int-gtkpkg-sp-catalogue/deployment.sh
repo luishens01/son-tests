@@ -9,7 +9,7 @@ export DOCKER_HOST="tcp://sp.int3.sonata-nfv.eu:2375"
 docker rm -fv son-mongo 
 sleep 5
 # Starting
-docker run -d -p 27017:27017 --name son-mongo mongo
+docker run -d -p 27017:27017 --name son-mongo --net=sonata --network-alias=son-mongo --log-driver=gelf --log-opt gelf-address=udp://10.30.0.219:12900 mongo
 while ! nc -z sp.int3.sonata-nfv.eu 27017; do
   sleep 1 && echo -n .; # waiting for mongo
 done;
