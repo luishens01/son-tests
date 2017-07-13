@@ -28,10 +28,10 @@ description: >
 ## is composed of.
 ##
 network_functions:
-  - vnf_id: "vnf_vtc_test"
-    vnf_vendor: "eu.sonata-nfv"
-    vnf_name: "vtc-test-vnf"
-    vnf_version: "0.1"
+##  - vnf_id: "vnf_vtc_test"
+##    vnf_vendor: "eu.sonata-nfv"
+##    vnf_name: "vtc-test-vnf"
+##    vnf_version: "0.1"
   - vnf_id: "vnf_vbar"
     vnf_vendor: "eu.sonata-nfv"
     vnf_name: "vbar-vnf"
@@ -64,7 +64,7 @@ virtual_links:
   - id: "mgmt"
     connectivity_type: "E-LAN"
     connection_points_reference:
-      - "vnf_vtc_test:mgmt"
+##      - "vnf_vtc_test:mgmt"
       - "vnf_vbar:mgmt"
       - "vnf_vfoo:mgmt"
       - "mgmt"
@@ -73,15 +73,20 @@ virtual_links:
     connection_points_reference:
       - "input"
       - "vnf_vbar:input"
-  - id: "fw-2-vtc"
+##  - id: "fw-2-vtc"
+##    connectivity_type: "E-Line"
+##    connection_points_reference:
+##      - "vnf_vbar:output"
+##      - "vnf_vtc_test:input"
+##  - id: "vtc-2-vfoo"
+##    connectivity_type: "E-Line"
+##    connection_points_reference:
+##      - "vnf_vtc_test:output"
+##      - "vnf_vfoo:input"
+  - id: "vbar-2-vfoo"
     connectivity_type: "E-Line"
     connection_points_reference:
       - "vnf_vbar:output"
-      - "vnf_vtc_test:input"
-  - id: "vtc-2-vfoo"
-    connectivity_type: "E-Line"
-    connection_points_reference:
-      - "vnf_vtc_test:output"
       - "vnf_vfoo:input"
   - id: "vfoo-2-out"
     connectivity_type: "E-Line"
@@ -110,14 +115,20 @@ forwarding_graphs:
             position: 2
           - connection_point_ref: "vnf_vbar:output"
             position: 3
-          - connection_point_ref: "vnf_vtc_test:input"
-            position: 4
-          - connection_point_ref: "vnf_vtc_test:output"
-            position: 5
           - connection_point_ref: "vnf_vfoo:input"
-            position: 6
+            position: 4
           - connection_point_ref: "vnf_vfoo:output"
-            position: 7
+            position: 5
           - connection_point_ref: "output"
-            position: 8
+            position: 6
+##          - connection_point_ref: "vnf_vtc_test:input"
+##            position: 4
+##          - connection_point_ref: "vnf_vtc_test:output"
+##            position: 5
+##          - connection_point_ref: "vnf_vfoo:input"
+##            position: 6
+##          - connection_point_ref: "vnf_vfoo:output"
+##            position: 7
+##          - connection_point_ref: "output"
+##            position: 8
 uuid: 9df6a98f-9e11-4cb7-b3c0-b1375e7ca1a1

@@ -35,7 +35,7 @@ virtual_deployment_units:
         type: "external"
       - id: "eth2"
         interface: "ipv4"
-        type: "internal"
+        type: "external"
 
 ##
 ## The virtual links that interconnect
@@ -71,5 +71,6 @@ connection_points:
     type: "external"
   - id: "output"
     interface: "ipv4"
-    type: "internal"
+    type: "external"
+
 uuid: 9df6a98f-9e11-4cb7-b3c0-b1375e7ca1a9
