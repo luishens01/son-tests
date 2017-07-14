@@ -45,7 +45,7 @@ done;
 
 #Keycloak
 echo keycloak
-docker run --name son-keycloak -d -p 5601:5601 --net=sonata --network-alias=son-keycloak -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin --log-driver=gelf --log-opt gelf-address=udp://10.30.0.219:12900 registry.sonata-nfv.eu:5000/son-keycloak
+docker run --name son-keycloak -d -p 5601:5601 --net=sonata --network-alias=son-keycloak -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e SONATA_USER=sonata -e SONATA_PASSWORD=1234 -e SONATA_EMAIL=sonata.admin@email.com --log-driver=gelf --log-opt gelf-address=udp://10.30.0.219:12900 registry.sonata-nfv.eu:5000/son-keycloak
 
 #Gatekeeper User Management
 echo gtkusr

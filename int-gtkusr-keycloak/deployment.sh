@@ -4,17 +4,6 @@
 export DOCKER_HOST="tcp://sp.int3.sonata-nfv.eu:2375"
 # export DOCKER_HOST="unix:///var/run/docker.sock"
 
-# MONGODB (USER_MANAGEMENT) Not implemented yet
-# Clean database
-# Removing
-#docker rm -fv son-mongo
-#sleep 5
-# Starting
-#docker run -d -p 27016:27016 --name son-mongo mongo
-#while ! nc -z sp.int3.sonata-nfv.eu 27016; do
-#  sleep 1 && echo -n .; # waiting for mongo
-#done;
-
 function wait_for_web() {
     until [ $(curl --connect-timeout 15 --max-time 15 -k -s -o /dev/null -I -w "%{http_code}" $1) -eq $2 ]; do
 	sleep 2 && 	echo -n .;
@@ -27,7 +16,6 @@ function wait_for_web() {
     done
 }
 
-# ADAPTER - GTKUSR (GATEKEEPER)
 # Removing
 echo Stopping and removing containers
 docker stop son-gtkusr &&
