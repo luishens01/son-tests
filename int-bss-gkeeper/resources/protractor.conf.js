@@ -35,7 +35,8 @@ exports.config = {
   seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar',    
 
   suites: {
-	  service_Instantiation: ['./serviceInstantiation.js'],	     
+	  service_Instantiation: ['./serviceInstantiation.js'],
+    license_Request: ['./licenceRequest.js'],	     
   },
   
   capabilities: {

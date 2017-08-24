@@ -29,10 +29,10 @@
 describe('SonataBSS Instantiates a Service', function() {
 
     var requestId;
-	
+    
     beforeEach(function() {
         browser.driver.manage().window().maximize();
-        browser.get('https://'+browser.params.host+':'+browser.params.port+'/#/login');
+        browser.get(browser.params.protocol+'://'+browser.params.hostname+':1337/#/login');
         browser.driver.findElement(by.id('username')).sendKeys('sonata');
         browser.driver.findElement(by.id('password')).sendKeys('sonata');
         browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
@@ -45,7 +45,7 @@ describe('SonataBSS Instantiates a Service', function() {
         expect(count).toBeGreaterThan(0);
     });
 
-    it('when clicked: "request service instantiation" instantiates a new service', function() {
+    it('location and nap inputs', function() {
 
         var EC = protractor.ExpectedConditions;
 
@@ -53,8 +53,31 @@ describe('SonataBSS Instantiates a Service', function() {
         browser.wait(EC.visibilityOf(modal), 5000);        
         
         modal = element(by.id('instantiateNSD'));
-        var yes = modal.element(by.css('.btn-success'));
+        
+        element.all(by.repeater('ingress in ingresses')).each(function(elem) {
+            elem.element(by.model("ingress.location")).sendKeys('Aveiro');
+            elem.element(by.model("ingress.nap")).sendKeys('10.10.0.0/16');
+        }); 
 
+        element.all(by.repeater('egress in egresses')).each(function(elem) {
+            elem.element(by.model("egress.location")).sendKeys('London');
+            elem.element(by.model("egress.nap")).sendKeys('20.20.0.0/16');
+        });
+
+        var yes = modal.element(by.id('yesButton'));
+        expect(yes.isEnabled()).toBe(true);
+
+    });
+
+    it('when clicked: "request service instantiation" instantiates a new service', function() {
+
+        var EC = protractor.ExpectedConditions;
+
+        var modal = element.all(by.css('[ng-click="openInstantiateNSD(nSD)"]')).get(0).click();
+        browser.wait(EC.visibilityOf(modal), 5000);
+
+        modal = element(by.id('instantiateNSD'));
+        var yes = modal.element(by.id('yesButton'));
         yes.click();
         browser.sleep(1500);
 
