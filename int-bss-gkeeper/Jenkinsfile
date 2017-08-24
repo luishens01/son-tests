@@ -12,9 +12,13 @@ node {
             echo 'Push to int-server'			
 			sh 'int-bss-gkeeper/deployment.sh'
 
-       stage 'Testing'
-            echo 'Testing Phase'
-            sh 'int-bss-gkeeper/tests.sh'
+       stage 'Test1: Service Instantiation'
+            echo 'Service Instantiation Test'
+            sh 'int-bss-gkeeper/service_instantiation_test.sh'
+
+       stage 'Test2: Licence Request'
+            echo 'Licence Request Test'
+            sh 'int-bss-gkeeper/licence_test.sh'
 			
 	   stage 'Showing report'
 			echo 'Showing report'
