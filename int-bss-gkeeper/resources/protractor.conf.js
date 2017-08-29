@@ -28,8 +28,6 @@
 
 var HtmlScreenshotReporter = require('protractor-jasmine2-html-reporter');
 
-var reportName;
-
 exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',  
   seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar',    
@@ -52,13 +50,15 @@ exports.config = {
   onPrepare: function() {
      process.argv.forEach((val, index, array) => {
         if (`${val}`=='--suite') {
-                reportName = process.argv[`${index+1}`];
+                reportNamePrefix = process.argv[`${index+1}`];
         }
      });    
      jasmine.getEnv().addReporter(
         new HtmlScreenshotReporter({
           savePath: '../reports/',
-          filePrefix: reportName
+          screenshotsFolder: reportNamePrefix+'_images',
+          fileName: reportNamePrefix+'_report',
+          cleanDestination: false
         })
      );
    }
