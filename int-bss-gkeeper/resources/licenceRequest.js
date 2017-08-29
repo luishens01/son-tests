@@ -36,7 +36,8 @@ describe('SonataBSS Updates a Service Licence', function() {
         browser.driver.findElement(by.id('username')).sendKeys('sonata');
         browser.driver.findElement(by.id('password')).sendKeys('1234');
         browser.driver.findElement(by.xpath('//button[. = "Login"]')).click(); 
-        browser.driver.findElement(by.xpath("//a[@href='#/nSDs']")).click();       
+        //browser.driver.findElement(by.xpath("//a[@href='#/nSDs']")).click();       
+        browser.sleep(1500);
     });
 
 

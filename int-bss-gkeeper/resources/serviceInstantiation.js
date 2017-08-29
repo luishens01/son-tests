@@ -36,13 +36,15 @@ describe('SonataBSS Instantiates a Service', function() {
         browser.driver.findElement(by.id('username')).sendKeys('sonata');
         browser.driver.findElement(by.id('password')).sendKeys('1234');
         browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
-        browser.driver.findElement(by.xpath("//a[@href='#/nSDs']")).click();
+        //browser.driver.findElement(by.xpath("//a[@href='#/nSDs']")).click();
+        browser.sleep(1500);
     });
 
     it('services list must not be empty', function() {
+
         var count = element.all(by.repeater('nSD in nSDs')).count();
-        browser.sleep(2500);
         expect(count).toBeGreaterThan(0);
+
     });
 
     it('location and nap inputs', function() {
