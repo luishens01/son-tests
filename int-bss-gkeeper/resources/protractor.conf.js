@@ -36,7 +36,7 @@ exports.config = {
 
   suites: {
 	  service_Instantiation: ['./serviceInstantiation.js'],
-    license_Request: ['./licenceRequest.js'],	     
+    licence_Request: ['./licenceRequest.js']	     
   },
   
   capabilities: {
