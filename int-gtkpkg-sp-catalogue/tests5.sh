@@ -31,6 +31,8 @@ if [[ $code != 200 ]] ;
     exit -1
 fi
 
+sleep 1
+
 resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -H "Authorization: Bearer $token" \
 -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/packages) 2>/dev/null
 echo $resp
@@ -57,6 +59,8 @@ if [[ $code != 200 ]] ;
     exit -1
 fi
 
+sleep 1
+
 printf "\n\n======== GET SON Package from Gatekeeper ========\n\n\n"
 #url=$(echo http://sp.int3.sonata-nfv.eu:32001/packages/${uuid})
 #echo "URL: $url"
@@ -74,6 +78,8 @@ if [[ $code != 200 ]] ;
     exit -1
 fi
 
+sleep 1
+
 printf "\n\n======== GET SON Package UUID from Catalogue  ========\n\n\n"
 resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -H "Authorization: Bearer $token" \
 -X GET http://sp.int3.sonata-nfv.eu:4002/catalogues/api/v2/son-packages) 2>/dev/null
@@ -82,6 +88,8 @@ echo $resp
 package=$(echo "$resp" | head -n-1)
 son_package_uuid=$(echo $package  |  python -mjson.tool | grep -w "uuid" | awk -F'[=:]' '{print $2}' | sed 's/\"//g' | tr -d ',' | tr -d '[:space:]')
 echo "SON_PACKAGE_UUID: $son_package_uuid"
+
+sleep 1
 
 printf "\n\n======== GET SON Package from Catalogue ========\n\n\n"
 #url=$(echo http://sp.int3.sonata-nfv.eu:4002/catalogues/son-packages/${uuid})
@@ -98,6 +106,8 @@ if [[ $code != 200 ]] ;
     echo "Error: Response error $code"
     exit -1
 fi
+
+sleep 1
 
 ### Logout phase
 echo "Log-out of the Service Platform..."

@@ -20,6 +20,8 @@ if [[ $code != 200 ]] ;
     exit -1
 fi
 
+sleep 1
+
 resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -H "Authorization: Bearer $token" \
 -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/packages) 2>/dev/null
 echo $resp
@@ -39,6 +41,8 @@ if [[ $code != 200 ]] ;
     exit -1
 fi
 
+sleep 1
+
 ### Logout phase
 echo "Log-out of the Service Platform..."
 resp=$(curl -qSfsw '\n%{http_code}' -H "Authorization: Bearer $token" \
@@ -53,3 +57,5 @@ if [[ $code != 20* ]] ;
     echo "Error: Response error $code"
     exit -1
 fi
+
+sleep 1
