@@ -20,6 +20,8 @@ if [[ $code != 200 ]] ;
     exit -1
 fi
 
+sleep 1
+
 resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -H "Authorization: Bearer $token" \
 -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/functions?fields=uuid,name,version,vendor) 2>/dev/null
 echo $resp
@@ -44,6 +46,8 @@ set -- $uuid
 # echo "FUNCTION 2:"$2
 # echo "FUNCTION 3:"$3
 
+sleep 1
+
 resp=$(curl -qSfsw '\n%{http_code}' -H "Content-Type: application/json" -H "Authorization: Bearer $token" \
 -X GET http://sp.int3.sonata-nfv.eu:32001/api/v2/functions/$1) 2>/dev/null
 echo $resp
@@ -56,6 +60,8 @@ if [[ $code != 200 ]] ;
     echo "Error: Response error $code"
     exit -1
 fi
+
+sleep 1
 
 ### Logout phase
 echo "Log-out of the Service Platform..."
@@ -71,3 +77,5 @@ if [[ $code != 20* ]] ;
     echo "Error: Response error $code"
     exit -1
 fi
+
+sleep 1
