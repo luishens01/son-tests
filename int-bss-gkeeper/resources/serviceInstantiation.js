@@ -34,7 +34,7 @@ describe('SonataBSS Instantiates a Service', function() {
         browser.driver.manage().window().maximize();
         browser.get(browser.params.protocol+'://'+browser.params.hostname+':'+browser.params.port+'/#/login');
         browser.driver.findElement(by.id('username')).sendKeys('sonata');
-        browser.driver.findElement(by.id('password')).sendKeys('sonata');
+        browser.driver.findElement(by.id('password')).sendKeys('1234');
         browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
         browser.driver.findElement(by.xpath("//a[@href='#/nSDs']")).click();
     });
