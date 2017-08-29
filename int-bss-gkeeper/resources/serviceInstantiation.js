@@ -32,7 +32,7 @@ describe('SonataBSS Instantiates a Service', function() {
     
     beforeEach(function() {
         browser.driver.manage().window().maximize();
-        browser.get(browser.params.protocol+'://'+browser.params.hostname+':1337/#/login');
+        browser.get(browser.params.protocol+'://'+browser.params.hostname+':'+browser.params.port+'/#/login');
         browser.driver.findElement(by.id('username')).sendKeys('sonata');
         browser.driver.findElement(by.id('password')).sendKeys('sonata');
         browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
@@ -42,6 +42,7 @@ describe('SonataBSS Instantiates a Service', function() {
 
     it('services list must not be empty', function() {
         var count = element.all(by.repeater('nSD in nSDs')).count();
+        browser.sleep(1500);
         expect(count).toBeGreaterThan(0);
     });
 
