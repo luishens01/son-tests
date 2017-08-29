@@ -41,7 +41,7 @@ describe('SonataBSS Instantiates a Service', function() {
 
     it('services list must not be empty', function() {
         var count = element.all(by.repeater('nSD in nSDs')).count();
-        browser.sleep(1500);
+        browser.sleep(2500);
         expect(count).toBeGreaterThan(0);
     });
 
