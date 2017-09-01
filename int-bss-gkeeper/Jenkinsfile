@@ -2,6 +2,7 @@
 node {
 
     def err = null
+    def result
     currentBuild.result = "SUCCESS"
 
     try {
@@ -15,7 +16,7 @@ node {
 
        stage 'Test1: Service Instantiation'
             echo 'Service Instantiation Test'
-            def result = sh 'int-bss-gkeeper/service_instantiation_test.sh'
+            result = sh 'int-bss-gkeeper/service_instantiation_test.sh'
             if (result != 0) {
                 echo '[FAILURE] Failed to build'
                 currentBuild.result = 'FAILURE'
@@ -24,7 +25,7 @@ node {
 
        stage 'Test2: Licence Request'
             echo 'Licence Request Test'
-            def result = sh 'int-bss-gkeeper/licence_test.sh'
+            result = sh 'int-bss-gkeeper/licence_test.sh'
             if (result != 0) {
                 echo '[FAILURE] Failed to build'
                 currentBuild.result = 'FAILURE'
