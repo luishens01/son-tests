@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 			options: {
 				configFile: "protractor.conf.js",		 
 				noColor: false,
-				keepAlive: true,
+				//keepAlive: true,
 				args: {
 					params: {
 						host: [grunt.option('host')],

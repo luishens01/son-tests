@@ -16,21 +16,11 @@ node {
 
        stage 'Test1: Service Instantiation'
             echo 'Service Instantiation Test'
-            result = sh 'int-bss-gkeeper/service_instantiation_test.sh'            
-            if (result) {
-                echo '[FAILURE] Failed to build. Result: '${result}
-                currentBuild.result = 'FAILURE'
-                return
-            } 
+            sh 'int-bss-gkeeper/service_instantiation_test.sh'                        
 
        stage 'Test2: Licence Request'
             echo 'Licence Request Test'
-            result = sh 'int-bss-gkeeper/licence_test.sh'            
-            if (result) {
-                echo '[FAILURE] Failed to build. Result: '${result}
-                currentBuild.result = 'FAILURE'
-                return
-            }
+            sh 'int-bss-gkeeper/licence_test.sh'                        
 			
 	   stage 'Showing report'
 			echo 'Showing report'
