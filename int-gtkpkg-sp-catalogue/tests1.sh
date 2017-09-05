@@ -33,7 +33,7 @@ package=$(echo $resp | grep "uuid")
 code=$(echo "$resp" | tail -n1)
 echo "Code: $code"
 
-if [[ $code != 201 ]] ;
+if [[ $code != 201 ]] && [[ $code != 409 ]] ;
   then
     echo "Error: Response error $code"
     exit -1
