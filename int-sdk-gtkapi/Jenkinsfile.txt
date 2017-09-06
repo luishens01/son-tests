@@ -1,0 +1,48 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+            checkout scm
+
+       stage 'Deployment'
+            echo 'Deployment'			
+			sh 'int-sdk-gtkapi/deployment_0.sh'
+       
+       stage 'Test: son-access functions'
+            echo 'son-access functionalities'
+            sh 'int-sdk-gtkapi/tests.sh'
+
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'int-sdk-gtkapi project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'project build successful',
+                        to: 'dani.guija@i2cat.net, shuaib.siddiqui@i2cat.net'
+        }
+
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "int-sdk-gtkapi  project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'project build error',
+            to: 'dani.guija@i2cat.net, shuaib.siddiqui@i2cat.net'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+
+}
