@@ -1,3 +1,4 @@
+# DEPRECATED
 sdk-catalogue:
   image: registry.sonata-nfv.eu:5000/sdk-catalogue
   links:
