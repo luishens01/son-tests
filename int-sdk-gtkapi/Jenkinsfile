@@ -9,9 +9,9 @@ node {
             checkout scm
 
        stage 'Deployment'
-            echo 'Deployment'			
+            echo 'Deployment'
 			sh 'int-sdk-gtkapi/deployment_0.sh'
-       
+
        stage 'Test: son-access functions'
             echo 'son-access functionalities'
             sh 'int-sdk-gtkapi/tests.sh'
