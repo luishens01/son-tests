@@ -28,7 +28,7 @@ sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y build-e
 
 # install son-monitor dependencies
 sudo apt-get install -y gfortran libopenblas-dev liblapack-dev
-sudo apt-get build-dep -y python3-matplotlib
+#sudo apt-get build-dep -y python3-matplotlib
 
 # update setuptools
 # sudo apt-get remove -y python3-setuptools
@@ -43,8 +43,8 @@ source venv/bin/activate
 
 sudo pip3 install numpy
 sudo pip3 install scipy
-sudo pip3 install docker==2.0.2
 sudo pip3 install matplotlib
+sudo pip3 install docker==2.0.2
 sudo pip3 install Flask
 sudo pip3 install urllib3==1.21.1
 echo "\n\n\n all the warnings above should be ignored \n\n\n"
