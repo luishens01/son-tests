@@ -24,8 +24,8 @@ sudo apt-get update
 sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y build-essential python3-dev python3-pip libyaml-dev libffi-dev libssl-dev
 
 # install son-monitor dependencies
-# sudo apt-get install -y gfortran libopenblas-dev liblapack-dev
-# sudo apt-get build-dep -y python3-matplotlib
+sudo apt-get install -y gfortran libopenblas-dev liblapack-dev
+sudo apt-get build-dep -y python3-matplotlib
 
 # update setuptools
 # sudo apt-get remove -y python3-setuptools
