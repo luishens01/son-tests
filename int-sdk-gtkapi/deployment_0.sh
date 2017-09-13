@@ -41,15 +41,15 @@ sudo pip3 install virtualenv
 virtualenv -p /usr/bin/python3 venv
 source venv/bin/activate
 
-sudo pip3 install numpy
-sudo pip3 install scipy
-sudo pip3 install matplotlib
-sudo pip3 install docker==2.0.2
-sudo pip3 install Flask
-sudo pip3 install urllib3==1.21.1
+pip3 install numpy
+pip3 install scipy
+pip3 install matplotlib
+pip3 install docker==2.0.2
+pip3 install Flask
+pip3 install urllib3==1.21.1
 echo "\n\n\n all the warnings above should be ignored \n\n\n"
 
-sudo python3 setup.py install
+python3 setup.py install
 # python3 bootstrap.py
 
 echo "\n\n\n try son-access \n\n\n"
