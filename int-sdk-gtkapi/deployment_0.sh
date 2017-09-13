@@ -1,15 +1,16 @@
 #!/bin/bash
 
-#Build and install the CLI tools
+set -e
+set -x
 
+# Build and install the CLI tools
 echo "\n\n======= Build and install SON-CLI =======\n\n"
-# we want to use son-workspace and son-access
 
-# don't rely on Debian/Ubuntu Docker engine
+# we want to use son-workspace and son-access
 # permissions problems happen when we use the git repo pulled by Jenkins, we need to pull it ourselves
-git clone https://github.com/sonata-nvf/son-cli.git
+git clone https://github.com/sonata-nfv/son-cli.git
 # ensure the next steps are performed on the cli master
-git checkout cli/master
+#git checkout cli/master
 cd son-cli
 
 # make sure docker is installed
@@ -21,15 +22,16 @@ cd son-cli
 sudo apt-get update
 # needed to build pyYAML (libyaml is optional but recommended)
 sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y build-essential python3-dev python3-pip libyaml-dev libffi-dev libssl-dev
+
 # install son-monitor dependencies
 # sudo apt-get install -y gfortran libopenblas-dev liblapack-dev
 # sudo apt-get build-dep -y python3-matplotlib
 
 # update setuptools
-#sudo apt-get remove -y python3-setuptools
-#sudo wget https://bootstrap.pypa.io/get-pip.py
-#sudo python3 get-pip.py
-#sudo pip3 install setuptools --upgrade
+# sudo apt-get remove -y python3-setuptools
+# sudo wget https://bootstrap.pypa.io/get-pip.py
+# sudo python3 get-pip.py
+# sudo pip3 install setuptools --upgrade
 
 # install dependencies
 sudo pip3 install virtualenv
