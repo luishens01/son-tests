@@ -53,7 +53,7 @@ sudo python3 setup.py install
 # python3 bootstrap.py
 
 echo "\n\n\n try son-access \n\n\n"
-son-access -h
+sudo son-access -h
 
 #bin/buildout
 #bin/py.test -s -v
