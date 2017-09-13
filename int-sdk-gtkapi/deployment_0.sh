@@ -13,7 +13,8 @@ echo "\n\n======= Build and install SON-CLI =======\n\n"
 cd son-cli
 
 # ensure the next steps are performed on the cli master
-git checkout cli/master
+# git checkout cli/master
+git checkout master
 
 # make sure docker is installed
 # sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y curl
