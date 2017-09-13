@@ -8,10 +8,12 @@ echo "\n\n======= Build and install SON-CLI =======\n\n"
 
 # we want to use son-workspace and son-access
 # permissions problems happen when we use the git repo pulled by Jenkins, we need to pull it ourselves
-git clone https://github.com/sonata-nfv/son-cli.git
-# ensure the next steps are performed on the cli master
-#git checkout cli/master
+#git clone https://github.com/sonata-nfv/son-cli.git
+
 cd son-cli
+
+# ensure the next steps are performed on the cli master
+git checkout cli/master
 
 # make sure docker is installed
 # sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y curl
