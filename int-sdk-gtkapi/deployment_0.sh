@@ -8,8 +8,10 @@ echo "\n\n======= Build and install SON-CLI =======\n\n"
 
 # we want to use son-workspace and son-access
 # permissions problems happen when we use the git repo pulled by Jenkins, we need to pull it ourselves
-#git clone https://github.com/sonata-nfv/son-cli.git
+WORKING_DIR=son-cli
+if [ -d "$WORKING_DIR" ]; then rm -Rf $WORKING_DIR; fi
 
+git clone https://github.com/sonata-nfv/son-cli.git
 cd son-cli
 
 # ensure the next steps are performed on the cli master
