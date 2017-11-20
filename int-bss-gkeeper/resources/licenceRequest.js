@@ -50,18 +50,23 @@ describe('SonataBSS Updates a Service Licence', function() {
 	
         var EC = protractor.ExpectedConditions;
 
-        var modal = element.all(by.css('[ng-click="showModalRequestingLicense(nSD[\'uuid\'], nSD[\'nsd\'][\'licences\'][0][\'url\'])"]')).get(0).click();
-        browser.wait(EC.visibilityOf(modal), 5000);        
+        var warningButtons = element.all(by.css('.btn-warning'));
+        var displayedButtons = warningButtons.filter(function(elem) {
+            return elem.isDisplayed();
+        });
+
+        var modal = displayedButtons.first().click();
+        browser.wait(EC.visibilityOf(modal), 5000); 
         
-        modal = element(by.id('getLicense'));
+        modal = element(by.id('getLicense'));        
         var yes = modal.element(by.css('.btn-success'));
 
         yes.click();
         browser.sleep(1500);
 
         modal = element(by.id('getLicenseResponse'));
-        expect(modal.isDisplayed()).toBe(true);   
-
+        expect(modal.isDisplayed()).toBe(true);           
+        
     });
     
 });
