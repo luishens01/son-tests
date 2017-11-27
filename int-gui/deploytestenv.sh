@@ -10,5 +10,5 @@ if [ -z "$contId" ];
 fi
 
 
-docker exec $contId npm install --save request@2.81.0
+docker exec $contId npm install
 
