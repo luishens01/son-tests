@@ -1,0 +1,45 @@
+#!groovy
+node {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+       stage 'Checkout'
+            checkout scm
+            sh 'chmod +x int-infrabstract-lowerSP/*.sh'            
+
+       stage 'Deploy vtu-vnf in lower Service Platform'
+            echo 'Deploy vtu-vnf in lower Service Platform'
+            sh 'int-infrabstract-lowerSP/test.sh'       
+     
+       stage 'Notifications'
+            echo 'Sending mails'
+
+            mail body: 'int-infrabstract-lowerSP project build successful',
+                        from: 'sonata-nfv@gmail.com',
+                        replyTo: 'sonata-nfv@gmail.com',
+                        subject: 'project build successful',
+                        to: 'srodriguez@optaresolutions.com, felipe.vicens@atos.net'
+        }
+
+
+    catch (caughtError) {
+        err = caughtError
+        currentBuild.result = "FAILURE"
+            mail body: "int-infrabstract-lowerSP project build error: ${err}" ,
+            from: 'sonata-nfv@gmail.com',
+            replyTo: 'sonata-nfv@gmail.com',
+            subject: 'project build error',
+            to: 'srodriguez@optaresolutions.com, felipe.vicens@atos.net'
+        }
+
+    finally {
+        /* Must re-throw exception to propagate error */
+        if (err) {
+            throw err
+        }
+
+    }
+
+}
