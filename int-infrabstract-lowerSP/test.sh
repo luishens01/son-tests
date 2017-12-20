@@ -1,4 +1,7 @@
 #!/bin/bash
+set -x
+set -e
+export DOCKER_HOST="tcp://sp.int3.sonata-nfv.eu:2375"
 
 docker exec -i son-sp-infrabstract mvn test -Dtest=SP* >> test_results.txt
 
