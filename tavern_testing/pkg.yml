@@ -1,0 +1,47 @@
+---
+
+test_name: show_api_logs
+
+stages:
+  - name: show_api_logs
+    request:
+      url: http://localhost:32001/api/v2/admin/logs
+      method: GET
+    response:
+      status_code: 200
+
+
+---
+
+test_name: get_token
+
+stages:
+  - name: get_token
+    request:
+      url: http://localhost:32001/api/v2/sessions
+      json: 
+        username: sonata
+        password: '1234'
+      method: POST
+      headers:
+        Content-Type: application/json
+    response: 
+      status_code: 200
+
+
+---
+
+test_name: test_get_packages
+
+stages:
+  - name: get_packages
+    request:
+      url: http://localhost:32001/api/v2/packages
+      method: GET
+      headers:
+        content-type: application/json
+	authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4VHNncFAyTDIzek1LVENQOG1OQl9kX2NrWGhRWmx0SGk5VS1LNTVFbHJJIn0.eyJqdGkiOiI1NjZhNjFhMS1mMDk3LTRlZjQtYTQ1NS0xZWM5YjA3OTAyNmIiLCJleHAiOjE1MjQ1NTkwNTUsIm5iZiI6MCwiaWF0IjoxNTI0NTU3ODU1LCJpc3MiOiJodHRwOi8vc29uLWtleWNsb2FrOjU2MDEvYXV0aC9yZWFsbXMvc29uYXRhIiwiYXVkIjoiYWRhcHRlciIsInN1YiI6IjVkMjZiNDM1LWIwZjUtNDhhNS05ZTA1LWRlNGI5NGNhNWI2NSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkYXB0ZXIiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiJlYWJmYzE1Yi05OTQ1LTQ4NGEtOWI3NS1hNTU3ZmQ1YTAzN2MiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9zb24tZ3RrdXNyOjU2MDAiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImFkbWluIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZWFsbS1tYW5hZ2VtZW50Ijp7InJvbGVzIjpbInZpZXctcmVhbG0iLCJ2aWV3LWlkZW50aXR5LXByb3ZpZGVycyIsIm1hbmFnZS1pZGVudGl0eS1wcm92aWRlcnMiLCJpbXBlcnNvbmF0aW9uIiwicmVhbG0tYWRtaW4iLCJjcmVhdGUtY2xpZW50IiwibWFuYWdlLXVzZXJzIiwicXVlcnktcmVhbG1zIiwidmlldy1hdXRob3JpemF0aW9uIiwicXVlcnktY2xpZW50cyIsInF1ZXJ5LXVzZXJzIiwibWFuYWdlLWV2ZW50cyIsIm1hbmFnZS1yZWFsbSIsInZpZXctZXZlbnRzIiwidmlldy11c2VycyIsInZpZXctY2xpZW50cyIsIm1hbmFnZS1hdXRob3JpemF0aW9uIiwibWFuYWdlLWNsaWVudHMiLCJxdWVyeS1ncm91cHMiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sIm5hbWUiOiJBZG1pbiBEZWZhdWx0IiwicHJlZmVycmVkX3VzZXJuYW1lIjoic29uYXRhIiwiZ2l2ZW5fbmFtZSI6IkFkbWluIiwiZmFtaWx5X25hbWUiOiJEZWZhdWx0IiwiZW1haWwiOiJzb25hdGEuYWRtaW5AZW1haWwuY29tIn0.nBlPtjV8Pipth0U2Bqr9ia6T0AoQDTWgAbPfzSeRTIk7O_XsN7zPiMK31Bcri8SFyFd-r5NiNm7ZCkKUTDHYb1AGUkT8FbP2IW8OIkI1PC0aFlEjLvhaw3jSd46PK9-9DMdJokARioqTStcgZ0ozjRxd0Tvysvab6VNvhm0lj3V3T4m2WZ9QjrJBsNlgRqLWlgwOF1yUfrnvnAYp5lM02VEoLfzv8b6NrsDOqrv_QVErgw0sXtkWV4G-5ciEINKHFnXAZ1LQRmAD74tj5JjE-laCZlrpxG0whQiPoXmBHsplswN95_Df63R2BPJQEUSRzq4lXo8TKB6lSac8wcN4Ig
+    response:
+      status_code: 200
+
+

@@ -1,0 +1,70 @@
+#add vims
+test_name: add vims
+
+stages:
+#add Wim
+  - name: add_WIM
+    request:
+      url: http://qual-sp-bcn.5gtango.eu:32001/api/v2/wims
+      json: 
+        name: mock
+        wim_vendor: MOCK
+        wim_address: '192.168.1.1'
+        username: admin
+        pass: admin
+      method: POST
+      headers:
+        content-Type: application/json
+    response: 
+      status_code: 201
+#      headers:
+#        content-type: application/json
+      save:
+        body:
+          id: items.request_uuid
+
+#get WIM id
+  - name: get_WIM_id
+    request:
+      url: "http://qual-sp-bcn.5gtango.eu:32001/api/v2/wims/{id:s}"
+      method: GET
+      headers:
+        content-type: application/json
+    response:
+      status_code: 200
+#      headers:
+#        content-type: application/json
+      save:
+        body:
+          uuid: uuid
+
+#add vim
+  - name: add_VIM
+    request:
+      url: http://qual-sp-bcn.5gtango.eu:32001/api/v2/vims
+      json: 
+        name: athens-west
+        wim_id: "{uuid:s}"
+        country: Greece
+        city: Athens
+        networking_configuration:
+          vim_type: OVS
+          vim_address: 10.100.33.2
+          username: tango.qual
+          pass: t4ng0.qual
+        compute_configuration:
+          vim_type: heat
+          tenant_id: admin
+          vim_address: '10.100.33.2'
+          username: tango.qual
+          pass: t4ng0.qual
+          domain: default
+          tenant_ext_net: 607d951d-8c34-41bf-aaf8-659285a0b205
+          tenant_ext_router: 6ba9e546-dc47-455b-b057-2ea3826ce517
+      method: POST
+      headers:
+        Content-Type: application/json
+    response: 
+      status_code: 201
+#      headers:
+#        content-type: application/json

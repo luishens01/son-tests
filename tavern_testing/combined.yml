@@ -1,0 +1,60 @@
+
+#get token, get packages and save message
+test_name: get_package and mqtt message
+
+mqtt:
+  connect:
+    host: 172.17.0.2
+    port: 1883
+    timeout: 3
+  auth:
+    username: mqtt-test
+    password: mqtt-test
+
+stages:
+  - name: get_token
+    request:
+      url: http://sp.int3.sonata-nfv.eu:32001/api/v2/sessions
+      json: 
+        username: sonata
+        password: '1234'
+      method: POST
+      headers:
+        Content-Type: application/json
+    response: 
+      status_code: 200
+      headers:
+        content-type: application/json
+      save:
+        body:
+          test_login_token: token.access_token
+
+
+
+#get 1 packages
+  - name: get_packages
+    request:
+      url: http://sp.int3.sonata-nfv.eu:32001/api/v2/packages
+      method: GET
+      headers:
+        content-type: application/json
+        authorization: "Bearer {test_login_token:s}"
+    response:
+      status_code: 200
+
+#send message
+  - name: publish_message
+    mqtt_publish:
+      topic: /amq/topic/get_packages
+      payload: get_packages_passed
+    mqtt_response:
+      topic: /amq/topic/get_packages
+      payload: get_packages_passed
+      timeout: 2
+
+
+
+
+
+
+

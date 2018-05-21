@@ -1,0 +1,37 @@
+---
+
+test_name: Test mqtt message response
+mqtt:
+#  client:
+#    transport: websockets
+#    client_id: tavern-tester
+  connect:
+    host: 143.233.127.27
+    port: 1883
+    timeout: 3
+  auth:
+    username: guest
+    password: guest
+
+stages:
+  - name: test 1 - send text 1
+    mqtt_publish:
+      topic: /amq/topic/topic_1
+      payload: prueba
+    mqtt_response:
+      topic: /amq/topic/topic_1
+      payload: prueba
+      timeout: 2
+
+  - name: test 1 - send text 2
+    mqtt_publish:
+      topic: /amq/topic/topic_2
+      payload: prueba_2asd
+    mqtt_response:
+      topic: /amq/topic/topic_2
+      payload: prueba_2asd
+      timeout: 2
+
+
+
+

@@ -1,0 +1,31 @@
+#get token
+test_name: get_package
+
+stages:
+  - name: get_token
+    request:
+      url: http://sp.int3.sonata-nfv.eu:32001/api/v2/sessions
+      json: 
+        username: sonata
+        password: '1234'
+      method: POST
+      headers:
+        Content-Type: application/json
+    response: 
+      status_code: 200
+      headers:
+        content-type: application/json
+      save:
+        body:
+          test_login_token: token.access_token
+
+#get 1 package
+  - name: get_package
+    request:
+      url: http://sp.int3.sonata-nfv.eu:32001/api/v2/packages/d02b95b3-ef02-4b46-8548-af07eb789baa
+      method: GET
+      headers:
+        content-type: application/json
+        authorization: "Bearer {test_login_token:s}"
+    response:
+      status_code: 200

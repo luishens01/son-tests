@@ -1,0 +1,37 @@
+#get token
+test_name: upload_package
+
+stages:
+  - name: get_token
+    request:
+      url: http://sp.int3.sonata-nfv.eu:32001/api/v2/sessions
+      json: 
+        username: sonata
+        password: '1234'
+      method: POST
+      headers:
+        Content-Type: application/json
+    response: 
+      status_code: 200
+      headers:
+        content-type: application/json
+      save:
+        body:
+          test_login_token: token.access_token
+
+#upload packages
+  - name: upload_package
+    request:
+      url: http://sp.int3.sonata-nfv.eu:32001/api/v2/packages
+      method: POST
+      headers:
+        authorization: "Bearer {test_login_token:s}"
+        Content-Type: "multipart/form-data; boundary=------------------------cfdf2d8c9336e5b9"
+        Content-Type: application/octet-stream
+#Content-Type: application/octet-stream
+      files: 
+        package: "/home/luis/Escritorio/tavern_testing/sonata-empty-service.son"
+#      headers:
+#        Content-Type: application/octet-stream
+    response:
+      status_code: 201

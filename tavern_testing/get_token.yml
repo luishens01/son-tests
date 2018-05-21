@@ -1,0 +1,16 @@
+test_name: get_token
+
+stages:
+  - name: get_token
+    request:
+      url: http://sp.int3.sonata-nfv.eu:32001/api/v2/sessions
+      json: 
+        username: sonata
+        password: '1234'
+      method: POST
+      headers:
+        Content-Type: application/json
+    response: 
+      status_code: 200
+
+

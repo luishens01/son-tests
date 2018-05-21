@@ -1,0 +1,15 @@
+#get token
+test_name: delete_packages
+
+includes:
+  - !include environment_file
+
+#delete packages
+stages:
+  - name: delete_packages
+    request:
+      url: "{delete_host:s}"
+      method: DELETE
+    response:
+      status_code: 200
+
